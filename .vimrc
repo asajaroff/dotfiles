@@ -1,5 +1,12 @@
 " Galera's .vimrc file
 
+" Visual Bell
+set visualbell
+
+" Large status
+set ruler
+set laststatus=2
+
 " Use case insensitive search, except when using capital letters.
 set ignorecase
 set smartcase
