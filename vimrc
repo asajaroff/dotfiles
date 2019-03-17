@@ -25,3 +25,6 @@ set number
 " Indenting
 set autoindent
 set smartindent
+
+" Color Syntax
+syntax on
