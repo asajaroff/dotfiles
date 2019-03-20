@@ -1,3 +1,9 @@
 #!/bin/bash
 
+# Extend PATH
 export PATH=~/.local/bin:$PATH
+
+alias kube="~/.local/bin/kubectl"
+
+# Client configurations
+source ~/Workspace/Repos/dotfiles/functions
