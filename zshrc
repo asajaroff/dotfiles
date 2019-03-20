@@ -2,7 +2,7 @@
 export ZSH="/home/galera/.oh-my-zsh"
 
 # ZSH Theme
-ZSH_THEME="random"
+ZSH_THEME="bullet-train"
 
 plugins=(git)
 
