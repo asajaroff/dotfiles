@@ -1,5 +1,6 @@
 # Path to oh-my-zsh installation.
 export ZSH="/home/galera/.oh-my-zsh"
+
 # ZSH Theme
 ZSH_THEME="random"
 

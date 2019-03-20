@@ -4,6 +4,8 @@
 export PATH=~/.local/bin:$PATH
 
 alias kube="~/.local/bin/kubectl"
+alias k="~/.local/bin/kubectl"
+
 
 # Client configurations
 source ~/Workspace/Repos/dotfiles/functions
