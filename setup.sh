@@ -19,16 +19,28 @@ ln -sf ~/.dotfiles/vimrc ~/.vimrc
 # sudo pacman -Syu npm jre
 
 # Install SRE software
+# aws cli
+echo "Installing aws cli for Linux"
+curl -O https://bootstrap.pypa.io/get-pip.py && python3 get-pip.py --user && pip install awscli --upgrade --user
+
 # aws-iam-authenticator
 echo "Installing aws-iam-authenticator"
 curl https://amazon-eks.s3-us-west-2.amazonaws.com/1.11.5/2018-12-06/bin/linux/amd64/aws-iam-authenticator -o aws-iam-authenticator
 mv aws-iam-authenticator $HOME/.local/bin/aws-iam-authenticator
 chmod +x $HOME/.local/bin/aws-iam-authenticator
 
+# kubectl
+echo "Installing kubectl"
+sudo apt-get update && sudo apt-get install -y apt-transport-https
+curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
+sudo apt-get update
+sudo apt-get install -y kubectl
+
 # kubens & kubectx
 echo "Installing kubens and kubectx"
 curl https://raw.githubusercontent.com/ahmetb/kubectx/master/kubectx -o kubectx
-curl -o https://raw.githubusercontent.com/ahmetb/kubectx/master/kubens -o kubens
+curl https://raw.githubusercontent.com/ahmetb/kubectx/master/kubens -o kubens
 chmod +x kube* 
 mv kube* $HOME/.local/bin/
 
@@ -38,3 +50,5 @@ curl https://releases.hashicorp.com/terraform/0.11.13/terraform_0.11.13_linux_am
 unzip terraform.zip
 chmod +x terraform
 mv terraform $HOME/.local/bin/
+
+# Helm
