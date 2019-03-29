@@ -8,4 +8,4 @@ alias k="~/.local/bin/kubectl"
 
 
 # Client configurations
-source ~/Workspace/Repos/dotfiles/functions
+source ~/Workspace/Repos/naranja/dotfiles/functions
