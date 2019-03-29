@@ -1,5 +1,5 @@
 # Path to oh-my-zsh installation.
-export ZSH="/home/galera/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 
 # ZSH Theme
 ZSH_THEME="bullet-train"
