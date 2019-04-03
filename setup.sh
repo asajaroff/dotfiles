@@ -51,4 +51,17 @@ unzip terraform.zip
 chmod +x terraform
 mv terraform $HOME/.local/bin/
 
+# sops
+echo "Installing mozilla sops"
+wget https://github.com/mozilla/sops/releases/download/3.2.0/sops-3.2.0.linux
+chmod +x sops-3.2.0.linux
+mv sops $HOME/.local/bin/sops
+
+# stern
+echo "Installing stern"
+wget https://github.com/wercker/stern/releases/download/1.10.0/stern_linux_amd64
+chmod +x stern_linux_amd64
+mv stern_linux_amd64 $HOME/.local/bin/stern
+# Pendientes
+
 # Helm
