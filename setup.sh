@@ -65,3 +65,7 @@ mv stern_linux_amd64 $HOME/.local/bin/stern
 # Pendientes
 
 # Helm
+wget https://storage.googleapis.com/kubernetes-helm/helm-v2.9.1-linux-amd64.tar.gz
+tar -xvf helm-v2.9.1-linux-amd64.tar.gz
+chmod +x ./linux-amd64/helm 
+mv ./linux-amd64/helm $HOME/.local/bin/helm
