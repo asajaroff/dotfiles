@@ -28,3 +28,13 @@ set smartindent
 
 " Color Syntax
 syntax on
+
+" Tabbing options
+set ts=2
+set sts=2
+set et
+
+" Powerline support
+" set rtp+=/usr/lib/python3.7/site-packages/powerline/bindings/vim
+let g:powerline_pycmd="py3"
+
