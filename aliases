@@ -6,6 +6,11 @@ export PATH=~/.local/bin:$PATH
 alias kube="~/.local/bin/kubectl"
 alias k="~/.local/bin/kubectl"
 
+alias repos="~/Workspace/Repos"
+
+export REPOS="~/Workspace/Repos"
+export  LOGS="~/Workspace/Logs"
 
 # Client configurations
 source ~/Workspace/Repos/naranja/dotfiles/functions
+
