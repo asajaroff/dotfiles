@@ -9,4 +9,4 @@ sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.m
 sudo dnf install code
 
 # Powerline
-sudo dnf install powerline powerline-fonts
+sudo dnf install powerline powerline-fonts powerline-vim
