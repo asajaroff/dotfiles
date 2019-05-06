@@ -13,3 +13,4 @@ alias repos="cd $REPOS"
 
 # Client configurations
 source ~/Workspace/Repos/naranja/dotfiles/functions
+
