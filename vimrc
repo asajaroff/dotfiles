@@ -40,5 +40,3 @@ set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣
 " Powerline support
 " set rtp+=/usr/lib/python3.7/site-packages/powerline/bindings/vim
 let g:powerline_pycmd="py3"
-
-
