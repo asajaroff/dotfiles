@@ -11,6 +11,6 @@ alias repos="~/Workspace/Repos"
 export REPOS="~/Workspace/Repos"
 export  LOGS="~/Workspace/Logs"
 
-# Client configurations
+# Source external configurations
 source ~/Workspace/Repos/naranja/dotfiles/functions
 
