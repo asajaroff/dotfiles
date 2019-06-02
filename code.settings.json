@@ -1,0 +1,26 @@
+{
+    "window.menuBarVisibility": "toggle",
+    "window.restoreWindows": "all",
+    "window.titleBarStyle": "custom",
+    "workbench.colorTheme": "Material Theme Ocean",
+    "workbench.iconTheme": "material-icon-theme",
+    
+    // Whitespace 
+    "editor.cursorSmoothCaretAnimation": true,
+    "editor.renderIndentGuides": true,
+    "editor.renderWhitespace": "boundary",
+    
+    // Minimap
+    "editor.minimap.enabled": false,
+
+    // Fonts
+
+    "[markdown]": {
+        "editor.quickSuggestions": {
+            "other": false,
+            "comments": false,
+            "strings": false
+        },
+        "editor.minimap.enabled": true
+    }
+}   
