@@ -1,7 +1,7 @@
 #!/bin/bash
 # zsh theming
 echo "General configurations"
-mkdir -p ~/Workspace/Logs ~/Workspace/minikube ~/Workspace/Scripts ~/Workspace/Temp ~/Workspace/Repos
+mkdir -p ~/Workspace/Logs ~/Workspace/minikube ~/Workspace/Scripts ~/Workspace/tmp ~/Workspace/Repos ~/Projects
 
 # echo "Installing ZSH"
 sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
