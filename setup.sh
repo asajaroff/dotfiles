@@ -18,7 +18,6 @@ echo "Generating symlink to vimrc"
 ln -sf ~/.dotfiles/vimrc ~/.vimrc
 
 # Install SRE Tools
-
 echo "Installing aws cli for Linux"
 curl -O https://bootstrap.pypa.io/get-pip.py && python3 get-pip.py --user && pip install awscli --upgrade --user
 echo "aws-iam-authenticator"
@@ -28,17 +27,29 @@ chmod +x $HOME/.local/bin/aws-iam-authenticator
 echo "kubectl"
 curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
 chmod +x kubectl
+
 # kubens & kubectx
 echo "kubens and kubectx"
 curl https://raw.githubusercontent.com/ahmetb/kubectx/master/kubectx -o kubectx
 curl https://raw.githubusercontent.com/ahmetb/kubectx/master/kubens -o kubens
 chmod +x kube* 
 mv kube* $HOME/.local/bin/
-echo "Terraform"
-curl https://releases.hashicorp.com/terraform/0.11.13/terraform_0.11.13_linux_amd64.zip -o terraform.zip
-unzip terraform.zip
+
+# Terraform 
+echo "Terraform 0.11 and 0.12"
+curl https://releases.hashicorp.com/terraform/0.11.13/terraform_0.11.13_linux_amd64.zip -o terraform11.zip
+unzip terraform11.zip
 chmod +x terraform
-mv terraform $HOME/.local/bin/
+mv terraform $HOME/.local/bin/terraform11
+rm -rf terraform terraform.zip
+curl https://releases.hashicorp.com/terraform/0.12.3/terraform_0.12.3_linux_amd64.zip -o terraform12.zip
+unzip terraform12.zip
+chmod -x terraform
+mv terraform $HOME/.local/bin/terraform12
+ln -s $HOME/.local/bin/terraform12 $HOME/.local/bin/terraform
+rm -rf terraform terraform.zip
+
+
 echo "Mozilla SOPS"
 wget https://github.com/mozilla/sops/releases/download/3.2.0/sops-3.2.0.linux
 chmod +x sops-3.2.0.linux
