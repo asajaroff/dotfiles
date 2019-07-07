@@ -39,15 +39,18 @@ mv kube* $HOME/.local/bin/
 echo "Terraform 0.11 and 0.12"
 curl https://releases.hashicorp.com/terraform/0.11.13/terraform_0.11.13_linux_amd64.zip -o terraform11.zip
 unzip terraform11.zip
-chmod +x terraform
 mv terraform $HOME/.local/bin/terraform11
-rm -rf terraform terraform.zip
+chmod +x $HOME/.local/bin/terraform11
+ln -s $HOME/.local/bin/terraform11 $HOME/.local/bin/terraform11
+rm -rf terraform terraform11.zip
 curl https://releases.hashicorp.com/terraform/0.12.3/terraform_0.12.3_linux_amd64.zip -o terraform12.zip
 unzip terraform12.zip
-chmod -x terraform
+chmod +x terraform
 mv terraform $HOME/.local/bin/terraform12
+chmod +x $HOME/.local/bin/terraform12
 ln -s $HOME/.local/bin/terraform12 $HOME/.local/bin/terraform
-rm -rf terraform terraform.zip
+rm -rf terraform terraform12.zip
+
 
 
 echo "Mozilla SOPS"
