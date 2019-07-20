@@ -27,3 +27,8 @@ fi
 # Vi keybindings
 bindkey -v 
 bindkey '^R' history-incremental-search-backward
+
+# Tilix VTE
+if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
+  source /etc/profile.d/vte.sh
+fi
