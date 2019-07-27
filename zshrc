@@ -12,6 +12,9 @@ source $ZSH/oh-my-zsh.sh
 
 source ~/.dotfiles/aliases
 
+# Functions
+source ~/.dotfiles/functions/*
+
 #export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
