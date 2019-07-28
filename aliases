@@ -10,10 +10,9 @@ alias kube="~/.local/bin/kubectl"
 alias k="~/.local/bin/kubectl"
 
 # Export Workplace/
-export REPOS=~/Workspace/Repos
-export LOGS=~/Workspace/Logs
-alias repos="cd $REPOS"
+export WORKSPACE=~/Workspace
+export REPOS="$WORKSPACE/Repos"
+export LOGS="$WORKSPACE/Logs"
 
 # Source external configurations
 source ~/Workspace/Repos/naranja/dotfiles/functions
-
