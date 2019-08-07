@@ -13,7 +13,9 @@ source $ZSH/oh-my-zsh.sh
 source ~/.dotfiles/aliases
 
 # Functions
-source ~/.dotfiles/functions/*
+source ~/.dotfiles/functions/movement.sh
+source ~/.dotfiles/functions/kubernetes.sh
+source ~/.dotfiles/functions/terraform.sh
 
 #export MANPATH="/usr/local/man:$MANPATH"
 
