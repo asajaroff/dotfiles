@@ -9,7 +9,7 @@ function tf-module-teplate () {
         return 1
     else
         mkdir $MODULE_NAME
-        touch $MODULE_NAME/{main,variables,outputs}.tf $MODULE_NAME/variables.tfvars $MODULE_NAME/.gitignore $MODULE_NAME/README.md
+        touch $MODULE_NAME/{main,variables,outputs}.tf $MODULE_NAME/terraform.tfvars $MODULE_NAME/.gitignore $MODULE_NAME/README.md
         echo "# Local .terraform directories" > $MODULE_NAME/.gitignore
         echo "**/.terraform/*" >> $MODULE_NAME/.gitignore
         echo "# .tfstate files" >>$MODULE_NAME/.gitignore
@@ -20,3 +20,5 @@ function tf-module-teplate () {
         return 0
     fi
 }
+
+alias gotf="terraform init && terraform validate && terraform apply"
