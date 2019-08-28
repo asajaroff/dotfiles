@@ -18,6 +18,8 @@ function tf-module-teplate () {
         echo "# Crash log files" >> $MODULE_NAME/.gitignore
         echo "crash.log" >> $MODULE_NAME/.gitignore
         return 0
+        echo "# ${MODULE_NAME}" > $MODULE_NAME/README.md
+        cp $HOME/.dotfiles/functions/resources/temaplate_CHANGELOG $MODULE_NAME/CHANGELOG
     fi
 }
 
