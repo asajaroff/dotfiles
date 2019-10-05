@@ -1,16 +1,15 @@
-
-# Print Container IDs
-docker inspect $(docker ps | awk 'FNR > 1 {print $1}') | grep 'IPAddress'
-touch {networking,compute,storage}/{main.tf,variables.tf,outputs.tf}
+## Containers
+### Docker 
+```bash
+docker inspect $(docker ps | awk 'FNR > 1 {print $1}') | grep 'IPAddress' # Print Container IDs
+```
 
 # Kubernetes
 kubectl delete pod `kubectl get pods -A | awk ' NR>2 {print $2}'` -n kube-system
 
-# Bash
+# BASH
+touch {networking,compute,storage}/{main.tf,variables.tf,outputs.tf}
 ## Loops
 ```bash
 for i in $(ls -1); do echo $i ; done
 ```
-# Print Container IDs
-docker inspect $(docker ps | awk 'FNR > 1 {print $1}') | grep 'IPAddress'
-for i in {1..15}; do echo "Valde $i"; done
