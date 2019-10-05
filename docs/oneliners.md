@@ -13,3 +13,4 @@ for i in $(ls -1); do echo $i ; done
 ```
 # Print Container IDs
 docker inspect $(docker ps | awk 'FNR > 1 {print $1}') | grep 'IPAddress'
+for i in {1..15}; do echo "Valde $i"; done
