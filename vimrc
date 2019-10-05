@@ -25,6 +25,7 @@ set number
 " Indenting
 set autoindent
 set smartindent
+set shiftwidth=2
 
 " Color Syntax
 syntax on
