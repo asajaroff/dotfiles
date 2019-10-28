@@ -17,6 +17,11 @@ mkdir -p $HOME/.vim/swapfiles $HOME/.vim/swapfiles $HOME/.vim/backupfiles $HOME/
 echo "Generating symlink to vimrc"
 ln -sf ~/.dotfiles/vimrc ~/.vimrc
 
+# kops
+curl -LO https://github.com/kubernetes/kops/releases/download/$(curl -s https://api.github.com/repos/kubernetes/kops/releases/latest | grep tag_name | cut -d '"' -f 4)/kops-linux-amd64
+chmod +x kops-linux-amd64
+mv kops-linux-amd64 $HOME/.local/bin/kops
+
 # Install SRE Tools
 echo "Installing aws cli for Linux"
 curl -O https://bootstrap.pypa.io/get-pip.py && python3 get-pip.py --user && pip install awscli --upgrade --user
