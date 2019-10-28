@@ -13,3 +13,6 @@ touch {networking,compute,storage}/{main.tf,variables.tf,outputs.tf}
 ```bash
 for i in $(ls -1); do echo $i ; done
 ```
+
+## SSH MD5 Fingerprint
+find . type f -iname "*.pem" -exec sh -c "openssl pkey -in {} -pubout -outform DER | openssl md5 -c " \;
