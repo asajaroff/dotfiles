@@ -15,4 +15,7 @@ export REPOS="$WORKSPACE/Repos"
 export LOGS="$WORKSPACE/Logs"
 
 # Source external configurations
-source ~/Workspace/Repos/naranja/dotfiles/functions
+source ~/.dotfiles/functions/git.sh 
+source ~/.dotfiles/functions/kubernetes.sh
+source ~/.dotfiles/functions/movement.sh
+source ~/.dotfiles/functions/terraform.sh
