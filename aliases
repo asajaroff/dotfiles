@@ -19,3 +19,6 @@ source ~/.dotfiles/functions/git.sh
 source ~/.dotfiles/functions/kubernetes.sh
 source ~/.dotfiles/functions/movement.sh
 source ~/.dotfiles/functions/terraform.sh
+
+# Aliases
+alias terraform=$(ls -1 /usr/local/bin/terraform-0.12* | tail -n 1 )
