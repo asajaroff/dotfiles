@@ -9,3 +9,4 @@ aws ec2 describe-instances \
               --query 'Reservations[*].Instances[*].{Instance:InstanceId,Instance:PublicIpAddress,AZ:Placement.AvailabilityZone,Name:Tags[?Key==`Name`]|[0].Value}' \
               --output table
 ```
+while IFS= read -r line; do aws rds describe-db-instances --db-instance-identifier ; done <  | jq '.DBInstance[0].BackupRetentionPeriod'
