@@ -54,3 +54,10 @@ set path+=**
 
 " Copy to macOS clipboard
 vmap '' :w ! pbcopy<CR><CR>
+
+" netrw Configuration
+" Tree style directory view
+let g:netrw_liststyle=3
+
+" Remove banner 
+let g:netrw_banner = 0
