@@ -22,3 +22,7 @@ source ~/.dotfiles/functions/terraform.sh
 
 # Aliases
 alias terraform=$(ls -1 /usr/local/bin/terraform-0.12* | tail -n 1 )
+
+alias vimrc="vim ~/.dotfiles/vimrc"
+alias zshrc="vim ~/.dotfiles/zshrc"
+alias tmuxrc="vim ~/.dotfiles/tmux.conf"
