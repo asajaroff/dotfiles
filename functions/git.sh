@@ -6,15 +6,7 @@ function repo-template {
     fi
 
     mkdir $1
-    echo "# $1" >> $1/README.md
-    echo "## Description" >> $1/README.md
-
-    echo "# Changelog" >> $1/CHANGELOG
-    echo "All notable changes to this project will be documented in this file.
-
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
-
-## [Unreleased]" >> $1/CHANGELOG
-
+    cp $HOME/.dotfiles/functions/resources/template_CHANGELOG $1/CHANGELOG
+    cp $HOME/.dotfiles/functions/resources/template_Makefile $1/Makefile
+    sed "s/Project Title/$1/g" $HOME/.dotfiles/functions/resources/template_README.md > $1/README.md
 }
