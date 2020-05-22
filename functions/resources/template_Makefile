@@ -1,0 +1,6 @@
+VARIABLE=$(shell pwd )
+default: push
+
+push:
+    aws s3 ls \
+    echo $(VARIABLE)
