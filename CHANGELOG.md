@@ -1,4 +1,11 @@
 # Changelog 
+-   2020/05/25
+## Added
+-   Makefile
+-   Bunch of scripts
+
+## In process of Removal:
+-   setup.sh
 
 -	17/03/2019
 Started with first vimrc and zsh configuration files.
