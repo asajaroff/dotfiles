@@ -24,5 +24,8 @@ docker:
 vscode-config:
 	if [ -s ${HOME}/.config/Code/User/settings.json ]; then \
 		mv ${HOME}/.config/Code/User/settings.json ${HOME}/.config/Code/User/settings.json.backup; \
-		fi; \
-	ln -s ${PWD}/config/vscode.settings.json ${HOME}/.config/Code/User/settings.json
+		ln -s ${PWD}/config/vscode.settings.json ${HOME}/.config/Code/User/settings.json; \
+	elif [ -s ${HOME}/Library/ApplicationSupport/Code/User/settings.json ]; then \
+		mv ${HOME}/Library/ApplicationSupport/Code/User/settings.json ${HOME}/Library/ApplicationSupport/Code/User/settings.json.backup; \
+		ln -s ${PWD}/config/vscode.settings.json ${HOME}/Library/ApplicationSupport/Code/User/settings.json; \
+	fi;
