@@ -13,11 +13,13 @@ func repos () {
 	fi
 }
 
-func tmp() {
+func tmpfile() {
+  FILENAME=`date "+%Y-%m-%d_%H:%M:%S"`
   if [ -z "$1" ]; then
-    mkdir -p ~/Workspace/tmp/$1
-    cd ~/Workspace/tmp/$1
+    touch ~/Workspace/tmp/$1.md
+    code ~/Workspace/tmp/$1.md
   else
-    cd ~/Workspace/tmp
+    touch ~/Workspace/tmp/${TMPDATE}.md
+    code ${HOME}/Workspace/tmp/${FILENAME}.md
   fi
 }

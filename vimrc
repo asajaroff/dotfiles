@@ -22,7 +22,7 @@ set undodir=~/.vim/undodir
 set undofile
 
 " Display line numbers on the left.
-set number
+set number relativenumber
 
 " Indenting
 set autoindent
