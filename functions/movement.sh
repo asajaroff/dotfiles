@@ -19,7 +19,7 @@ func tmpfile() {
     touch ~/Workspace/tmp/$1.md
     code ~/Workspace/tmp/$1.md
   else
-    touch ~/Workspace/tmp/${TMPDATE}.md
-    code ${HOME}/Workspace/tmp/${FILENAME}.md
+    touch ~/Workspace/tmp/${FILENAME}.md
+    vim ${HOME}/Workspace/tmp/${FILENAME}.md
   fi
 }

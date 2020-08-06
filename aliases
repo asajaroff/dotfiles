@@ -6,13 +6,32 @@ export EDITOR='code --wait'
 # Extend PATH
 export PATH=~/.local/bin:$PATH
 
-alias kube="~/.local/bin/kubectl"
-alias k="~/.local/bin/kubectl"
+alias kube="/usr/local/bin/kubectl"
+alias k="/usr/local/bin/kubectl"
 
 # Export Workplace/
 export WORKSPACE=~/Workspace
 export REPOS="$WORKSPACE/Repos"
 export LOGS="$WORKSPACE/Logs"
+
+# Git aliases
+alias gs='git status'
+alias ga='git add'
+alias gp='git push'
+alias gpo='git push origin'
+alias gtd='git tag --delete'
+alias gtdr='git tag --delete origin'
+alias gr='git branch -r'
+alias gplo='git pull origin'
+alias gb='git branch '
+alias gc='git commit'
+alias gd='git diff'
+alias gco='git checkout '
+alias gl='git log'
+alias gr='git remote'
+alias grs='git remote show'
+alias glo='git log --pretty="oneline"'
+alias glol='git log --graph --oneline --decorate'
 
 # Source external configurations
 source ~/.dotfiles/functions/git.sh 
@@ -21,11 +40,15 @@ source ~/.dotfiles/functions/movement.sh
 source ~/.dotfiles/functions/terraform.sh
 source ~/.dotfiles/functions/aws.sh
 
+# Source TW Configs
+source ~/.dotfiles/aliases-tw
+
 # Aliases
 alias terraform=$(ls -1 /usr/local/bin/terraform-0.12* | tail -n 1 )
 
 alias vimrc="vim ~/.dotfiles/vimrc"
 alias zshrc="vim ~/.dotfiles/zshrc"
+alias bashrc="vim ~/.dotfiles/bashrc"
 alias tmuxrc="vim ~/.dotfiles/tmux.conf"
 alias aliasrc="vim ~/.dotfiles/aliases"
 alias dotFiles="cd ~/.dotfiles"
