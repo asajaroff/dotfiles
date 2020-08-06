@@ -1,4 +1,4 @@
-function ex () {
+function unex () {
   if [ -f $1 ]; then
     case $1 in
       *.tar.bz2)  tar xjf $1 ;;
