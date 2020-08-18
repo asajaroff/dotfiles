@@ -1,5 +1,11 @@
 " Galera's .vimrc file
 
+" Plugins
+call plug#begin('~/.vim/plugged')
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'pangloss/vim-javascript'
+call plug#end()
+
 set nocompatible
 
 " Visual Bell
@@ -52,6 +58,9 @@ filetype plugin on
 " Provides tab-completion for all file-related tasks
 set path+=**
 
+" Search
+set incsearch
+
 " Copy to macOS clipboard
 vmap '' :w ! pbcopy<CR><CR>
 
@@ -62,6 +71,6 @@ let g:netrw_liststyle=3
 " Remove banner 
 let g:netrw_banner = 0
 
-let g:netrw_browse_split = 4
+let g:netrw_browse_split = 2
 let g:netrw_altv = 1
-let g:netrw_winsize = 25
+let g:netrw_winsize = 20
