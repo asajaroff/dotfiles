@@ -53,3 +53,4 @@ alias tmuxrc="vim ~/.dotfiles/tmux.conf"
 alias aliasrc="vim ~/.dotfiles/aliases"
 alias dotFiles="cd ~/.dotfiles"
 alias devDotFiles="code ~/.dotfiles"
+alias aws-instances='aws ec2 describe-instances | view -'

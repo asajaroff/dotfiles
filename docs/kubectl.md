@@ -32,3 +32,12 @@ kubectl run -i --rm --tty ubuntu --overrides='
 '  --image=ubuntu --restart=Never -- bash -c "sleep 3 && env"
 
 ```
+
+## Pods/Deployment operations
+### Rolling update of pods (Restart)
+```bash
+MYAPP=demo1
+PATCH='{“spec”:{“template”:{“metadata”:{“annotations”:{“timestamp”:”‘$(date)'”}}}}}’
+
+kubectl patch deployment $MYAPP -p “$PATCH”
+```

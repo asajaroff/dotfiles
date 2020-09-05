@@ -10,3 +10,8 @@ aws ec2 describe-instances \
               --output table
 ```
 while IFS= read -r line; do aws rds describe-db-instances --db-instance-identifier ; done <  | jq '.DBInstance[0].BackupRetentionPeriod'
+
+## VPC
+
+### Find an IP Address
+aws ec2 describe-network-interfaces --filters Name=addresses.private-ip-address,Values=${IP_ADDRESS}
