@@ -8,5 +8,5 @@ jobs:
     name: Make all
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-      - run: make
+      - name: Run Makefile
+        run: make
