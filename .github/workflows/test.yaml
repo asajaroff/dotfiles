@@ -1,0 +1,19 @@
+name: Make all targets
+
+# Run this workflow every time a new commit pushed to your repository
+on: push
+
+jobs:
+  make:
+    name: Make all
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: conky
+        run: make conky
+      - uses: actions/checkout@v2
+      - name: yq
+        run: make yq
+      - uses: actions/checkout@v2
+      - name: docker
+        run: make docker
