@@ -4,6 +4,8 @@
 call plug#begin('~/.vim/plugged')
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'pangloss/vim-javascript'
+Plug 'fatih/vim-go'
+Plug 'preservim/nerdtree'
 call plug#end()
 
 set nocompatible

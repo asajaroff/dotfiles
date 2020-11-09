@@ -2,7 +2,8 @@
 export ZSH="$HOME/.oh-my-zsh"
 
 # ZSH Theme
-ZSH_THEME="bullet-train"
+# ZSH_THEME="spaceship"
+ eval "$(starship init zsh)"
 
 plugins=(git)
 
