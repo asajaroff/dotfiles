@@ -1,13 +1,15 @@
-name: Make
+name: Make all targets
 
 # Run this workflow every time a new commit pushed to your repository
 on: push
 
 jobs:
-  test-make:
+  make:
     name: Make all
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - name: Run Makefile
-        run: make
+        run: make conky
+        run: make yq
+        run: make docker
