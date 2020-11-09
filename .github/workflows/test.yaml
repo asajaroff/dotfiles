@@ -15,5 +15,4 @@ jobs:
 
       # Runs the Super-Linter action
       - name: Run make
-        uses: actions/super-linter@v3
       - run: make
