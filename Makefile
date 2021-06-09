@@ -1,3 +1,5 @@
+
+
 default: conky yq docker
 
 vscode: vscode-config 
@@ -29,3 +31,8 @@ vscode-config:
 		mv ${HOME}/Library/ApplicationSupport/Code/User/settings.json ${HOME}/Library/ApplicationSupport/Code/User/settings.json.backup; \
 		ln -s ${PWD}/config/vscode.settings.json ${HOME}/Library/ApplicationSupport/Code/User/settings.json; \
 	fi;
+
+# SRE Tooling
+
+KOPS_VERSION := 1.18.2
+	curl -LO https://github.com/kubernetes/kops/releases/download/v$VERSION/kops-darwin-amd64
