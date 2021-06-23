@@ -13,4 +13,4 @@ export PS1="\[\033[38;5;6m\]\w\[$(tput sgr0)\] [\[$(tput sgr0)\]\[\033[38;5;3m\]
 
 alias l="ls"
 alias ll="ls -lah"
-alias repos="cd ${HOME}/Workspace/Repos"
+alias repos="cd ${HOME}/Workspace/Repos"source "$HOME/.cargo/env"

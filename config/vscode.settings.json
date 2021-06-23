@@ -1,25 +1,36 @@
 {
-    "window.menuBarVisibility": "toggle",
-    "window.restoreWindows": "all",
-    "window.titleBarStyle": "custom",
+	"window.menuBarVisibility": "toggle",
+	"window.restoreWindows": "all",
+	"window.titleBarStyle": "custom",
 
-    "workbench.colorTheme": "Community Material Theme Palenight High Contrast",
-    "workbench.iconTheme": "eq-material-theme-icons-palenight",
+	"workbench.colorTheme": "Noctis Hibernus",
+	"workbench.iconTheme": "eq-material-theme-icons-palenight",
 
-    "editor.cursorSmoothCaretAnimation": true,
-    "editor.renderIndentGuides": true,
-    "editor.renderWhitespace": "boundary",
-    "editor.minimap.enabled": false,
-    "editor.suggestSelection": "first",
+	"editor.cursorSmoothCaretAnimation": true,
+	"editor.renderIndentGuides": true,
+	"editor.renderWhitespace": "boundary",
+	"editor.minimap.enabled": false,
+	"editor.suggestSelection": "first",
+	"editor.tabSize": 2,
 
-    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+	"vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
 
-    "[markdown]": {
-        "editor.quickSuggestions": {
-            "other": false,
-            "comments": false,
-            "strings": false
-        },
-        "editor.minimap.enabled": true
-    }
+	"[markdown]": {
+		"editor.quickSuggestions": {
+			"other": false,
+			"comments": false,
+			"strings": false
+		},
+		"editor.minimap.enabled": true
+	},
+	"vs-kubernetes": {
+		"vs-kubernetes.minikube-path.mac": "/Users/alejandrosajaroff/.vs-kubernetes/tools/minikube/darwin-amd64/minikube",
+		"vscode-kubernetes.minikube-path.mac": "/Users/alejandrosajaroff/.vs-kubernetes/tools/minikube/darwin-amd64/minikube"
+	},
+	"jenkins.pipeline.linter.connector.strictssl": false,
+	"jenkins.pipeline.linter.connector.user": "admin",
+	"jenkins.pipeline.linter.connector.pass": "6jbVxkfMQkwtevS7enhn4m",
+	"jenkins.pipeline.linter.connector.url": "https://jenkins-sysops.us.teamworkops.com/pipeline-model-converter/validate",
+	"window.zoomLevel": 1
+
 }   

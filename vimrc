@@ -2,13 +2,24 @@
 
 " Plugins
 call plug#begin('~/.vim/plugged')
-Plug 'ctrlpvim/ctrlp.vim'
-Plug 'pangloss/vim-javascript'
-Plug 'fatih/vim-go'
-Plug 'preservim/nerdtree'
+Plug 'neovim/nvim-lspconfig'
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'kyazdani42/nvim-web-devicons'
+Plug 'morhetz/gruvbox'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
 call plug#end()
 
+" Using lua functions
+nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<cr>
+nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
+nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
+nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
+
 set nocompatible
+" Scroll related
+set scrolloff=2 " determines the number of context lines you would like to see above and below the cursor
 
 " Visual Bell
 set visualbell
@@ -76,3 +87,38 @@ let g:netrw_banner = 0
 let g:netrw_browse_split = 2
 let g:netrw_altv = 1
 let g:netrw_winsize = 20
+
+" Panes managment
+" Open new split panes to right and bottom
+set splitbelow
+set splitright
+
+" LSP
+" lua << EOF
+" require'lspconfig'.pyright.setup{}
+" require'lspconfig'.gopls.setup{}
+" EOF
+
+" Launch gopls when Go files are in use
+let g:LanguageClient_serverCommands = {
+       \ 'go': ['gopls'],
+       \ 'python': ['pyright']
+       \ }
+" Run gofmt on save
+autocmd BufWritePre *.go :call LanguageClient#textDocument_formatting_sync()
+
+lua <<EOF
+  lspconfig = require "lspconfig"
+  lspconfig.gopls.setup {
+    cmd = {"gopls", "serve"},
+    settings = {
+      gopls = {
+        analyses = {
+          unusedparams = true,
+        },
+        staticcheck = true,
+      },
+    },
+  }
+EOF
+
