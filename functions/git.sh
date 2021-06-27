@@ -11,3 +11,7 @@ function repo-template {
     cp $HOME/.dotfiles/functions/resources/template_.editorconfig $1/.editorconfig
     sed "s/Project Title/$1/g" $HOME/.dotfiles/functions/resources/template_README.md > $1/README.md
 }
+
+function fclone {
+  git clone --bare $1
+}

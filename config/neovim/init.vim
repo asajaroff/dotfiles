@@ -1,14 +1,29 @@
 " Galera's .vimrc file
 
-" Plugins
+
 call plug#begin('~/.vim/plugged')
-Plug 'neovim/nvim-lspconfig'
+" Telescope
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
+
+" Treesitter ?
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
+
+" Language Server Protocol
+Plug 'neovim/nvim-lspconfig'
+
+" Autocomplete
+Plug 'nvim-lua/completion-nvim'
+
+" Snippets
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+
+" Swag
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'morhetz/gruvbox'
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
+
 call plug#end()
 
 " Using lua functions
@@ -113,6 +128,35 @@ luafile ${HOME}/.dotfiles/config/neovim/init.lua
 " Post Start
 let g:LanguageClient_serverCommands = {
     \ 'sh': ['bash-language-server', 'start'],
-    \ 'yaml': ['yaml-language-server', '--stdio']
+    \ 'yaml': ['yaml-language-server', '--stdio'],
+    \ 'go': ['gopls', '--serve']
     \ }
 
+" Autocomplete
+"" https://github.com/nvim-lua/completion-nvim
+" Use <Tab> and <S-Tab> to navigate through popup menu
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+" Set completeopt to have a better completion experience
+set completeopt=menuone,noinsert,noselect
+
+" Avoid showing message extra message when using completion
+set shortmess+=c
+
+" possible value: 'UltiSnips', 'Neosnippet', 'vim-vsnip', 'snippets.nvim'
+let g:completion_enable_snippet = 'UltiSnips'
+
+
+" Trigger configuration. You need to change this to something other than <tab> if you use one of the following:
+" - https://github.com/Valloric/YouCompleteMe
+" - https://github.com/nvim-lua/completion-nvim
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
+
+" Spelling
+" setlocal spell spelllang=en_us
