@@ -132,8 +132,8 @@ let g:LanguageClient_serverCommands = {
     \ 'go': ['gopls', '--serve']
     \ }
 
-" Autocomplete
-"" https://github.com/nvim-lua/completion-nvim
+"" Completion
+" https://github.com/nvim-lua/completion-nvim
 " Use <Tab> and <S-Tab> to navigate through popup menu
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
@@ -146,12 +146,12 @@ set shortmess+=c
 
 " possible value: 'UltiSnips', 'Neosnippet', 'vim-vsnip', 'snippets.nvim'
 let g:completion_enable_snippet = 'UltiSnips'
-
+let g:completion_matching_smart_case = 1
+"" TODO: Test snippets.nvim
 
 " Trigger configuration. You need to change this to something other than <tab> if you use one of the following:
-" - https://github.com/Valloric/YouCompleteMe
 " - https://github.com/nvim-lua/completion-nvim
-let g:UltiSnipsExpandTrigger="<tab>"
+" let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
