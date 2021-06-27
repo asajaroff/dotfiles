@@ -24,6 +24,16 @@ Plug 'honza/vim-snippets'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'morhetz/gruvbox'
 
+" Live Substitution
+set inccommand=split
+
+" Highlight yanked text
+augroup LuaHighlight
+  autocmd!
+  autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank()
+augroup END
+
+
 call plug#end()
 
 " Using lua functions
