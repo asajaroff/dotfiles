@@ -38,3 +38,9 @@ bindkey '^R' history-incremental-search-backward
 if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
   source /etc/profile.d/vte.sh 2>/dev/null
 fi
+
+# Programming tools
+## Golang
+eval `go env`
+export GOBIN=${HOME}/go/bin
+export PATH=$PATH:$GOBIN
