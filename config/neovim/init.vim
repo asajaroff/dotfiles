@@ -1,28 +1,7 @@
 " Galera's .vimrc file
 
-
-call plug#begin('~/.vim/plugged')
-" Telescope
-Plug 'nvim-lua/popup.nvim'
-Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim'
-
-" Treesitter ?
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
-
-" Language Server Protocol
-Plug 'neovim/nvim-lspconfig'
-
-" Autocomplete
-Plug 'nvim-lua/completion-nvim'
-
-" Snippets
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
-
-" Swag
-Plug 'kyazdani42/nvim-web-devicons'
-Plug 'morhetz/gruvbox'
+"" Plugins
+source ~/.dotfiles/config/neovim/plugins.vim
 
 " Live Substitution
 set inccommand=split
@@ -33,9 +12,6 @@ augroup LuaHighlight
   autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank()
 augroup END
 
-
-call plug#end()
-
 " Using lua functions
 nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<cr>
 nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
@@ -43,6 +19,7 @@ nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
 nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
 
 set nocompatible
+
 " Scroll related
 set scrolloff=2 " determines the number of context lines you would like to see above and below the cursor
 
@@ -84,10 +61,6 @@ set et
 " Whitespaces (Activate with :set list)
 set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣
 
-" Powerline support
-" set rtp+=/usr/lib/python3.7/site-packages/powerline/bindings/vim
-let g:powerline_pycmd="py3"
-
 " Filetype 
 filetype plugin on
 
@@ -99,9 +72,6 @@ set path+=**
 " Search
 set incsearch
 
-" Copy to macOS clipboard
-vmap '' :w ! pbcopy<CR><CR>
-
 " netrw Configuration
 " Tree style directory view
 let g:netrw_liststyle=3
@@ -111,7 +81,7 @@ let g:netrw_banner = 0
 
 let g:netrw_browse_split = 2
 let g:netrw_altv = 1
-let g:netrw_winsize = 20
+let g:netrw_winsize = 50
 
 " Panes managment
 " Open new split panes to right and bottom
