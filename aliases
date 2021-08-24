@@ -1,7 +1,9 @@
 #!/bin/bash
 
-# VS Code 
-export EDITOR='code --wait'
+# Editors
+export EDITOR='nvim'
+alias vim='nvim'
+
 
 # Extend PATH
 export PATH=~/.local/bin:$PATH
@@ -39,9 +41,6 @@ source ~/.dotfiles/functions/kubernetes.sh
 source ~/.dotfiles/functions/movement.sh
 source ~/.dotfiles/functions/terraform.sh
 source ~/.dotfiles/functions/aws.sh
-
-# Source TW Configs
-source ~/.dotfiles/aliases-tw
 
 # Aliases
 # alias terraform=$(ls -1 /usr/local/bin/terraform-0.12* | tail -n 1 )

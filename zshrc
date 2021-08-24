@@ -3,11 +3,11 @@ export ZSH="$HOME/.oh-my-zsh"
 
 # ZSH Theme
 # ZSH_THEME="spaceship"
- eval "$(starship init zsh)"
+eval "$(starship init zsh)"
 
 plugins=(git)
 
-source $ZSH/oh-my-zsh.sh
+# source $ZSH/oh-my-zsh.sh
 
 # User configuration
 

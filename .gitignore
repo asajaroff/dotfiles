@@ -1,4 +1,5 @@
 secrets/**
 extras/**
-aliases-tw
+aliases-priv-tw
+aliases-priv-mhe
 tmp/**
