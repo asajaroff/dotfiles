@@ -1,4 +1,5 @@
 call plug#begin('~/.vim/plugged')
+
 " Telescope
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'

@@ -3,6 +3,10 @@
 "" Plugins
 source ~/.dotfiles/config/neovim/plugins.vim
 
+" Theme (gruvbox)
+colorscheme gruvbox
+set background=dark
+
 " Live Substitution
 set inccommand=split
 

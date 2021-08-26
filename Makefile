@@ -1,38 +1,31 @@
 
 
-default: conky yq docker
+all:
+	echo $(OS_ARCH)
 
-vscode: vscode-config 
+## Programming
+GOBIN ?= (shell go bin) # Will only occur if GOBIN is not already present
 
-conky:
-	sudo apt install conky-all -y
-	echo ln -s ${HOME}/.dotfiles/config/conky.conf ${HOME}/.config/conky/conky.conf
 
-yq:
-	sudo add-apt-repository ppa:rmescandon/yq -y
-	sudo apt update
-	sudo apt install yq -y
+OS_ARCH= (shell )
 
-docker:
-	curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-	sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(shell lsb_release -cs) stable"
-	sudo apt-get update
-	sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker-ce
-	mkdir -p ~/.docker/cli-plugins
-	curl -L https://github.com/docker/buildx/releases/download/v0.3.1/buildx-v0.3.1.linux-amd64 -o ~/.docker/cli-plugins/docker-buildx
-	chmod 755 ~/.docker/cli-plugins/docker-buildx
-	docker buildx create --name builder --use 
+.PHONY: test kubernetes
 
-vscode-config:
-	if [ -s ${HOME}/.config/Code/User/settings.json ]; then \
-		mv ${HOME}/.config/Code/User/settings.json ${HOME}/.config/Code/User/settings.json.backup; \
-		ln -s ${PWD}/config/vscode.settings.json ${HOME}/.config/Code/User/settings.json; \
-	elif [ -s ${HOME}/Library/ApplicationSupport/Code/User/settings.json ]; then \
-		mv ${HOME}/Library/ApplicationSupport/Code/User/settings.json ${HOME}/Library/ApplicationSupport/Code/User/settings.json.backup; \
-		ln -s ${PWD}/config/vscode.settings.json ${HOME}/Library/ApplicationSupport/Code/User/settings.json; \
-	fi;
+test:
+	echo ${OS_ARCH}
 
-# SRE Tooling
+kubernetes:
+ifeq ($(OS_ARCH),darwin)
+	KUBERNETES_VERSION := (shell curl -L -s https://dl.k8s.io/release/stable.txt)
+	curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/darwin/amd64/kubectl"
+	xattr -d com.apple.quarantine kubectl
+	chmod +x kubectl
+	mv kubectl /usr/local/bin/kubectl-$(curl -L -s https://dl.k8s.io/release/stable.txt)
+	echo $(KUBERNETES_VERSION)
+endif
 
-KOPS_VERSION := 1.18.2
-	curl -LO https://github.com/kubernetes/kops/releases/download/v$VERSION/kops-darwin-amd64
+shells: bash zsh
+
+bash:
+
+zsh:
