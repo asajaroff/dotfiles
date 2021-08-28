@@ -32,11 +32,24 @@ shell-requisites:
 	sudo /tmp/dotfiles/starship/install.sh
 
 bash:
-	ln -sf ${HOME}/.dotfiles/.bashrc ${HOME}/.bashrc
-	ln -sf ${HOME}/.dotfiles/.bashrc ${HOME}/.profile
+	ln -sf ${HOME}/.dotfiles/bashrc ${HOME}/.bashrc
+	ln -sf ${HOME}/.dotfiles/bashrc ${HOME}/.profile
 
 zsh:
-	ln -sf ${HOME}/.dotfiles/.zshrc ${HOME}/.zshrc
+	ln -sf ${HOME}/.dotfiles/zshrc ${HOME}/.zshrc
+
+editor: editor-requisites neovim neovim-plugins
+
+editor-requisites: 
+	@echo "To build from sorce, follow this guide: https://github.com/neovim/neovim/wiki/Building-Neovim#build-prerequisites"
+
+neovim:
+	@echo neovim
+
+neovim-plugins:
+	curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+		https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
 
 
 clean:
