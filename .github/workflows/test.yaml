@@ -9,11 +9,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: conky
-        run: make conky
+      - name: shells
+        run: make hells
       - uses: actions/checkout@v2
-      - name: yq
-        run: make yq
-      - uses: actions/checkout@v2
-      - name: docker
-        run: make docker
+      - name: editr
+        run: make editr
