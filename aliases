@@ -1,7 +1,8 @@
 #!/bin/bash
 
-# VS Code 
-export EDITOR='code --wait'
+# Editor config
+export EDITOR='nvim'
+alias vim='/usr/local/bin/nvim'
 
 # Extend PATH
 export PATH=~/.local/bin:$PATH
@@ -36,17 +37,11 @@ alias glol='git log --graph --oneline --decorate'
 # Source external configurations
 source ~/.dotfiles/functions/git.sh 
 source ~/.dotfiles/functions/kubernetes.sh
-source ~/.dotfiles/functions/movement.sh
 source ~/.dotfiles/functions/terraform.sh
 source ~/.dotfiles/functions/aws.sh
 
-# Source TW Configs
-source ~/.dotfiles/aliases-tw
-
 # Aliases
 # alias terraform=$(ls -1 /usr/local/bin/terraform-0.12* | tail -n 1 )
-
-alias reso="source ${HOME}/.dotfiles/aliases"
 
 alias vimrc="vim ~/.dotfiles/config/neovim/init.vim"
 alias zshrc="vim ~/.dotfiles/zshrc"
@@ -54,5 +49,5 @@ alias bashrc="vim ~/.dotfiles/bashrc"
 alias tmuxrc="vim ~/.dotfiles/config/tmux.conf"
 alias aliasrc="vim ~/.dotfiles/aliases"
 alias dotFiles="cd ~/.dotfiles"
-alias devDotFiles="code ~/.dotfiles"
+alias devDotFiles="vim ~/.dotfiles"
 alias aws-instances='aws ec2 describe-instances | view -'
