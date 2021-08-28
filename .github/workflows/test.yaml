@@ -10,7 +10,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: shells
-        run: make hells
+        run: make shells
       - uses: actions/checkout@v2
-      - name: editr
-        run: make editr
+      - name: editor
+        run: make editor
