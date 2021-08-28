@@ -29,7 +29,7 @@ shell-requisites:
 	mkdir -p /tmp/dotfiles/starship
 	curl -fsSL https://starship.rs/install.sh -o /tmp/dotfiles/starship/install.sh
 	chmod +x /tmp/dotfiles/starship/install.sh
-	sudo /tmp/dotfiles/starship/install.sh
+	sudo /tmp/dotfiles/starship/install.sh -y
 
 bash:
 	ln -sf ${HOME}/.dotfiles/bashrc ${HOME}/.bashrc
