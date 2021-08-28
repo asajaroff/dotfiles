@@ -20,6 +20,5 @@ Plug 'honza/vim-snippets'
 
 " Chetadas
 Plug 'kyazdani42/nvim-web-devicons'
-Plug 'morhetz/gruvbox'
 
 call plug#end()
