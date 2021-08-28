@@ -1,21 +1,23 @@
-#!/bin/bash
-
 # Editor config
 export EDITOR='nvim'
 alias vim='/usr/local/bin/nvim'
-
-# Extend PATH
+#
+# Environment config
+#
 export PATH=~/.local/bin:$PATH
-
-alias kube="/usr/local/bin/kubectl"
-alias k="/usr/local/bin/kubectl"
-
-# Export Workplace/
 export WORKSPACE=~/Workspace
 export REPOS="$WORKSPACE/Repos"
 export LOGS="$WORKSPACE/Logs"
 
-# Git aliases
+alias ls='ls --color=auto'
+alias l='ls -la --color=auto'
+alias ll='ls -ltra --color=auto'
+
+alias kube="/usr/local/bin/kubectl"
+alias k="/usr/local/bin/kubectl"
+#
+# Git 
+#
 alias gs='git status'
 alias ga='git add'
 alias gp='git push'
