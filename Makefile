@@ -1,5 +1,3 @@
-
-
 all:
 	echo $(OS_ARCH)
 
@@ -8,6 +6,7 @@ GOBIN ?= (shell go bin) # Will only occur if GOBIN is not already present
 
 
 OS_ARCH= (shell )
+DOTFILES_DIRECTORY := ${HOME}/.dotfiles
 
 .PHONY: test kubernetes
 
@@ -24,8 +23,21 @@ ifeq ($(OS_ARCH),darwin)
 	echo $(KUBERNETES_VERSION)
 endif
 
-shells: bash zsh
+shells: shell-requisites bash zsh
+
+shell-requisites:
+	mkdir -p /tmp/dotfiles/starship
+	curl -fsSL https://starship.rs/install.sh -o /tmp/dotfiles/starship/install.sh
+	chmod +x /tmp/dotfiles/starship/install.sh
+	sudo /tmp/dotfiles/starship/install.sh
 
 bash:
+	ln -sf ${HOME}/.dotfiles/.bashrc ${HOME}/.bashrc
+	ln -sf ${HOME}/.dotfiles/.bashrc ${HOME}/.profile
 
 zsh:
+	ln -sf ${HOME}/.dotfiles/.zshrc ${HOME}/.zshrc
+
+
+clean:
+	@echo Cleanup
