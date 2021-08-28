@@ -42,15 +42,16 @@ editor: editor-requisites neovim neovim-plugins
 
 editor-requisites: 
 	@echo "To build from sorce, follow this guide: https://github.com/neovim/neovim/wiki/Building-Neovim#build-prerequisites"
+	mkdir -p ${HOME}/.vim/swapfiles
+	mkdir -p ${HOME}/.vim/backupfiles
+	mkdir -p ${HOME}/.config/nvim/
 
 neovim:
 	@echo neovim
 
 neovim-plugins:
-	curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-		https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-
-
+	sh -c 'curl -fLo "${HOME}/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+		https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 
 clean:
 	@echo Cleanup
