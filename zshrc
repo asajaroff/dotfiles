@@ -4,7 +4,7 @@ plugins=(git)
 
 # User configuration
 
-source ~/.dotfiles/aliases.sh
+source ~/.dotfiles/aliases
 
 # Functions
 source ~/.dotfiles/functions/movement.sh
