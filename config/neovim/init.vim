@@ -68,7 +68,7 @@ filetype plugin on
 " Finding Files
 " Search down into subfolders
 " Provides tab-completion for all file-related tasks
-set path+=**
+set path+=**/*
 
 " Search
 set incsearch

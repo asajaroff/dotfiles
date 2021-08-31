@@ -38,6 +38,7 @@ esac
 #
 export EDITOR='nvim'
 alias vim='nvim'
+alias view='nvim -R'
 
 #
 # Environment config
@@ -78,7 +79,7 @@ source ~/.dotfiles/functions/terraform.sh
 source ~/.dotfiles/functions/aws.sh
 
 # Frecuently used config files
-alias vimrc="vim ~/.dotfiles/config/neovim/init.vim"
+alias vimrc="nvim ~/.dotfiles/config/neovim/init.vim"
 alias zshrc="vim ~/.dotfiles/zshrc"
 alias bashrc="vim ~/.dotfiles/bashrc"
 alias tmuxrc="vim ~/.dotfiles/config/tmux.conf"
