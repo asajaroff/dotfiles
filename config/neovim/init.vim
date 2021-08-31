@@ -106,7 +106,7 @@ let g:LanguageClient_serverCommands = {
     \ 'yaml': ['yaml-language-server', '--stdio'],
     \ 'go': ['gopls', '--serve']
     \ }
-let g:
+
 "" Completion
 " https://github.com/nvim-lua/completion-nvim
 " Use <Tab> and <S-Tab> to navigate through popup menu
