@@ -1,4 +1,4 @@
 secrets/**
 extras/**
-aliases-tw
 tmp/**
+private/**.aliases

@@ -51,7 +51,8 @@ set smartindent
 set shiftwidth=2
 
 " Color Syntax
-syntax on
+syntax off
+highlight LspDiagnosticsVirtualTextError guifg=Red ctermfg=Red
 
 " Tabbing options
 set ts=2
@@ -88,12 +89,6 @@ let g:netrw_winsize = 50
 set splitbelow
 set splitright
 
-" LSP
-" lua << EOF
-" require'lspconfig'.pyright.setup{}
-" require'lspconfig'.gopls.setup{}
-" EOF
-
 " Launch gopls when Go files are in use
 let g:LanguageClient_serverCommands = {
        \ 'go': ['gopls'],
@@ -111,7 +106,7 @@ let g:LanguageClient_serverCommands = {
     \ 'yaml': ['yaml-language-server', '--stdio'],
     \ 'go': ['gopls', '--serve']
     \ }
-
+let g:
 "" Completion
 " https://github.com/nvim-lua/completion-nvim
 " Use <Tab> and <S-Tab> to navigate through popup menu

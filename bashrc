@@ -14,7 +14,7 @@ export PATH=$PATH:/usr/local/bin:/opt/bin
 #
 # Aliases
 #
-source ${HOME}/.dotfiles/alias*
+source ${HOME}/.dotfiles/aliases.sh
 
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
