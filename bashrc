@@ -22,3 +22,11 @@ if [[ -n $SSH_CONNECTION ]]; then
 else
   export EDITOR='nvim'
 fi
+
+#
+# Languages
+#
+
+# Go
+# todo: if statement
+eval $(go env)
