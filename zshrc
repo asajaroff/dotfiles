@@ -46,6 +46,14 @@ eval `go env`
 export GOBIN=${HOME}/go/bin
 export PATH=$PATH:$GOBIN
 
+## Python
+# Import packages to PATH
+if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+  echo "Python PATH not configured"
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+  export PATH=$PATH:${HOME}/Library/Python/3.8/bin
+fi
+
 # Cloud tools
 ## asdf
 ASDF_BIN=/usr/local/opt/asdf/libexec/asdf.sh
@@ -64,3 +72,4 @@ fi
 if [[ -f "ASDF_BIN" ]]; then
   source /usr/local/share/zsh/site-functions/_kubectl
 fi
+
