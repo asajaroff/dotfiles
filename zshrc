@@ -16,6 +16,14 @@ source ~/.dotfiles/functions/terraform.sh
 # You may need to manually set your language environment
 export LANG=en_US.UTF-8
 
+# History
+export HISTSIZE=50000
+export HISTSIZE=50000
+export HISTCONTROL=ignoredups
+export HISTTIMEFORMAT="%d %b %y %T "
+
+# history -w 
+
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
   export EDITOR='vim'
@@ -37,3 +45,22 @@ fi
 eval `go env`
 export GOBIN=${HOME}/go/bin
 export PATH=$PATH:$GOBIN
+
+# Cloud tools
+## asdf
+ASDF_BIN=/usr/local/opt/asdf/libexec/asdf.sh
+if [[ -f "ASDF_BIN" ]]; then
+  source /usr/local/opt/asdf/libexec/asdf.sh
+  source /usr/local/share/zsh/site-functions/_asdf
+fi
+
+# Cloud providers
+## AWS
+if [[ -f "ASDF_BIN" ]]; then
+  source /usr/local/share/zsh/site-functions/_aws
+fi
+
+# Kubernetes
+if [[ -f "ASDF_BIN" ]]; then
+  source /usr/local/share/zsh/site-functions/_kubectl
+fi

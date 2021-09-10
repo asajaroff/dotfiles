@@ -3,13 +3,19 @@
 #
 eval "$(starship init bash)"
 
-# Vi mode
-set -o vi
 
 # 
-# $PATH additions
+# BASH customizations
 #
 export PATH=$PATH:/usr/local/bin:/opt/bin
+
+# History
+export HISTSIZE=50000
+export HISTSIZE=50000
+export HISTCONTROL=ignoredups
+export HISTTIMEFORMAT="%d %b %y %T "
+# vi mode
+set -o vi
 
 #
 # Aliases
@@ -23,10 +29,33 @@ else
   export EDITOR='nvim'
 fi
 
-#
-# Languages
-#
+# Tilix VTE
+if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
+  source /etc/profile.d/vte.sh 2>/dev/null
+fi
 
-# Go
-# todo: if statement
-eval $(go env)
+# 
+# Programming tools
+# 
+
+## Golang
+
+GOBIN=$(which go)
+if [[ -e ${GOBIN} ]]; then
+  eval `go env`
+  export GOBIN=${HOME}/go/bin
+  export PATH=$PATH:$GOBIN
+fi
+
+## Python
+
+## Node
+
+## Rust
+
+# Cloud tools
+## asdf
+ASDF_BIN=/usr/local/opt/asdf/libexec/asdf.sh
+if [[ -f "${ASDF_BIN}" ]]; then
+  source /usr/local/opt/asdf/libexec/asdf.sh
+fi

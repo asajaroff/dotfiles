@@ -1,4 +1,4 @@
-# My dotfiles
+# Alejandro's dotfiles
 
 Welcome to my dotfiles.
 *This work is still in progress as it is a constantly changing project.*
