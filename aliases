@@ -7,7 +7,7 @@ DOTFILES_DIR=${HOME}/.dotfiles
 ALIASES_DIR=${DOTFILES_DIR}/private 
 
 if [[ -d "${ALIASES_DIR}" ]] ; then
-  for file in $(ls -1 $ALIASES_DIR); do
+  for file in $(ls -1 $ALIASES_DIR | grep alias); do
     source ${ALIASES_DIR}/${file}
   done
 fi

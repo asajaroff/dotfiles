@@ -1,28 +1,16 @@
-all:
-	echo $(OS_ARCH)
+.DEFAULT_GOAL=all
+.PHONY: all
 
-## Programming
-GOBIN ?= (shell go bin) # Will only occur if GOBIN is not already present
+# 
+# Variables
+#
+OS_ARCH 						:= $(shell arch)
+DOTFILES_DIRECTORY 	:= ${HOME}/.dotfiles
+GOBIN 							?= $(shell go bin) 
 
-
-OS_ARCH= (shell )
-DOTFILES_DIRECTORY := ${HOME}/.dotfiles
-
-.PHONY: test kubernetes
-
-test:
-	echo ${OS_ARCH}
-
-kubernetes:
-ifeq ($(OS_ARCH),darwin)
-	KUBERNETES_VERSION := (shell curl -L -s https://dl.k8s.io/release/stable.txt)
-	curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/darwin/amd64/kubectl"
-	xattr -d com.apple.quarantine kubectl
-	chmod +x kubectl
-	mv kubectl /usr/local/bin/kubectl-$(curl -L -s https://dl.k8s.io/release/stable.txt)
-	echo $(KUBERNETES_VERSION)
-endif
-
+#
+# Shell setup
+#
 shells: shell-requisites bash zsh
 
 shell-requisites:
@@ -37,6 +25,22 @@ bash:
 
 zsh:
 	ln -sf ${HOME}/.dotfiles/zshrc ${HOME}/.zshrc
+
+tmux:
+	ln -sf ${HOME}/.tmux.conf ${HOME}/.dotfiles/config/tmux.conf
+
+all: test
+
+kubernetes:
+ifeq ($(OS_ARCH),darwin)
+	KUBERNETES_VERSION := (shell curl -L -s https://dl.k8s.io/release/stable.txt)
+	curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/darwin/amd64/kubectl"
+	xattr -d com.apple.quarantine kubectl
+	chmod +x kubectl
+	mv kubectl /usr/local/bin/kubectl-$(curl -L -s https://dl.k8s.io/release/stable.txt)
+	echo $(KUBERNETES_VERSION)
+endif
+
 
 editor: editor-requisites neovim neovim-plugins
 
