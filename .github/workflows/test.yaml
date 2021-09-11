@@ -11,6 +11,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: shells
         run: git submodule update --init --recursive
+        continue-on-error: true
       - uses: actions/checkout@v2
       - name: shells
         run: make shells
