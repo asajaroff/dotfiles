@@ -14,7 +14,7 @@ GOBIN 				?= $(shell go bin)
 init: git-submodules-private
 
 git-submodules-private:
-ifneq ($(wildcard ${DOTFILES_DIR}/.),)
+ifneq ($(wildcard ${DOTFILES_DIR}/private.),)
 	@echo "Found a 'private' directory"
 	git submodule status
 else
