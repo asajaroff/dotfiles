@@ -41,7 +41,7 @@ zsh:
 	ln -sf ${HOME}/.dotfiles/zshrc ${HOME}/.zshrc
 
 tmux:
-	ln -sf ${HOME}/.tmux.conf ${HOME}/.dotfiles/config/tmux.conf
+	ln -sf ${HOME}/.dotfiles/config/tmux.conf ${HOME}/.tmux.conf 
 
 kubernetes:
 ifeq ($(OS_ARCH),darwin)
