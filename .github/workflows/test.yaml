@@ -9,11 +9,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: conky
-        run: make conky
+      - name: shells
+        run: git submodule update --init --recursive
+        continue-on-error: true
       - uses: actions/checkout@v2
-      - name: yq
-        run: make yq
+      - name: shells
+        run: make shells
       - uses: actions/checkout@v2
-      - name: docker
-        run: make docker
+      - name: editor
+        run: make editor

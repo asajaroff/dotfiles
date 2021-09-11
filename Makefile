@@ -1,38 +1,73 @@
+.DEFAULT_GOAL=all
+.PHONY: all
+
+# 
+# Variables
+#
+OS_ARCH 			:= $(shell arch)
+DOTFILES_DIR 	:= ${HOME}/.dotfiles
+GOBIN 				?= $(shell go bin) 
+
+#
+# Init
+#
+init: git-submodules-private
+
+git-submodules-private:
+ifneq ($(wildcard ${DOTFILES_DIR}/.),)
+	@echo "Found a 'private' directory"
+	git submodule status
+else
+	@echo "Did not find a 'private' directory, so let's clone it"
+	git submodule update --init --recursive private
+endif
+
+#
+# Shell setup
+#
+shells: shell-requisites bash zsh tmux
+
+shell-requisites:
+	mkdir -p /tmp/dotfiles/starship
+	curl -fsSL https://starship.rs/install.sh -o /tmp/dotfiles/starship/install.sh
+	chmod +x /tmp/dotfiles/starship/install.sh
+	sudo /tmp/dotfiles/starship/install.sh -y
+
+bash:
+	ln -sf ${HOME}/.dotfiles/bashrc ${HOME}/.bashrc
+	ln -sf ${HOME}/.dotfiles/bashrc ${HOME}/.profile
+
+zsh:
+	ln -sf ${HOME}/.dotfiles/zshrc ${HOME}/.zshrc
+
+tmux:
+	ln -sf ${HOME}/.dotfiles/config/tmux.conf ${HOME}/.tmux.conf 
+
+kubernetes:
+ifeq ($(OS_ARCH),darwin)
+	KUBERNETES_VERSION := (shell curl -L -s https://dl.k8s.io/release/stable.txt)
+	curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/darwin/amd64/kubectl"
+	xattr -d com.apple.quarantine kubectl
+	chmod +x kubectl
+	mv kubectl /usr/local/bin/kubectl-$(curl -L -s https://dl.k8s.io/release/stable.txt)
+	echo $(KUBERNETES_VERSION)
+endif
 
 
-default: conky yq docker
+editor: editor-requisites neovim neovim-plugins
 
-vscode: vscode-config 
+editor-requisites: 
+	@echo "To build from sorce, follow this guide: https://github.com/neovim/neovim/wiki/Building-Neovim#build-prerequisites"
+	mkdir -p ${HOME}/.vim/swapfiles
+	mkdir -p ${HOME}/.vim/backupfiles
+	mkdir -p ${HOME}/.config/nvim/
 
-conky:
-	sudo apt install conky-all -y
-	echo ln -s ${HOME}/.dotfiles/config/conky.conf ${HOME}/.config/conky/conky.conf
+neovim:
+	@echo neovim
 
-yq:
-	sudo add-apt-repository ppa:rmescandon/yq -y
-	sudo apt update
-	sudo apt install yq -y
+neovim-plugins:
+	sh -c 'curl -fLo "${HOME}/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+		https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 
-docker:
-	curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-	sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(shell lsb_release -cs) stable"
-	sudo apt-get update
-	sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker-ce
-	mkdir -p ~/.docker/cli-plugins
-	curl -L https://github.com/docker/buildx/releases/download/v0.3.1/buildx-v0.3.1.linux-amd64 -o ~/.docker/cli-plugins/docker-buildx
-	chmod 755 ~/.docker/cli-plugins/docker-buildx
-	docker buildx create --name builder --use 
-
-vscode-config:
-	if [ -s ${HOME}/.config/Code/User/settings.json ]; then \
-		mv ${HOME}/.config/Code/User/settings.json ${HOME}/.config/Code/User/settings.json.backup; \
-		ln -s ${PWD}/config/vscode.settings.json ${HOME}/.config/Code/User/settings.json; \
-	elif [ -s ${HOME}/Library/ApplicationSupport/Code/User/settings.json ]; then \
-		mv ${HOME}/Library/ApplicationSupport/Code/User/settings.json ${HOME}/Library/ApplicationSupport/Code/User/settings.json.backup; \
-		ln -s ${PWD}/config/vscode.settings.json ${HOME}/Library/ApplicationSupport/Code/User/settings.json; \
-	fi;
-
-# SRE Tooling
-
-KOPS_VERSION := 1.18.2
-	curl -LO https://github.com/kubernetes/kops/releases/download/v$VERSION/kops-darwin-amd64
+clean:
+	@echo "rm -rf ${DOTFILES_DIR}"

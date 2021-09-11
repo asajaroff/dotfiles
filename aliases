@@ -1,20 +1,59 @@
-#!/bin/bash
+#!/bin/bash 
+# Aliases file
+#
 
-# VS Code 
-export EDITOR='code --wait'
+# Variables
+DOTFILES_DIR=${HOME}/.dotfiles
+ALIASES_DIR=${DOTFILES_DIR}/private 
 
-# Extend PATH
+if [[ -d "${ALIASES_DIR}" ]] ; then
+  for file in $(ls -1 $ALIASES_DIR | grep alias); do
+    source ${ALIASES_DIR}/${file}
+  done
+fi
+
+# Check OS type and export coloured `ls`
+case "$(uname -s)" in
+  Darwin)
+  alias ls='ls -G'
+  alias l='ls -laG'
+  alias ll='ls -ltrG'
+  ;;
+  Linux)
+  alias ls='ls --color=auto'
+  alias l='ls -la --color=auto'
+  alias ll='ls -ltr --color=auto'
+  ;;
+  CYGWIN*|MINGW32*|MSYS*|MINGW*)
+  echo 'MS Windows'
+  ;;
+  
+  *)
+  echo 'Other OS' 
+  ;;
+esac
+
+# Editor config
+#
+#
+export EDITOR='nvim'
+alias vim='nvim'
+alias view='nvim -R'
+
+#
+# Environment config
+#
 export PATH=~/.local/bin:$PATH
-
-alias kube="/usr/local/bin/kubectl"
-alias k="/usr/local/bin/kubectl"
-
-# Export Workplace/
 export WORKSPACE=~/Workspace
 export REPOS="$WORKSPACE/Repos"
 export LOGS="$WORKSPACE/Logs"
 
-# Git aliases
+alias kube="/usr/local/bin/kubectl"
+alias k="/usr/local/bin/kubectl"
+
+#
+# Git 
+#
 alias gs='git status'
 alias ga='git add'
 alias gp='git push'
@@ -36,21 +75,15 @@ alias glol='git log --graph --oneline --decorate'
 # Source external configurations
 source ~/.dotfiles/functions/git.sh 
 source ~/.dotfiles/functions/kubernetes.sh
-source ~/.dotfiles/functions/movement.sh
 source ~/.dotfiles/functions/terraform.sh
 source ~/.dotfiles/functions/aws.sh
 
-# Source TW Configs
-source ~/.dotfiles/aliases-tw
-
-# Aliases
-# alias terraform=$(ls -1 /usr/local/bin/terraform-0.12* | tail -n 1 )
-
-alias vimrc="vim ~/.dotfiles/vimrc"
+# Frecuently used config files
+alias vimrc="nvim ~/.dotfiles/config/neovim/init.vim"
 alias zshrc="vim ~/.dotfiles/zshrc"
 alias bashrc="vim ~/.dotfiles/bashrc"
-alias tmuxrc="vim ~/.dotfiles/tmux.conf"
+alias tmuxrc="vim ~/.dotfiles/config/tmux.conf"
 alias aliasrc="vim ~/.dotfiles/aliases"
 alias dotFiles="cd ~/.dotfiles"
-alias devDotFiles="code ~/.dotfiles"
+alias devDotFiles="vim ~/.dotfiles"
 alias aws-instances='aws ec2 describe-instances | view -'
