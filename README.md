@@ -1,19 +1,44 @@
 # Alejandro's dotfiles
 
-Welcome to my dotfiles.
-*This work is still in progress as it is a constantly changing project.*
-Right now I'm working on a 'per distro' installation. I tend to switch my Linux installation quite a lot but for the moment I'm mostly running Arch on my personal PC and fedora/ubuntu for work related stuff so... mainly I'll use selectors for those 3 distros. These selectors will be mainly used for configuring and executing apt/dnf/pacman commands.
+*This is a constantly changing configuration meant to keep track of my workspace*
 
-### Software included
-    -   aws cli
-    -   aws-iam-authenticator
-    -   terraform
-    -   kubectl
-    -   kubens
-    -   kubectx
-## Installation
+## Prerequisites
+* A POSIX compatible shell
+* `cmake`/`make`
 
-In order to set up my configuration files, in case of Arch Linux simply use the following command:
+
+### Arch
+```bash
+pacman -Syu base-devel
 ```
-chmod +x ./setup.sh && ./setup.sh
+
+
+### Ubuntu
+```bash
+sudo apt update && sudo apt upgrade -y
+sudo apt install \
+    build-essential \
+    dnsutils
+```
+
+### MacOS
+Make sure to install install [brew](https://brew.sh/) by running:
+```
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
+## Usage
+As indicated by the requriments, all you need is `make` (not love).
+
+```bash
+make setup
+```
+## Private submodules.
+Faced with the problem of keeping track of my private config files, I'm trying to figure out how do so.
+
+For this, I've come with the [git-submodules]() option which makes the most sense to me.
+
+To grab the private repo 
+```bash
+make sync-private
 ```
