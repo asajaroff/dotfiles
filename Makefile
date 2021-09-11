@@ -4,14 +4,28 @@
 # 
 # Variables
 #
-OS_ARCH 						:= $(shell arch)
-DOTFILES_DIRECTORY 	:= ${HOME}/.dotfiles
-GOBIN 							?= $(shell go bin) 
+OS_ARCH 			:= $(shell arch)
+DOTFILES_DIR 	:= ${HOME}/.dotfiles
+GOBIN 				?= $(shell go bin) 
+
+#
+# Init
+#
+init: git-submodules-private
+
+git-submodules-private:
+ifneq ($(wildcard ${DOTFILES_DIR}/.),)
+	@echo "Found a 'private' directory"
+	git submodule status
+else
+	@echo "Did not find a 'private' directory, so let's clone it"
+	git submodule update --init --recursive private
+endif
 
 #
 # Shell setup
 #
-shells: shell-requisites bash zsh
+shells: shell-requisites bash zsh tmux
 
 shell-requisites:
 	mkdir -p /tmp/dotfiles/starship
@@ -28,8 +42,6 @@ zsh:
 
 tmux:
 	ln -sf ${HOME}/.tmux.conf ${HOME}/.dotfiles/config/tmux.conf
-
-all: test
 
 kubernetes:
 ifeq ($(OS_ARCH),darwin)
@@ -58,4 +70,4 @@ neovim-plugins:
 		https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 
 clean:
-	@echo Cleanup
+	@echo "rm -rf ${DOTFILES_DIR}"
