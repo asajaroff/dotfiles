@@ -11,7 +11,9 @@ GOBIN 				?= $(shell go bin)
 #
 # Init
 #
-init: git-submodules-private
+init: git-submodules
+
+git-submodules: git-submodules-private
 
 git-submodules-private:
 ifneq ($(wildcard ${DOTFILES_DIR}/private.),)
@@ -21,6 +23,10 @@ else
 	@echo "Did not find a 'private' directory, so let's clone it"
 	git submodule update --init --recursive private
 endif
+
+git-config:
+	git config --global user.name "Alejandro Sajaroff"
+	git config --global user.email "asajaroff@users.noreply.github.com"
 
 #
 # Shell setup
