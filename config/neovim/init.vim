@@ -4,6 +4,7 @@
 source ~/.dotfiles/config/neovim/plugins.vim
 
 
+
 " Live Substitution
 set inccommand=split
 
@@ -101,8 +102,11 @@ let g:LanguageClient_serverCommands = {
 " Run gofmt on save
 autocmd BufWritePre *.go :call LanguageClient#textDocument_formatting_sync()
 
-" lua <<EOF
+" lua Imports
 luafile ${HOME}/.dotfiles/config/neovim/init.lua
+luafile ${HOME}/.dotfiles/config/neovim/lsp.lua
+luafile ${HOME}/.dotfiles/config/neovim/treesitter.lua
+luafile ${HOME}/.dotfiles/config/neovim/lualine.lua
 
 " Post Start
 let g:LanguageClient_serverCommands = {

@@ -27,7 +27,5 @@ Plug 'kyazdani42/nvim-tree.lua'
 Plug 'kyazdani42/nvim-web-devicons'
 
 " Chetadas
-Plug 'hoob3rt/lualine.nvim'
-Plug 'romgrk/barbar.nvim'
-
+Plug 'hoob3rt/lualine.nvim
 call plug#end()
