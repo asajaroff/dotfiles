@@ -19,8 +19,15 @@ Plug 'nvim-lua/completion-nvim'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 
+" tree
+Plug 'kyazdani42/nvim-tree.lua'
+
+" Fonts
+" Nerd Fonts: https://www.nerdfonts.com/font-downloads
+Plug 'kyazdani42/nvim-web-devicons'
+
 " Chetadas
 Plug 'hoob3rt/lualine.nvim'
-Plug 'kyazdani42/nvim-web-devicons'
+Plug 'romgrk/barbar.nvim'
 
 call plug#end()

@@ -1,3 +1,7 @@
+-- bufferline
+-- vim.opt.termguicolors = true
+-- require("bufferline").setup{}
+
 -- lualine
 require'lualine'.setup {
   options = {

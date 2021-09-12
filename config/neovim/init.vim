@@ -3,6 +3,7 @@
 "" Plugins
 source ~/.dotfiles/config/neovim/plugins.vim
 
+
 " Live Substitution
 set inccommand=split
 
