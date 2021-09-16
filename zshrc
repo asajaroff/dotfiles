@@ -40,6 +40,9 @@ if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
   source /etc/profile.d/vte.sh 2>/dev/null
 fi
 
+# SSH Configs
+eval $(ssh-agent) && ssh-add ~/.ssh/*id_rsa
+
 # Programming tools
 ## Golang
 eval `go env`

@@ -2,7 +2,7 @@
 # Alejandro's bashrc
 #
 eval "$(starship init bash)"
-
+eval $(ssh-agent) && ssh-add ~/.ssh/*id_rsa
 
 # 
 # BASH customizations
