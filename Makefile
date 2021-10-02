@@ -64,7 +64,15 @@ ifeq ($(OS_ARCH),darwin)
 endif
 
 
-editor: editor-requisites neovim neovim-plugins ## Configure text editor
+editor: editor-requisites neovim neovim-plugins emacs emacs-config ## Configure text editor
+
+emacs:
+	@echo sudo apt install emacs # Ubuntu
+	@echo brew install emacs
+
+emacs-config:
+	git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
+	ln -sf ${HOME}/.dotfiles/config/spacemacs ${HOME}/.spacemacs
 
 editor-requisites: ## Create vim folders
 	@echo "To build from sorce, follow this guide: https://github.com/neovim/neovim/wiki/Building-Neovim#build-prerequisites"
