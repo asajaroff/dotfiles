@@ -72,7 +72,7 @@ emacs:
 
 emacs-config:
 	git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
-	ln -sf ${HOME}/.dotfiles/config/spacemacs ${HOME}/.spacemacs
+	ln -sf ${HOME}/.dotfiles/config/emacs/spacemacs ${HOME}/.spacemacs
 
 editor-requisites: ## Create vim folders
 	@echo "To build from sorce, follow this guide: https://github.com/neovim/neovim/wiki/Building-Neovim#build-prerequisites"
