@@ -60,6 +60,10 @@ ASDF_BIN=/usr/local/opt/asdf/libexec/asdf.sh
 if [[ -f "ASDF_BIN" ]]; then
   source /usr/local/opt/asdf/libexec/asdf.sh
   source /usr/local/share/zsh/site-functions/_asdf
+  # append completions to fpath
+  fpath=(${ASDF_DIR}/completions $fpath)
+  # initialise completions with ZSH's compinit
+  autoload -Uz compinit && compinit
 fi
 
 # Cloud providers
