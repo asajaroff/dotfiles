@@ -2,6 +2,10 @@
 
 *This is a constantly changing configuration meant to keep track of my workspace*
 
+```
+git clone --recursive git@github.com:asajaroff/dotfiles.git ~/.dotfiles
+```
+
 ## Prerequisites
 * A POSIX compatible shell
 * `cmake`/`make`
