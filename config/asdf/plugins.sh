@@ -16,3 +16,5 @@ asdf plugin-add serf https://github.com/asdf-community/asdf-hashicorp.git
 asdf plugin-add terraform https://github.com/asdf-community/asdf-hashicorp.git
 asdf plugin-add vault https://github.com/asdf-community/asdf-hashicorp.git
 asdf plugin-add waypoint https://github.com/asdf-community/asdf-hashicorp.git
+asdf plugin-add kubectl https://github.com/asdf-community/asdf-kubectl.git
+

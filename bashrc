@@ -21,6 +21,7 @@ set -o vi
 # Aliases
 #
 source ${HOME}/.dotfiles/aliases
+[ -d "${HOME}/.dotfiles/private" ] && . "${HOME}/.dotfiles/private/mhe.aliases"
 
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
@@ -55,7 +56,8 @@ fi
 
 # Cloud tools
 ## asdf
-ASDF_BIN=/usr/local/opt/asdf/libexec/asdf.sh
+ASDF_BIN=~/.asdf/asdf.sh
 if [[ -f "${ASDF_BIN}" ]]; then
-  source /usr/local/opt/asdf/libexec/asdf.sh
+  source ${ASDF_BIN}
+  . $HOME/.asdf/completions/asdf.bash
 fi

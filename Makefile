@@ -29,7 +29,7 @@ shells: shell-requisites bash zsh tmux
 
 shell-requisites:
 	mkdir -p /tmp/dotfiles/starship
-	curl -fsSL https://starship.rs/install.sh -o /tmp/dotfiles/starship/install.sh
+	curl -fsSL https://starship.rs/install.sh -k -o /tmp/dotfiles/starship/install.sh
 	chmod +x /tmp/dotfiles/starship/install.sh
 	sudo /tmp/dotfiles/starship/install.sh -y
 
@@ -61,6 +61,10 @@ editor-requisites:
 	mkdir -p ${HOME}/.vim/swapfiles
 	mkdir -p ${HOME}/.vim/backupfiles
 	mkdir -p ${HOME}/.config/nvim/
+
+asdf:
+	git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.8.1
+	~/.dotfiles/config/asdf/plugins.sh
 
 neovim:
 	@echo neovim
