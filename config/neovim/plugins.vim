@@ -15,8 +15,6 @@ Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/completion-nvim'
 
 " Snippets
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
 
 " Chetadas
 Plug 'kyazdani42/nvim-web-devicons'
