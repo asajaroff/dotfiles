@@ -22,7 +22,7 @@ shopt -s cmdhist
 #
 # Aliases
 #
-source ${HOME}/.dotfiles/aliases
+source ${HOME}/.dotfiles/config/aliases
 
 # Functions
 source ${HOME}/.dotfiles/private/clone.sh
