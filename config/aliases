@@ -4,6 +4,7 @@
 
 # Variables
 DOTFILES_DIR=${HOME}/.dotfiles
+CONFIG_DIR=${DOTFILES_DIR}/config
 ALIASES_DIR=${DOTFILES_DIR}/private 
 
 if [[ -d "${ALIASES_DIR}" ]] ; then
@@ -79,11 +80,11 @@ source ~/.dotfiles/functions/terraform.sh
 source ~/.dotfiles/functions/aws.sh
 
 # Frecuently used config files
-alias vimrc="nvim ~/.dotfiles/config/neovim/init.vim"
-alias zshrc="vim ~/.dotfiles/zshrc"
-alias bashrc="vim ~/.dotfiles/bashrc"
-alias tmuxrc="vim ~/.dotfiles/config/tmux.conf"
-alias aliasrc="vim ~/.dotfiles/aliases"
+alias vimrc="nvim ${CONFIG_DIR}/neovim/init.vim"
+alias zshrc="nvim ${CONFIG_DIR}/zshrc"
+alias bashrc="nvim ${CONFIG_DIR}/bashrc"
+alias tmuxrc="nvim ${CONFIG_DIR}/tmux.conf"
+alias aliasrc="nvim ${CONFIG_DIR}/aliases"
 alias dotFiles="cd ~/.dotfiles"
 alias devDotFiles="vim ~/.dotfiles"
 alias aws-instances='aws ec2 describe-instances | view -'

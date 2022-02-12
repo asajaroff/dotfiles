@@ -4,9 +4,9 @@
 # 
 # Variables
 #
-OS_ARCH 			:= $(shell arch)
-DOTFILES_DIR 	:= ${HOME}/.dotfiles
-GOBIN 				?= $(shell go bin) 
+OS_ARCH 	:= $(shell arch)
+DOTFILES_DIR	:= ${HOME}/.dotfiles
+GOBIN 		?= $(shell go bin) 
 
 # Help
 help:
@@ -44,11 +44,11 @@ shell-requisites: ## Install starship add-on for bash/zsh
 	sudo /tmp/dotfiles/starship/install.sh -y
 
 bash: ## Create bash symlinks to configfiles
-	ln -sf ${HOME}/.dotfiles/bashrc ${HOME}/.bashrc
-	ln -sf ${HOME}/.dotfiles/bashrc ${HOME}/.profile
+	ln -sf ${HOME}/.dotfiles/config/bashrc ${HOME}/.bashrc
+	ln -sf ${HOME}/.dotfiles/config/bashrc ${HOME}/.profile
 
 zsh: ## Create zsh symlinks to configfiles
-	ln -sf ${HOME}/.dotfiles/zshrc ${HOME}/.zshrc
+	ln -sf ${HOME}/.dotfiles/config/zshrc ${HOME}/.zshrc
 
 tmux: ## Create tmux symlinks to configfiles
 	ln -sf ${HOME}/.dotfiles/config/tmux.conf ${HOME}/.tmux.conf 
@@ -64,15 +64,22 @@ ifeq ($(OS_ARCH),darwin)
 endif
 
 
-editor: editor-requisites neovim neovim-plugins emacs emacs-config ## Configure text editor
+editor: editor-requisites neovim neovim-plugins emacs-dep emacs doom-emacs ## Configure text editor
+
+emacs-dep:
+	sudo dnf install git ripgrep
 
 emacs:
 	@echo sudo apt install emacs # Ubuntu
 	@echo brew install emacs
+	@echo sudo dnf install emacs
 
-emacs-config:
-	git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
-	ln -sf ${HOME}/.dotfiles/config/emacs/spacemacs ${HOME}/.spacemacs
+doom-emacs:
+	git clone --depth 1 https://github.com/hlissner/doom-emacs ~/.emacs.d
+	~/.emacs.d/bin/doom install
+	ln -sf ${HOME}/.dotfiles/config/emacs/doom.d/config.el ${HOME}/.doom.d/config.el
+	ln -sf ${HOME}/.dotfiles/config/emacs/doom.d/init.el ${HOME}/.doom.d/init.el
+	ln -sf ${HOME}/.dotfiles/config/emacs/doom.d/packages.el ${HOME}/.doom.d/packages.el
 
 editor-requisites: ## Create vim folders
 	@echo "To build from sorce, follow this guide: https://github.com/neovim/neovim/wiki/Building-Neovim#build-prerequisites"
