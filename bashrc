@@ -1,8 +1,9 @@
 # 
 # Alejandro's bashrc
 #
-eval "$(starship init bash)"
 
+# vi mode
+set -o vi
 
 # 
 # BASH customizations
@@ -14,13 +15,14 @@ export HISTSIZE=50000
 export HISTSIZE=50000
 export HISTCONTROL=ignoredups
 export HISTTIMEFORMAT="%d %b %y %T "
-# vi mode
-set -o vi
 
 #
 # Aliases
 #
 source ${HOME}/.dotfiles/aliases
+
+# Functions
+source ${HOME}/.dotfiles/private/clone.sh
 
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
@@ -39,7 +41,6 @@ fi
 # 
 
 ## Golang
-
 GOBIN=$(which go)
 if [[ -e ${GOBIN} ]]; then
   eval `go env`
@@ -50,6 +51,11 @@ fi
 ## Python
 
 ## Node
+if [[ -e ${HOME}/.nvm ]]; then
+  export NVM_DIR="$HOME/.nvm"
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+fi
 
 ## Rust
 
@@ -59,3 +65,6 @@ ASDF_BIN=/usr/local/opt/asdf/libexec/asdf.sh
 if [[ -f "${ASDF_BIN}" ]]; then
   source /usr/local/opt/asdf/libexec/asdf.sh
 fi
+
+# Starship shell
+eval "$(starship init bash)"
