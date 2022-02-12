@@ -19,13 +19,16 @@ jobs:
         with:
           version: 27.1
       - uses: actions/checkout@v2
-      - name: shells
+      - name: 'Private repository'
         run: git submodule update --init --recursive
         continue-on-error: true
       - uses: actions/checkout@v2
-      - name: shells
+      - name: 'Bash shell config'
         run: make shells
       - uses: actions/checkout@v2
-      - name: editor
-        run: make editor
+      - name: 'kubernetes utils'
+        run: make kubernetes
+      - uses: actions/checkout@v2
+      - name: 'neovim install'
+        run: make neovim
 
