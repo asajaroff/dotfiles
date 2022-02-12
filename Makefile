@@ -69,6 +69,7 @@ editor: editor-requisites neovim neovim-plugins emacs emacs-config ## Configure 
 emacs:
 	@echo sudo apt install emacs # Ubuntu
 	@echo brew install emacs
+	@echo sudo dnf install emacs
 
 emacs-config:
 	git clone --depth 1 https://github.com/hlissner/doom-emacs ~/.emacs.d
