@@ -78,14 +78,13 @@ set incsearch
 
 " netrw Configuration
 " Tree style directory view
-let g:netrw_liststyle=3
+" let g:netrw_liststyle=3
 
 " Remove banner 
-let g:netrw_banner = 0
-
-let g:netrw_browse_split = 2
-let g:netrw_altv = 1
-let g:netrw_winsize = 50
+" let g:netrw_banner = 0
+" let g:netrw_browse_split = 2
+" let g:netrw_altv = 1
+" let g:netrw_winsize = 50
 
 " Panes managment
 " Open new split panes to right and bottom
@@ -100,8 +99,15 @@ let g:LanguageClient_serverCommands = {
 " Run gofmt on save
 autocmd BufWritePre *.go :call LanguageClient#textDocument_formatting_sync()
 
-" lua <<EOF
+" lua Imports
 luafile ${HOME}/.dotfiles/config/neovim/init.lua
+luafile ${HOME}/.dotfiles/config/neovim/lsp.lua
+luafile ${HOME}/.dotfiles/config/neovim/treesitter.lua
+luafile ${HOME}/.dotfiles/config/neovim/lualine.lua
+
+" Post init imports
+
+source ~/.dotfiles/config/neovim/nvimtree.vim
 
 " Post Start
 let g:LanguageClient_serverCommands = {

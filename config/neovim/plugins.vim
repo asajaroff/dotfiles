@@ -10,6 +10,7 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend upda
 
 " Language Server Protocol
 Plug 'neovim/nvim-lspconfig'
+Plug 'kabouzeid/nvim-lspinstall'
 
 " Autocomplete
 Plug 'nvim-lua/completion-nvim'
@@ -18,7 +19,13 @@ Plug 'nvim-lua/completion-nvim'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 
-" Chetadas
+" tree
+Plug 'kyazdani42/nvim-tree.lua'
+
+" Fonts
+" Nerd Fonts: https://www.nerdfonts.com/font-downloads
 Plug 'kyazdani42/nvim-web-devicons'
 
+" Chetadas
+Plug 'hoob3rt/lualine.nvim'
 call plug#end()

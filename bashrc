@@ -11,10 +11,13 @@ set -o vi
 export PATH=$PATH:/usr/local/bin:/opt/bin
 
 # History
-export HISTSIZE=50000
-export HISTSIZE=50000
-export HISTCONTROL=ignoredups
-export HISTTIMEFORMAT="%d %b %y %T "
+HISTFILE="${HOME}/.bash_history"
+export HISTCONTROL=ignoreboth,erasedups
+export HISTTIMEFORMAT="%h %d %H:%M:%S "
+export HISTIGNORE="ls:ps:history"
+export HISTSIZE=10000000
+export SAVEHIST=${HISTSIZE}
+shopt -s cmdhist
 
 #
 # Aliases
