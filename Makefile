@@ -64,16 +64,22 @@ ifeq ($(OS_ARCH),darwin)
 endif
 
 
-editor: editor-requisites neovim neovim-plugins emacs emacs-config ## Configure text editor
+editor: editor-requisites neovim neovim-plugins emacs-dep emacs doom-emacs ## Configure text editor
+
+emacs-dep:
+	sudo dnf install git ripgrep
 
 emacs:
 	@echo sudo apt install emacs # Ubuntu
 	@echo brew install emacs
 	@echo sudo dnf install emacs
 
-emacs-config:
+doom-emacs:
 	git clone --depth 1 https://github.com/hlissner/doom-emacs ~/.emacs.d
 	~/.emacs.d/bin/doom install
+	ln -sf ${HOME}/.dotfiles/config/emacs/doom.d/config.el ${HOME}/.doom.d/config.el
+	ln -sf ${HOME}/.dotfiles/config/emacs/doom.d/init.el ${HOME}/.doom.d/init.el
+	ln -sf ${HOME}/.dotfiles/config/emacs/doom.d/packages.el ${HOME}/.doom.d/packages.el
 
 editor-requisites: ## Create vim folders
 	@echo "To build from sorce, follow this guide: https://github.com/neovim/neovim/wiki/Building-Neovim#build-prerequisites"
