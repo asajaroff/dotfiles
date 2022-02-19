@@ -96,3 +96,11 @@ neovim-plugins: ## Install Plug for neovim
 
 clean: ## Render a destructive statement
 	@echo "rm -rf ${DOTFILES_DIR}"
+
+#
+# Programming utils
+#
+
+# nvm
+nodejs: 
+	curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
