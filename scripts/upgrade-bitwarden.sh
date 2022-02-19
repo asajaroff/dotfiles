@@ -16,6 +16,9 @@ if [ "$EUID" -ne 0 ]
 fi
 
 curl -L "https://vault.bitwarden.com/download/?app=desktop&platform=linux"  -o ${INSTALL_DIR}/bitwarden-latest
+curl -L "https://raw.githubusercontent.com/bitwarden/desktop/v1.31.3/resources/icons/128x128.png" -o ${INSTALL_DIR}/icon128.png
+curl -L "https://raw.githubusercontent.com/bitwarden/desktop/v1.31.3/resources/icons/256x256.png" -o ${INSTALL_DIR}/icon256.png
+curl -L "https://raw.githubusercontent.com/bitwarden/desktop/v1.31.3/resources/icons/512x512.png" -o ${INSTALL_DIR}/icon512.png
 
 chmod +x ${INSTALL_DIR}/bitwarden-latest
 
@@ -25,7 +28,7 @@ Name=Bitwarden
 GenericName=Password manager
 Comment=Password manager
 Exec=/opt/bitwarden/bitwarden-latest
-Icon=/opt/bitwarden/icon.png
+Icon=/opt/bitwarden/icon128.png
 Type=Application
 Terminal=false
 EOF
