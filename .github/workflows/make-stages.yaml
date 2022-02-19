@@ -1,4 +1,4 @@
-name: Make all targets
+name: Makefile execution
 
 # Run this workflow every time a new commit pushed to your repository
 on:
@@ -19,16 +19,18 @@ jobs:
         with:
           version: 27.1
       - uses: actions/checkout@v2
-      - name: 'Private repository'
+      - name: 'Clone private repos'
         run: git submodule update --init --recursive
         continue-on-error: true
       - uses: actions/checkout@v2
-      - name: 'Bash shell config'
+      - name: 'make shells'
         run: make shells
       - uses: actions/checkout@v2
-      - name: 'kubernetes utils'
+      - name: 'make kubernetes'
         run: make kubernetes
       - uses: actions/checkout@v2
-      - name: 'neovim install'
+      - name: 'make neovim'
         run: make neovim
-
+      - uses: actions/checkout@v2
+      - name: 'make nodejs'
+        run: make nodejs
