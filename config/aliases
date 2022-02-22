@@ -88,3 +88,11 @@ alias aliasrc="nvim ${CONFIG_DIR}/aliases"
 alias dotFiles="cd ~/.dotfiles"
 alias devDotFiles="vim ~/.dotfiles"
 alias aws-instances='aws ec2 describe-instances | view -'
+
+if [[ -f ${ALIASES_DIR}/functions/jump.sh ]] ; then
+	echo "Sourcing private jump function"
+	source ${ALIASES_DIR}/functions/jump.sh 
+	alias j=jump
+else
+	echo "[ERR] jump function not found - Check private repo"
+fi
