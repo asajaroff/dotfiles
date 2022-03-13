@@ -1,8 +1,10 @@
 .DEFAULT_GOAL := help
 .PHONY: all
 
-# 
-# Variables
+# __   ____ _ _ __ ___
+# \ \ / / _` | '__/ __|
+#  \ V / (_| | |  \__ \
+#   \_/ \__,_|_|  |___/
 #
 OS_ARCH 	:= $(shell arch)
 DOTFILES_DIR	:= ${HOME}/.dotfiles
