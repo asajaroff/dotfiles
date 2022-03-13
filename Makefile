@@ -18,14 +18,12 @@ help:
 #
 # Init
 #
-init: git-submodules ## Initialize git-submodules
-
-git-submodules: git-submodules-private ## Fetch and pull all git-submodules
+init: git-config git-submodules-private ## Initialize git-submodules
 
 git-submodules-private: ## Fetch and pull private git-submodules (requires auth)
 ifneq ($(wildcard ${DOTFILES_DIR}/private.),)
 	@echo "Found a 'private' directory"
-	git submodule status
+	exit 0
 else
 	@echo "Did not find a 'private' directory, so let's clone it"
 	git submodule update --init --recursive private
