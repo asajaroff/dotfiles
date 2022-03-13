@@ -7,6 +7,7 @@
 OS_ARCH 	:= $(shell arch)
 DOTFILES_DIR	:= ${HOME}/.dotfiles
 GOBIN 		?= $(shell go bin) 
+ASDF_DIR	:= ${HOME}/.asdf
 
 # Help
 help:
@@ -96,3 +97,44 @@ neovim-plugins: ## Install Plug for neovim
 
 clean: ## Render a destructive statement
 	@echo "rm -rf ${DOTFILES_DIR}"
+
+
+#               | |/ _|
+#   __ _ ___  __| | |_ 
+#  / _` / __|/ _` |  _|
+# | (_| \__ \ (_| | |  
+#  \__,_|___/\__,_|_|  
+#
+asdf: asdf-setup-plugins asdf-install-packages ## Installs `asdf` utility
+
+asdf-reinstall: asdf-setup-terraform asdf-setup-vault asdf-setup-kubectl
+
+asdf-install:
+	@if test -d ${ASDF_DIR}; then echo "asdf is installed at $(ASDF_DIR)"; else git clone https://github.com/asdf-vm/asdf.git $(ASDF_DIR) --branch v0.9.0; fi
+
+asdf-setup-plugins:
+	asdf plugin-add boundary https://github.com/asdf-community/asdf-hashicorp.git
+	asdf plugin-add consul https://github.com/asdf-community/asdf-hashicorp.git
+	asdf plugin-add nomad https://github.com/asdf-community/asdf-hashicorp.git
+	asdf plugin-add packer https://github.com/asdf-community/asdf-hashicorp.git
+	asdf plugin-add terraform https://github.com/asdf-community/asdf-hashicorp.git
+	asdf plugin-add vault https://github.com/asdf-community/asdf-hashicorp.git
+	asdf plugin-add kubectl https://github.com/asdf-community/asdf-kubectl.git
+
+asdf-setup-terraform:
+	asdf install terraform latest
+	asdf install terraform latest:1.1.
+	asdf install terraform 0.14.11
+	asdf install terraform latest:0.14.
+	asdf global terraform latest
+
+asdf-setup-vault:
+	asdf install vault latest
+	asdf global vault latest
+
+asdf-setup-kubectl: 
+	asdf install kubectl latest
+	asdf install kubectl latest:1.22.
+	asdf install kubectl latest:1.19.
+	asdf install kubectl latest:1.18.
+	asdf global kubectl latest
