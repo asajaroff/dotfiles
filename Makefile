@@ -1,6 +1,5 @@
 .DEFAULT_GOAL := help
 .PHONY: all
-
 # __   ____ _ _ __ ___
 # \ \ / / _` | '__/ __|
 #  \ V / (_| | |  \__ \
@@ -33,9 +32,12 @@ git-config: ## Configure git user and email
 	git config --global user.name "Alejandro Sajaroff"
 	git config --global user.email "asajaroff@users.noreply.github.com"
 
-#
-# Shell setup
-#
+#      _          _ _
+#     | |        | | |
+#  ___| |__   ___| | |
+# / __| '_ \ / _ \ | |
+# \__ \ | | |  __/ | |
+# |___/_| |_|\___|_|_|
 shells: shell-requisites bash zsh tmux ## Setup zsh, bash and tmux configs
 
 shell-requisites: ## Install starship add-on for bash/zsh
@@ -67,6 +69,10 @@ endif
 
 editor: editor-requisites neovim neovim-plugins emacs-dep emacs doom-emacs ## Configure text editor
 
+#  ___ _ __ ___   __ _  ___ ___
+# / _ \ '_ ` _ \ / _` |/ __/ __|
+#|  __/ | | | | | (_| | (__\__ \
+# \___|_| |_| |_|\__,_|\___|___/
 emacs-dep:
 	sudo dnf install git ripgrep
 
@@ -75,12 +81,14 @@ emacs:
 	@echo brew install emacs
 	@echo sudo dnf install emacs
 
+DOOM_DIR := ${HOME}/.doom.d
+
 doom-emacs:
-	git clone --depth 1 https://github.com/hlissner/doom-emacs ~/.emacs.d
-	~/.emacs.d/bin/doom install
+	@if test -d ${DOOM_DIR}; then git clone --depth 1 https://github.com/hlissner/doom-emacs ~/.emacs.d; ~/.emacs.d/bin/doom install; fi
 	ln -sf ${HOME}/.dotfiles/config/emacs/doom.d/config.el ${HOME}/.doom.d/config.el
 	ln -sf ${HOME}/.dotfiles/config/emacs/doom.d/init.el ${HOME}/.doom.d/init.el
 	ln -sf ${HOME}/.dotfiles/config/emacs/doom.d/packages.el ${HOME}/.doom.d/packages.el
+	~/.emacs.d/bin/doom sync
 
 editor-requisites: ## Create vim folders
 	@echo "To build from sorce, follow this guide: https://github.com/neovim/neovim/wiki/Building-Neovim#build-prerequisites"
@@ -88,16 +96,9 @@ editor-requisites: ## Create vim folders
 	mkdir -p ${HOME}/.vim/backupfiles
 	mkdir -p ${HOME}/.config/nvim/
 
-neovim:
-	@echo neovim
-
 neovim-plugins: ## Install Plug for neovim
 	sh -c 'curl -fLo "${HOME}/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
 		https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-
-clean: ## Render a destructive statement
-	@echo "rm -rf ${DOTFILES_DIR}"
-
 
 #               | |/ _|
 #   __ _ ___  __| | |_ 
