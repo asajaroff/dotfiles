@@ -5,8 +5,8 @@
 
 ;;; Add to ~/.doom.d/config.el
 (setq doom-font (font-spec :family "JetBrainsMono Nerd Font Mono" :size 16 :weight 'semi-light)
-      doom-variable-pitch-font (font-spec :family "FiraCode Nerd Font") ; inherits `doom-font''s :size
-      doom-unicode-font (font-spec :family "JetBrainsMono Nerd Font" :size 16)
+      doom-variable-pitch-font (font-spec :family "JetBrainsMono Nerd Font Mono") ; inherits `doom-font''s :size
+      doom-unicode-font (font-spec :family "JetBrainsMono Nerd Font Mono" :size 16)
       doom-big-font (font-spec :family "Fira Mono" :size 19))
 
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
