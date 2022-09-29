@@ -1,0 +1,20 @@
+name: Makefile manual execution
+
+on:
+  workflow_call:
+    inputs:
+      step:
+        description: 'Step within the Makefile to execute'
+        default: 'help'
+        required: true
+        type: string
+
+jobs:
+  print-username:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Execute inputed step
+        run: make ${{ inputs.step }}
+
