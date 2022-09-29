@@ -32,3 +32,5 @@ Icon=/opt/bitwarden/icon128.png
 Type=Application
 Terminal=false
 EOF
+
+curl -L https://raw.githubusercontent.com/bitwarden/desktop/master/src/images/icon.png -o /opt/bitwarden/icon.png

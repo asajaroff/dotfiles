@@ -34,6 +34,14 @@ case "$(uname -s)" in
   ;;
 esac
 
+#
+# Containers
+#
+if [ -f /usr/bin/podman ]; then
+	alias docker=podman
+fi
+alias dlogs="docker logs"
+
 # Editor config
 #
 #
@@ -88,3 +96,16 @@ alias aliasrc="nvim ${CONFIG_DIR}/aliases"
 alias dotFiles="cd ~/.dotfiles"
 alias devDotFiles="vim ~/.dotfiles"
 alias aws-instances='aws ec2 describe-instances | view -'
+
+if [[ -f ${ALIASES_DIR}/functions/jump.sh ]] ; then
+	echo "Sourcing private jump function"
+	source ${ALIASES_DIR}/functions/jump.sh 
+	alias j=jump
+else
+	echo "[ERR] jump function not found - Check private repo"
+fi
+
+# Kubernetes
+alias kubectl="$(ls -1 /usr/local/bin/kubectl* | tail -n 1)"
+alias helm="$(ls -1 /usr/local/bin/helm* | tail -n 1)"
+alias argocd="$(ls -1 /usr/local/bin/argocd* | tail -n 1)"
