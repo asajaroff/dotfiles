@@ -139,7 +139,7 @@ asdf-setup-kubectl:
 	asdf install kubectl latest:1.19.
 	asdf install kubectl latest:1.18.
 	asdf global kubectl latest
-=======
+
 clean: ## Render a destructive statement
 	@echo "rm -rf ${DOTFILES_DIR}"
 
