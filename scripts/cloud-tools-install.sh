@@ -16,21 +16,36 @@ move_to_path() {
 	fi
 }
 
-# kubernetes-cli
-get_kubernetes() {
-	curl -L https://github.com/kubernetes/kops/releases/download/$1/kops-linux-amd64 -o kubectl-$1
-	move_to_path ./kubectl-$1
-	ln -sf /usr/local/bin/kops-$1 /usr/local/bin/kubectl
-}
-
 # kops
 get_kops() {
-	curl -LO "https://dl.k8s.io/release/v.1.24.0/bin/linux/amd64/kubectl"
+	curl -L https://github.com/kubernetes/kops/releases/download/$1/kops-linux-amd64 -o kops-$1
+	move_to_path ./kops-$1
+	ln -sf /usr/local/bin/kops-$1 /usr/local/bin/kops
+}
+
+# kubernetes-cli
+KUBERNETES_CLI_VERSION=v.1.24.0
+get_kubernetes() {
+	curl -LO "https://dl.k8s.io/release/${1}/bin/linux/amd64/kubectl"
 	move_to_path ./kubectl-$1
 	ln -sf /usr/local/bin/kubectl-$1 /usr/local/bin/kubectl
 }
 
-get_kops v1.20.1
-get_kops v1.21.5
-get_kops v1.22.6
-get_kops $KOPS_VERSION
+# terraform
+get_terraform() {
+	curl -L "https://releases.hashicorp.com/terraform/$1/terraform_$1_linux_amd64.zip" -o terraform-v$1
+	move_to_path ./terraform-v1$1
+}
+
+# helm
+HELM_VERSION=v3.10.2
+get_helm() {
+	curl -LO "https://get.helm.sh/helm-$1-linux-amd64.tar.gz"
+	move_to_path ./helm-$1
+	ln -sf /usr/local/bin/helm-$1 /usr/local/bin/helm
+}
+
+# `get_kops v1.20.1
+# `get_kops v1.21.5
+# `get_kops v1.22.6
+# `get_kops $KOPS_VERSION
