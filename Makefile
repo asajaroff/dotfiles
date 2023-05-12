@@ -69,6 +69,28 @@ endif
 
 editor: editor-requisites neovim neovim-plugins emacs-dep emacs doom-emacs ## Configure text editor
 
+# ___  ___           _____ _______   __
+# |  \/  |          |  _  /  ___\ \ / /
+# | .  . | __ _  ___| | | \ `--. \ V / 
+# | |\/| |/ _` |/ __| | | |`--. \/   \ 
+# | |  | | (_| | (__\ \_/ /\__/ / /^\ \
+# \_|  |_/\__,_|\___|\___/\____/\/   \/
+macos-install:
+	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+                                     
+
+macos-brew-dependencies: ## MacOS 13.X+ - Install basic MacOS utils
+	brew install coreutils neovim 
+	brew install gcc
+	brew install --cask rectangle
+	brew install --cask netnewswire
+	brew install --cask marta
+	brew install --cask vscodium
+	brew install --cask bitwarden
+	brew install --cask iterm2
+	# brew install --cask alfred
+                                     
+
 #  ___ _ __ ___   __ _  ___ ___
 # / _ \ '_ ` _ \ / _` |/ __/ __|
 #|  __/ | | | | | (_| | (__\__ \
@@ -139,7 +161,7 @@ asdf-setup-kubectl:
 	asdf install kubectl latest:1.19.
 	asdf install kubectl latest:1.18.
 	asdf global kubectl latest
-=======
+
 clean: ## Render a destructive statement
 	@echo "rm -rf ${DOTFILES_DIR}"
 
