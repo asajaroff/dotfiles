@@ -89,6 +89,10 @@ macos-brew-dependencies: ## MacOS 13.X+ - Install basic MacOS utils
 	brew install --cask bitwarden
 	brew install --cask iterm2
 	# brew install --cask alfred
+	#
+macos-upgrade: ##
+	brew outdated
+	brew upgrade
                                      
 
 #  ___ _ __ ___   __ _  ___ ___
