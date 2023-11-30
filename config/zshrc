@@ -4,10 +4,9 @@ plugins=(git)
 
 # User configuration
 
-source ~/.dotfiles/aliases
+source ~/.dotfiles/config/aliases
 
 # Functions
-source ~/.dotfiles/functions/movement.sh
 source ~/.dotfiles/functions/kubernetes.sh
 source ~/.dotfiles/functions/terraform.sh
 
@@ -86,4 +85,3 @@ fi
 if [[ -f "ASDF_BIN" ]]; then
   source /usr/local/share/zsh/site-functions/_kubectl
 fi
-

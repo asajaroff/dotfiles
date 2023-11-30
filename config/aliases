@@ -104,8 +104,3 @@ if [[ -f ${ALIASES_DIR}/functions/jump.sh ]] ; then
 else
 	echo "[ERR] jump function not found - Check private repo"
 fi
-
-# Kubernetes
-alias kubectl="$(ls -1 /usr/local/bin/kubectl* | tail -n 1)"
-alias helm="$(ls -1 /usr/local/bin/helm* | tail -n 1)"
-alias argocd="$(ls -1 /usr/local/bin/argocd* | tail -n 1)"
