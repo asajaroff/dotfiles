@@ -78,7 +78,6 @@ editor: editor-requisites neovim neovim-plugins emacs-dep emacs doom-emacs ## Co
 macos-install:
 	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
                                      
-
 macos-brew-dependencies: ## MacOS 13.X+ - Install basic MacOS utils
 	brew install coreutils neovim 
 	brew install gcc
@@ -87,12 +86,30 @@ macos-brew-dependencies: ## MacOS 13.X+ - Install basic MacOS utils
 	brew install --cask marta
 	brew install --cask vscodium
 	brew install --cask bitwarden
-	brew install --cask iterm2
 	# brew install --cask alfred
-	#
-macos-upgrade: ##
+
+macos-brew-web-tools:
+	brew install --cask chromium
+	brew install --cask
+
+macos-brew-sre-software: ## Basic SRE software needed for daily work
+	brew tap tofuutils/tap
+	brew install tenv
+	brew install tldr tree gnu-tar ripgrep tmux jq gnupg
+
+macos-brew-dev-software: ## Installs development software
+	brew install --cask visual-studio-code
+	brew install go
+	brew install node@22
+
+macos-upgrade: ## Update and upgrade
+	brew update
+	brew list
 	brew outdated
 	brew upgrade
+	brew cleanup --prune=all --dry-run
+	tldr --update
+
                                      
 
 #  ___ _ __ ___   __ _  ___ ___
