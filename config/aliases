@@ -63,6 +63,7 @@ alias k="/usr/local/bin/kubectl"
 #
 # Git 
 #
+alias ss='git status --short'
 alias gs='git status'
 alias ga='git add'
 alias gp='git push'
