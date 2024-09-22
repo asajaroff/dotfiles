@@ -5,7 +5,7 @@
 # Variables
 DOTFILES_DIR=${HOME}/.dotfiles
 CONFIG_DIR=${DOTFILES_DIR}/config
-ALIASES_DIR=${DOTFILES_DIR}/private 
+ALIASES_DIR=${DOTFILES_DIR}/config/alias
 
 if [[ -d "${ALIASES_DIR}" ]] ; then
   for file in $(ls -1 $ALIASES_DIR | grep alias); do

@@ -1,22 +1,16 @@
 .DEFAULT_GOAL := help
-.PHONY: all
-# __   ____ _ _ __ ___
-# \ \ / / _` | '__/ __|
-#  \ V / (_| | |  \__ \
-#   \_/ \__,_|_|  |___/
-#
 OS_ARCH 	:= $(shell arch)
 DOTFILES_DIR	:= ${HOME}/.dotfiles
 GOBIN 		?= $(shell go bin) 
 ASDF_DIR	:= ${HOME}/.asdf
 
-# Help
+.PHONY: help
 help:
 	@awk 'BEGIN {FS = ":.*##"; printf "Usage: make \033[36m<target>\033[0m\n"} /^[a-zA-Z_-]+:.*?##/ { printf "  \033[36m%-10s\033[0m %s\n", $$1, $$2 } /^##@/ { printf "\n\033[1m%s\033[0m\n", substr($$0, 5) } ' $(MAKEFILE_LIST)
-
 #
 # Init
 #
+
 init: git-config git-submodules-private ## Initialize git-submodules
 
 git-submodules-private: ## Fetch and pull private git-submodules (requires auth)
@@ -32,12 +26,6 @@ git-config: ## Configure git user and email
 	git config --global user.name "Alejandro Sajaroff"
 	git config --global user.email "asajaroff@users.noreply.github.com"
 
-#      _          _ _
-#     | |        | | |
-#  ___| |__   ___| | |
-# / __| '_ \ / _ \ | |
-# \__ \ | | |  __/ | |
-# |___/_| |_|\___|_|_|
 shells: shell-requisites bash zsh tmux ## Setup zsh, bash and tmux configs
 
 shell-requisites: ## Install starship add-on for bash/zsh
@@ -139,7 +127,7 @@ asdf-setup-kubectl:
 	asdf install kubectl latest:1.19.
 	asdf install kubectl latest:1.18.
 	asdf global kubectl latest
-=======
+
 clean: ## Render a destructive statement
 	@echo "rm -rf ${DOTFILES_DIR}"
 

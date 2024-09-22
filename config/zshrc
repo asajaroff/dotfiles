@@ -1,17 +1,13 @@
-eval "$(starship init zsh)"
-
 plugins=(git)
 
 # User configuration
 
-source ~/.dotfiles/aliases
+source ~/.dotfiles/config/aliases
 
 # Functions
 source ~/.dotfiles/functions/movement.sh
 source ~/.dotfiles/functions/kubernetes.sh
 source ~/.dotfiles/functions/terraform.sh
-
-#export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
 export LANG=en_US.UTF-8
@@ -87,3 +83,4 @@ if [[ -f "ASDF_BIN" ]]; then
   source /usr/local/share/zsh/site-functions/_kubectl
 fi
 
+eval "$(starship init zsh)"
