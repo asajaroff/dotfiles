@@ -9,7 +9,7 @@ ALIASES_DIR=${DOTFILES_DIR}/config/alias
 
 if [[ -d "${ALIASES_DIR}" ]] ; then
   for file in $(ls -1 $ALIASES_DIR | grep alias); do
-    source ${ALIASES_DIR}/${file}
+    # source ${ALIASES_DIR}/${file}
   done
 fi
 
@@ -91,8 +91,3 @@ alias aliasrc="nvim ${CONFIG_DIR}/aliases"
 alias dotFiles="cd ~/.dotfiles"
 alias devDotFiles="vim ~/.dotfiles"
 alias aws-instances='aws ec2 describe-instances | view -'
-
-# Kubernetes
-alias kubectl="$(ls -1 /usr/local/bin/kubectl* | tail -n 1)"
-alias helm="$(ls -1 /usr/local/bin/helm* | tail -n 1)"
-alias argocd="$(ls -1 /usr/local/bin/argocd* | tail -n 1)"
