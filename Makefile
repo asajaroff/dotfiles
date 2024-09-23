@@ -1,8 +1,8 @@
-.DEFAULT_GOAL := help
-OS_ARCH 	:= $(shell arch)
+.DEFAULT_GOAL 	:= help
 DOTFILES_DIR	:= ${HOME}/.dotfiles
+OS_ARCH 	:= $(shell arch)
+OS_FAMILY	:= $(shell uname)
 GOBIN 		?= $(shell go bin) 
-ASDF_DIR	:= ${HOME}/.asdf
 
 .PHONY: help
 help:
@@ -54,82 +54,6 @@ ifeq ($(OS_ARCH),darwin)
 	echo $(KUBERNETES_VERSION)
 endif
 
-
-editor: editor-requisites neovim neovim-plugins emacs-dep emacs doom-emacs ## Configure text editor
-
-#  ___ _ __ ___   __ _  ___ ___
-# / _ \ '_ ` _ \ / _` |/ __/ __|
-#|  __/ | | | | | (_| | (__\__ \
-# \___|_| |_| |_|\__,_|\___|___/
-emacs-dep:
-	sudo dnf install git ripgrep
-
-emacs:
-	@echo sudo apt install emacs # Ubuntu
-	@echo brew install emacs
-	@echo sudo dnf install emacs
-
-DOOM_DIR := ${HOME}/.doom.d
-
-doom-emacs:
-	@if test -d ${DOOM_DIR}; then git clone --depth 1 https://github.com/hlissner/doom-emacs ~/.emacs.d; ~/.emacs.d/bin/doom install; fi
-	ln -sf ${HOME}/.dotfiles/config/emacs/doom.d/config.el ${HOME}/.doom.d/config.el
-	ln -sf ${HOME}/.dotfiles/config/emacs/doom.d/init.el ${HOME}/.doom.d/init.el
-	ln -sf ${HOME}/.dotfiles/config/emacs/doom.d/packages.el ${HOME}/.doom.d/packages.el
-	~/.emacs.d/bin/doom sync
-
-editor-requisites: ## Create vim folders
-	@echo "To build from sorce, follow this guide: https://github.com/neovim/neovim/wiki/Building-Neovim#build-prerequisites"
-	mkdir -p ${HOME}/.vim/swapfiles
-	mkdir -p ${HOME}/.vim/backupfiles
-	mkdir -p ${HOME}/.config/nvim/
-
-neovim-plugins: ## Install Plug for neovim
-	sh -c 'curl -fLo "${HOME}/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
-		https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-
-#               | |/ _|
-#   __ _ ___  __| | |_ 
-#  / _` / __|/ _` |  _|
-# | (_| \__ \ (_| | |  
-#  \__,_|___/\__,_|_|  
-#
-asdf: asdf-setup-plugins asdf-install-packages ## Installs `asdf` utility
-
-asdf-reinstall: asdf-setup-terraform asdf-setup-vault asdf-setup-kubectl
-
-asdf-install:
-	@if test -d ${ASDF_DIR}; then echo "asdf is installed at $(ASDF_DIR)"; else git clone https://github.com/asdf-vm/asdf.git $(ASDF_DIR) --branch v0.9.0; fi
-
-asdf-setup-plugins:
-	asdf plugin-add boundary https://github.com/asdf-community/asdf-hashicorp.git
-	asdf plugin-add consul https://github.com/asdf-community/asdf-hashicorp.git
-	asdf plugin-add nomad https://github.com/asdf-community/asdf-hashicorp.git
-	asdf plugin-add packer https://github.com/asdf-community/asdf-hashicorp.git
-	asdf plugin-add terraform https://github.com/asdf-community/asdf-hashicorp.git
-	asdf plugin-add vault https://github.com/asdf-community/asdf-hashicorp.git
-	asdf plugin-add kubectl https://github.com/asdf-community/asdf-kubectl.git
-
-asdf-setup-terraform:
-	asdf install terraform latest
-	asdf install terraform latest:1.1.
-	asdf install terraform 0.14.11
-	asdf install terraform latest:0.14.
-	asdf global terraform latest
-
-asdf-setup-vault:
-	asdf install vault latest
-	asdf global vault latest
-
-asdf-setup-kubectl: 
-	asdf install kubectl latest
-	asdf install kubectl latest:1.22.
-	asdf install kubectl latest:1.19.
-	asdf install kubectl latest:1.18.
-	asdf global kubectl latest
-
-clean: ## Render a destructive statement
-	@echo "rm -rf ${DOTFILES_DIR}"
 
 #
 # Programming utils
