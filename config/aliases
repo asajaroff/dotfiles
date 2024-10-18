@@ -35,6 +35,11 @@ case "$(uname -s)" in
 esac
 
 #
+# Navegación
+# 
+alias github="${HOME}/Code/github.com/asajaroff"
+alias tmpdir="export DIR=`date +%s`; mkdir -p /tmp/${DIR}; cd /tmp/${DIR}"
+#
 # Containers
 #
 if [ -f /usr/bin/podman ]; then
@@ -91,3 +96,7 @@ alias aliasrc="nvim ${CONFIG_DIR}/aliases"
 alias dotFiles="cd ~/.dotfiles"
 alias devDotFiles="vim ~/.dotfiles"
 alias aws-instances='aws ec2 describe-instances | view -'
+
+# workboxes
+alias work="ssh galera@proxmox.ams.molest.ar -p 46222"
+alias devbox="❯ ssh -i ~/.ssh/id_ed25519 proxmox.ams.molest.ar -p 47222"
