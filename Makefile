@@ -11,14 +11,17 @@ help:
 init: git-config git-submodules-private ## Initialize git-submodules
 
 update:
-ifeq ($(shell uname),Darwin)
+ifeq ($(shell uname), Darwin)
 	brew update
 	brew outdated
 	brew upgrade
 	brew autoremove
-	brew cleanup --prune=all --dry-run
-else
+	brew cleanup --prune=all
+else ifeq ($(shell uname), Linux)
 	sudo apt update
+	sudo apt 
+else
+	@echo "Could not identify host OS: stopping."
 endif
 
 git-submodules-private: ## Fetch and pull private git-submodules (requires auth)
