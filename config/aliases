@@ -16,9 +16,10 @@ fi
 # Check OS type and export coloured `ls`
 case "$(uname -s)" in
   Darwin)
-  alias ls='ls -G'
-  alias l='ls -laG'
-  alias ll='ls -ltrG'
+  alias la='gls -l --color --group-directories-first -h'
+  alias ls='gls -l --color --group-directories-first -h --all'
+  alias l='la'
+  alias ll='gls --color -ltrG'
   ;;
   Linux)
   alias ls='ls --color=auto'
@@ -37,7 +38,7 @@ esac
 #
 # Navegación
 # 
-alias github="${HOME}/Code/github.com/asajaroff"
+alias github="cd ${HOME}/Code/github.com/asajaroff"
 alias tmpdir="export DIR=`date +%s`; mkdir -p /tmp/${DIR}; cd /tmp/${DIR}"
 #
 # Containers
@@ -94,7 +95,7 @@ alias bashrc="nvim ${CONFIG_DIR}/bashrc"
 alias tmuxrc="nvim ${CONFIG_DIR}/tmux.conf"
 alias aliasrc="nvim ${CONFIG_DIR}/aliases"
 alias dotFiles="cd ~/.dotfiles"
-alias devDotFiles="vim ~/.dotfiles"
+alias devDotFiles="emacs -nw ~/.dotfiles"
 alias aws-instances='aws ec2 describe-instances | view -'
 
 # workboxes

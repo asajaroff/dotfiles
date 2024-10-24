@@ -4,7 +4,11 @@
 (tool-bar-mode 0)
 (scroll-bar-mode 0)
 ;(global-display-line-numbers-mode
- 
+
+; Dired
+(setq insert-directory-program "gls")
+(setq dired-listing-switches "--all --group-directories-first")
+
 ; Interactive do
 (setq ido-everywhere t)
 (ido-mode 1)
