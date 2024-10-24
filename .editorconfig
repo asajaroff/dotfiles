@@ -16,7 +16,7 @@ insert_final_newline = false
 charset = utf-8
 
 # Bash
-[*.sh]
+[*.sh,*.bash]
 indent_style = tab
 indent_size = 2
 
@@ -34,7 +34,6 @@ indent_style = tab
 indent_style = space
 indent_size = 2
 
-# Matches the exact files either package.json or .travis.yml
-[{package.json,.travis.yml}]
+[{package.json,*.yml,*.yaml}]
 indent_style = space
 indent_size = 2
