@@ -18,19 +18,20 @@ jobs:
         uses: purcell/setup-emacs@master
         with:
           version: 27.1
+
       - uses: actions/checkout@v2
       - name: 'Clone private repos'
         run: git submodule update --init --recursive
         continue-on-error: true
+
       - uses: actions/checkout@v2
       - name: 'make shells'
         run: make shells
+
       - uses: actions/checkout@v2
       - name: 'make kubernetes'
         run: make kubernetes
-      - uses: actions/checkout@v2
-      - name: 'make neovim'
-        run: make neovim
+
       - uses: actions/checkout@v2
       - name: 'make nodejs'
         run: make nodejs
