@@ -25,7 +25,7 @@
 ;; Custom keybindings
 
 ;; MacOS gui configuration
-(set-frame-font "Monaco 19" nil t)
+(set-frame-font "Monaco 21" nil t)
 
 ;; Tree-sitter
 (load-file "~/.dotfiles/config/emacs/tree-sitter.el")
