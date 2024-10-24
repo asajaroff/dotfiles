@@ -69,6 +69,49 @@ endif
 
 editor: editor-requisites neovim neovim-plugins emacs-dep emacs doom-emacs ## Configure text editor
 
+# ___  ___           _____ _______   __
+# |  \/  |          |  _  /  ___\ \ / /
+# | .  . | __ _  ___| | | \ `--. \ V / 
+# | |\/| |/ _` |/ __| | | |`--. \/   \ 
+# | |  | | (_| | (__\ \_/ /\__/ / /^\ \
+# \_|  |_/\__,_|\___|\___/\____/\/   \/
+macos-install:
+	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+                                     
+macos-brew-dependencies: ## MacOS 13.X+ - Install basic MacOS utils
+	brew install coreutils neovim 
+	brew install gcc
+	brew install --cask rectangle
+	brew install --cask netnewswire
+	brew install --cask marta
+	brew install --cask vscodium
+	brew install --cask bitwarden
+	# brew install --cask alfred
+
+macos-brew-web-tools:
+	brew install --cask chromium
+	brew install --cask
+
+macos-brew-sre-software: ## Basic SRE software needed for daily work
+	brew tap tofuutils/tap
+	brew install tenv
+	brew install tldr tree gnu-tar ripgrep tmux jq gnupg
+
+macos-brew-dev-software: ## Installs development software
+	brew install --cask visual-studio-code
+	brew install go
+	brew install node@22
+
+macos-upgrade: ## Update and upgrade
+	brew update
+	brew list
+	brew outdated
+	brew upgrade
+	brew cleanup --prune=all --dry-run
+	tldr --update
+
+                                     
+
 #  ___ _ __ ___   __ _  ___ ___
 # / _ \ '_ ` _ \ / _` |/ __/ __|
 #|  __/ | | | | | (_| | (__\__ \
@@ -139,7 +182,7 @@ asdf-setup-kubectl:
 	asdf install kubectl latest:1.19.
 	asdf install kubectl latest:1.18.
 	asdf global kubectl latest
-=======
+
 clean: ## Render a destructive statement
 	@echo "rm -rf ${DOTFILES_DIR}"
 

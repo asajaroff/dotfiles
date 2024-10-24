@@ -29,8 +29,5 @@ jobs:
       - name: 'make kubernetes'
         run: make kubernetes
       - uses: actions/checkout@v2
-      - name: 'make neovim'
-        run: make neovim
-      - uses: actions/checkout@v2
       - name: 'make nodejs'
         run: make nodejs
