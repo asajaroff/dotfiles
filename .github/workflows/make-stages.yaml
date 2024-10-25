@@ -35,3 +35,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: 'make nodejs'
         run: make nodejs-tooling
+
+      - uses: actions/checkout@v2
+      - name: 'Validate tmux config'
+        run: tmux source ./config/tmux/.tmux.conf
