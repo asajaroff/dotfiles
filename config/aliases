@@ -5,20 +5,21 @@
 # Variables
 DOTFILES_DIR=${HOME}/.dotfiles
 CONFIG_DIR=${DOTFILES_DIR}/config
-ALIASES_DIR=${DOTFILES_DIR}/private 
+ALIASES_DIR=${DOTFILES_DIR}/config/alias
 
 if [[ -d "${ALIASES_DIR}" ]] ; then
   for file in $(ls -1 $ALIASES_DIR | grep alias); do
-    source ${ALIASES_DIR}/${file}
+    # source ${ALIASES_DIR}/${file}
   done
 fi
 
 # Check OS type and export coloured `ls`
 case "$(uname -s)" in
   Darwin)
-  alias ls='ls -G'
-  alias l='ls -laG'
-  alias ll='ls -ltrG'
+  alias la='gls -l --color --group-directories-first -h'
+  alias ls='gls -l --color --group-directories-first -h --all'
+  alias l='la'
+  alias ll='gls --color -ltrG'
   ;;
   Linux)
   alias ls='ls --color=auto'
@@ -34,6 +35,11 @@ case "$(uname -s)" in
   ;;
 esac
 
+#
+# Navegación
+# 
+alias github="cd ${HOME}/Code/github.com/asajaroff"
+alias tmpdir="export DIR=`date +%s`; mkdir -p /tmp/${DIR}; cd /tmp/${DIR}"
 #
 # Containers
 #
@@ -63,6 +69,7 @@ alias k="/usr/local/bin/kubectl"
 #
 # Git 
 #
+alias ss='git status --short'
 alias gs='git status'
 alias ga='git add'
 alias gp='git push'
@@ -81,12 +88,6 @@ alias grs='git remote show'
 alias glo='git log --pretty="oneline"'
 alias glol='git log --graph --oneline --decorate'
 
-# Source external configurations
-source ~/.dotfiles/functions/git.sh 
-source ~/.dotfiles/functions/kubernetes.sh
-source ~/.dotfiles/functions/terraform.sh
-source ~/.dotfiles/functions/aws.sh
-
 # Frecuently used config files
 alias vimrc="nvim ${CONFIG_DIR}/neovim/init.vim"
 alias zshrc="nvim ${CONFIG_DIR}/zshrc"
@@ -94,18 +95,9 @@ alias bashrc="nvim ${CONFIG_DIR}/bashrc"
 alias tmuxrc="nvim ${CONFIG_DIR}/tmux.conf"
 alias aliasrc="nvim ${CONFIG_DIR}/aliases"
 alias dotFiles="cd ~/.dotfiles"
-alias devDotFiles="vim ~/.dotfiles"
+alias devDotFiles="emacs -nw ~/.dotfiles"
 alias aws-instances='aws ec2 describe-instances | view -'
 
-if [[ -f ${ALIASES_DIR}/functions/jump.sh ]] ; then
-	echo "Sourcing private jump function"
-	source ${ALIASES_DIR}/functions/jump.sh 
-	alias j=jump
-else
-	echo "[ERR] jump function not found - Check private repo"
-fi
-
-# Kubernetes
-alias kubectl="$(ls -1 /usr/local/bin/kubectl* | tail -n 1)"
-alias helm="$(ls -1 /usr/local/bin/helm* | tail -n 1)"
-alias argocd="$(ls -1 /usr/local/bin/argocd* | tail -n 1)"
+# workboxes
+alias work="ssh galera@proxmox.ams.molest.ar -p 46222"
+alias devbox="❯ ssh -i ~/.ssh/id_ed25519 proxmox.ams.molest.ar -p 47222"
