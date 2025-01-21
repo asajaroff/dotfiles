@@ -9,7 +9,7 @@
 	(message "editorconfig cloned.")))))
 
 
-;(add-to-list 'load-path "~/.emacs.d/editorconfig")
+(add-to-list 'load-path "~/.emacs.d/editorconfig")
 
 (require 'editorconfig)
 (editorconfig-mode 1)

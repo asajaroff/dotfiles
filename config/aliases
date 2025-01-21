@@ -89,14 +89,19 @@ alias glo='git log --pretty="oneline"'
 alias glol='git log --graph --oneline --decorate'
 
 # Frecuently used config files
-alias vimrc="nvim ${CONFIG_DIR}/neovim/init.vim"
+alias vimrc="nvim ${CONFIG_DIR}/nvim/init.lua"
 alias zshrc="nvim ${CONFIG_DIR}/zshrc"
 alias bashrc="nvim ${CONFIG_DIR}/bashrc"
 alias tmuxrc="nvim ${CONFIG_DIR}/tmux.conf"
-alias aliasrc="nvim ${CONFIG_DIR}/aliases"
+alias aliasrc="nvim ${CONFIG_DIR}/aliases; source ${CONFIG_DIR}/aliases"
 alias dotFiles="cd ~/.dotfiles"
 alias devDotFiles="emacs -nw ~/.dotfiles"
 alias aws-instances='aws ec2 describe-instances | view -'
+
+# Repositories
+alias gocode="cd ~/Code"
+alias gogh="cd ~/Code/github.com/asajaroff"
+alias goeen="cd ~/Code/EENCloud"
 
 # workboxes
 alias work="ssh galera@proxmox.ams.molest.ar -p 46222"

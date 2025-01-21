@@ -44,6 +44,7 @@ shell-requisites: ## Install starship add-on for bash/zsh
 	curl -fsSL https://starship.rs/install.sh -o /tmp/dotfiles/starship/install.sh
 	chmod +x /tmp/dotfiles/starship/install.sh
 	sudo /tmp/dotfiles/starship/install.sh -y
+	ln -sf ${DOTFILES_DIR} ~/.config/starship.toml
 
 bash: ## Create bash symlinks to configfiles
 	ln -sf ${HOME}/.dotfiles/config/bashrc ${HOME}/.bashrc
@@ -73,3 +74,20 @@ endif
 # nvm
 nodejs-tooling:  ## Install nodjs tooling (nvm)
 	curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+
+#
+# MacOS
+#
+
+macos-base:
+	brew install gcc cmake llvm neovim coreutils ed findutils gawk gnu-sed gnu-tar grep make tmux
+	brew install --cask rectangle ghostty
+
+een:
+	brew install cmctl kubernetes-cli helm kubectx
+	brew install --cask zulip openvpn-connect
+	brew tap hashicorp/tap
+	brew install hashicorp/tap/vault
+
+een-devel:
+	brew install qemu docker minikube

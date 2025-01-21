@@ -15,9 +15,16 @@
 (setq ido-create-new-buffer 'always)
 (setq-default confirm-nonexistent-file-or-buffer nil)
 
+
+;; MacOS gui configuration
+(set-frame-font "Iosevka Nerd Font 18" nil t)
+
 (use-package which-key
   :ensure t
   :config
   (which-key-mode)
   (which-key-setup-side-window-bottom)
   (which-key-setup-minibuffer))
+
+(load-theme 'gruber-darker 1)
+(evil-mode 1)
