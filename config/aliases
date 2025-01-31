@@ -65,6 +65,9 @@ export LOGS="$WORKSPACE/Logs"
 
 alias kube="/usr/local/bin/kubectl"
 alias k="/usr/local/bin/kubectl"
+alias kd="kubectl describe"
+alias kg="kubectl get"
+
 
 #
 # Git 
