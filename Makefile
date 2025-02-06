@@ -49,6 +49,7 @@ shell-requisites: ## Install starship add-on for bash/zsh
 	ln -sf ${DOTFILES_DIR} ~/.config/starship.toml
 
 bash: ## Create bash symlinks to configfiles
+	ln -sf ${DOTFILES_DIR} ~/.dotfiles
 	ln -sf ${DOTFILES_DIR}/config/bashrc ${HOME}/.bashrc
 	ln -sf ${DOTFILES_DIR}/config/profile ${HOME}/.profile
 
