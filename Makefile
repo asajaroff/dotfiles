@@ -1,5 +1,5 @@
 .DEFAULT_GOAL 	:= help
-DOTFILES_DIR	:= ${HOME}/.dotfiles
+DOTFILES_DIR	:= ${HOME}/Code/github.com/asajaroff/dotfiles
 OS_ARCH 		:= $(shell arch)
 OS_FAMILY		:= $(shell uname)
 GOBIN 			?= $(shell go bin) 
@@ -18,8 +18,10 @@ ifeq ($(shell uname), Darwin)
 	brew autoremove
 	brew cleanup --prune=all
 else ifeq ($(shell uname), Linux)
-	sudo apt update
-	sudo apt 
+	sudo apt update -y
+	sudo apt upgrade -y
+	sudo apt clean
+	sudo apt autoremove
 else
 	@echo "Could not identify host OS: stopping."
 endif
@@ -47,14 +49,14 @@ shell-requisites: ## Install starship add-on for bash/zsh
 	ln -sf ${DOTFILES_DIR} ~/.config/starship.toml
 
 bash: ## Create bash symlinks to configfiles
-	ln -sf ${HOME}/.dotfiles/config/bashrc ${HOME}/.bashrc
-	ln -sf ${HOME}/.dotfiles/config/bashrc ${HOME}/.profile
+	ln -sf ${DOTFILES_DIR}/config/bashrc ${HOME}/.bashrc
+	ln -sf ${DOTFILES_DIR}/config/profile ${HOME}/.profile
 
 zsh: ## Create zsh symlinks to configfiles
-	ln -sf ${HOME}/.dotfiles/config/zshrc ${HOME}/.zshrc
+	ln -sf ${DOTFILES_DIR}/config/zshrc ${HOME}/.zshrc
 
 tmux: ## Create tmux symlinks to configfiles
-	ln -sf ${HOME}/.dotfiles/config/tmux.conf ${HOME}/.tmux.conf 
+	ln -sf ${DOTFILES_DIR}/config/tmux.conf ${HOME}/.tmux.conf 
 
 kubernetes: ## Install kubectl, kubens, kubectx and helm
 ifeq ($(OS_ARCH),darwin)
@@ -76,6 +78,20 @@ nodejs-tooling:  ## Install nodjs tooling (nvm)
 	curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
 
 #
+# Ubuntu / Debian
+#
+ubuntu:
+	sudo apt update -y
+	sudo apt install -y \
+		build-essential \
+		dnsutils \
+		net-tools \
+		netcat-traditional \
+		jq yq
+	sudo apt clean
+	sudo apt autoremove
+
+#
 # MacOS
 #
 
@@ -91,3 +107,6 @@ een:
 
 een-devel:
 	brew install qemu docker minikube
+
+emacs:
+	ln -sf ${DOTFILES_DIR}/config/emacs/init.el ${HOME}/.emacs

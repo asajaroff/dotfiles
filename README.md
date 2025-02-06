@@ -6,12 +6,10 @@
 * A POSIX compatible shell
 * `cmake`/`make`
 
-
 ### Arch
 ```bash
 pacman -Syu base-devel
 ```
-
 
 ### Ubuntu
 ```bash

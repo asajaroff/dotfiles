@@ -28,10 +28,10 @@
 ;; Custom keybindings
 
 ;; Tree-sitter
-(load-file "~/.dotfiles/config/emacs/tree-sitter.el")
+(load-file "~/Code/github.com/asajaroff/dotfiles/config/emacs/tree-sitter.el")
 
 ;; Packages
-;(load-file "~/.dotfiles/config/emacs/custom-packages.el")
+;(load-file "~/Code/github.com/asajaroff/dotfiles/config/emacs/custom-packages.el")
 
 ;; UI
-(load-file "~/.dotfiles/config/emacs/ui.el")
+(load-file "~/Code/github.com/asajaroff/dotfiles/config/emacs/ui.el")
