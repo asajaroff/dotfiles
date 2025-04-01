@@ -1,14 +1,14 @@
-function kube-get-env {
-  aws eks list-clusters
-  echo "Cluster name:"
-  read EKS_NAME
-  echo "kubeconfig file:"
-  read KUBECONFIG_FILE
-  aws eks update-kubeconfig --name $EKS_NAME --kubeconfig $HOME/.kube/$KUBECONFIG_FILE
-  export KUBECONFIG=$HOME/.kube/$KUBECONFIG_FILE
+#!/usr/bin/env bash
+# Kubernetes functions
+# Alejandro Sajaroff <asajaroff@users.noreply.github.com>
+
+function pods_in_node() {
+    if [ -z "$1" ]; then
+        echo "Error: Must provide a valid node name"
+        return 1
+    fi
+    for NODE in $*
+    do
+        kubectl get pods --all-namespaces -o wide --field-selector spec.nodeName=${NODE}
+    done
 }
-
-# kubectl get pods -o json | jq -r '.items | sort_by(.spec.nodeName)[] | [.spec.nodeName,.metadata.name] '
-
-# Filter by node
-# kubectl get pod -o json | jq -r '.items[] | select(.spec.nodeName==ip-172-30-63-169.ec2.internal)' 
