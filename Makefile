@@ -5,7 +5,7 @@
 #  \ V / (_| | |  \__ \
 #   \_/ \__,_|_|  |___/
 #
-OS_ARCH 	:= $(shell arch)
+#OS_ARCH 	:= $(shell arch)
 DOTFILES_DIR	:= ${HOME}/.dotfiles
 GOBIN 		?= $(shell go bin) 
 ASDF_DIR	:= ${HOME}/.asdf
@@ -30,7 +30,7 @@ endif
 
 git-config: ## Configure git user and email
 	git config --global user.name "Alejandro Sajaroff"
-	git config --global user.email "asajaroff@users.noreply.github.com"
+	git config --global user.email "29068982+asajaroff@+users.noreply.github.com"
 
 #      _          _ _
 #     | |        | | |
@@ -55,17 +55,6 @@ zsh: ## Create zsh symlinks to configfiles
 
 tmux: ## Create tmux symlinks to configfiles
 	ln -sf ${HOME}/.dotfiles/config/tmux.conf ${HOME}/.tmux.conf 
-
-kubernetes: ## Install kubectl, kubens, kubectx and helm
-ifeq ($(OS_ARCH),darwin)
-	KUBERNETES_VERSION := (shell curl -L -s https://dl.k8s.io/release/stable.txt)
-	curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/darwin/amd64/kubectl"
-	xattr -d com.apple.quarantine kubectl
-	chmod +x kubectl
-	mv kubectl /usr/local/bin/kubectl-$(curl -L -s https://dl.k8s.io/release/stable.txt)
-	echo $(KUBERNETES_VERSION)
-endif
-
 
 editor: editor-requisites neovim neovim-plugins emacs-dep emacs doom-emacs ## Configure text editor
 
@@ -139,7 +128,7 @@ asdf-setup-kubectl:
 	asdf install kubectl latest:1.19.
 	asdf install kubectl latest:1.18.
 	asdf global kubectl latest
-=======
+
 clean: ## Render a destructive statement
 	@echo "rm -rf ${DOTFILES_DIR}"
 
