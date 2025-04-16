@@ -1,6 +1,6 @@
 .DEFAULT_GOAL 	:= help
 DOTFILES_DIR	:= ${HOME}/Code/github.com/asajaroff/dotfiles
-OS_ARCH 		:= $(shell arch)
+#OS_ARCH 		:= $(shell arch)
 OS_FAMILY		:= $(shell uname)
 GOBIN 			?= $(shell go bin) 
 .PHONY: help
@@ -37,7 +37,7 @@ endif
 
 git-config: ## Configure git user and email
 	git config --global user.name "Alejandro Sajaroff"
-	git config --global user.email "asajaroff@users.noreply.github.com"
+	git config --global user.email "29068982+asajaroff@+users.noreply.github.com"
 
 shells: shell-requisites bash zsh tmux ## Setup zsh, bash and tmux configs
 
@@ -69,6 +69,11 @@ ifeq ($(OS_ARCH),darwin)
 	echo $(KUBERNETES_VERSION)
 endif
 
+#
+# aliases
+#
+aliases: ## Create aliases
+	source ~
 
 #
 # Programming utils
@@ -111,3 +116,4 @@ een-devel:
 
 emacs:
 	ln -sf ${DOTFILES_DIR}/config/emacs/init.el ${HOME}/.emacs
+	touch ${HOME}/emacs.custom.el
