@@ -9,8 +9,8 @@ ALIASES_DIR=${DOTFILES_DIR}/config/alias
 
 if [[ -d "${ALIASES_DIR}" ]] ; then
   for file in $(ls -1 $ALIASES_DIR | grep alias); do
-    # source ${ALIASES_DIR}/${file}
-  done
+    source ${ALIASES_DIR}/${file}
+    done
 fi
 
 # Check OS type and export coloured `ls`
@@ -63,10 +63,10 @@ export WORKSPACE=~/Workspace
 export REPOS="$WORKSPACE/Repos"
 export LOGS="$WORKSPACE/Logs"
 
-alias kube="/usr/local/bin/kubectl"
-alias k="/usr/local/bin/kubectl"
-alias kd="kubectl describe"
-alias kg="kubectl get"
+alias kube=$(which kubectl)
+alias k=$(which kubectl)
+alias kd="$(which kubectl) describe"
+alias kg="$(which kubectl) get"
 
 
 #

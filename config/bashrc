@@ -37,3 +37,12 @@ fi
 
 # Starship shell
 eval "$(starship init bash)"
+
+# Bash completions
+. <(asdf completion bash)
+. <(tldr --print-completion bash)
+
+# Coloured man pages
+export MANPAGER="less -R --use-color -Dd+r -Du+b"
+export MANROFFOPT="-P -c"
+
