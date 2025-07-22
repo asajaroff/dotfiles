@@ -43,7 +43,7 @@ endif
 
 git-config: ## Configure git user and email
 	git config --global user.name "Alejandro Sajaroff"
-	git config --global user.email "29068982+asajaroff@+users.noreply.github.com"
+	git config --global user.email "29068982+asajaroff@users.noreply.github.com"
 
 shells: shell-requisites bash zsh tmux ## Setup zsh, bash and tmux configs
 

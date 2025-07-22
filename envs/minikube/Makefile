@@ -1,4 +1,4 @@
-PROFILE := minikube-host-network
+PROFILE := een-minikube
 
 run:
 	minikube start \
@@ -6,12 +6,16 @@ run:
 		--cni='auto' \
 		--cpus='4' \
 		--ha=false \
-		--nodes=1 \
-		--network='host' \
+		--nodes=2 \
+		--addons=ingress,metrics-server,default-storageclass \
+		--disk-size='50000mb' \
+		--network='' \
+		--kvm-network='default' \
+		--dns-domain='cluster.local' \
 		--listen-address=0.0.0.0 \
 		--container-runtime='' \
-		--kubernetes-version='1.31.3' \
-		--v=5 \
+		--kubernetes-version='1.21.14' \
+		--v=7 \
 		-p $(PROFILE)
 
 

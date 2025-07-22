@@ -27,6 +27,19 @@ source ${DOTFILES}/config/aliases
 
 # Functions
 source ${DOTFILES}/private/clone.sh
+source ${DOTFILES}/private/clone.sh
+
+# EEN 
+EEN_FUNCTIONS_DIR="${HOME}/.dotfiles/private/een/functions/"
+EEN_FUNCTIONS=$(ls -1 ${EEN_FUNCTIONS_DIR})
+echo $EEN_FUNCTIONS
+
+if [[ -d ${EEN_FUNCTIONS_DIR} ]]; then
+	source ${DOTFILES}/private/een/functions/java-utils.sh
+	source ${DOTFILES}/private/een/functions/kubernetes.sh
+	source ${DOTFILES}/private/een/functions/on-prem.sh
+	source ${DOTFILES}/private/een/functions/vpn.sh
+fi
 
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
@@ -34,6 +47,13 @@ if [[ -n $SSH_CONNECTION ]]; then
 else
   export EDITOR='nvim'
 fi
+
+# Krew
+#
+if [[ -d ${HOME}/.krew ]]; then
+  export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+fi
+
 
 # Starship shell
 eval "$(starship init bash)"
@@ -45,4 +65,3 @@ eval "$(starship init bash)"
 # Coloured man pages
 export MANPAGER="less -R --use-color -Dd+r -Du+b"
 export MANROFFOPT="-P -c"
-
