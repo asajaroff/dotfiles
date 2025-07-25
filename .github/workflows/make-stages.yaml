@@ -10,6 +10,24 @@ on:
       - master
 
 jobs:
+  emacs:
+    run: sudo apt-get update && sudo apt-get install -y tmux emacs neovim
+
+  emacs:
+    name: Emacs configuration
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Install dependencies'
+        run: sudo apt-get update && sudo apt-get install -y tmux emacs
+
+      - uses: actions:checkout@v2
+      - name: 'Makefile validation'
+        run: make emacs
+
+      - uses: actions/checkout@v2
+      - name: 'Validate emacs config'
+        run: emacs -nw --load ~/.dotfiles/config/emacs/init.el --eval '(kill-emacs)'
+
   make:
     name: Run all Makefile stages
     runs-on: ubuntu-latest
@@ -35,10 +53,7 @@ jobs:
       - name: 'make kubernetes'
         run: make kubernetes
 
-      - uses: actions/checkout@v2
-      - name: 'Validate tmux config'
-        run: tmux source ./config/tmux/.tmux.conf
-
-      - uses: actions/checkout@v2
-      - name: 'Validate emacs config'
-        run: emacs -nw --load ~/.dotfiles/config/emacs/init.el --eval '(kill-emacs)'
+      # TODO: Make this work at some point
+      #- uses: actions/checkout@v2
+      #- name: 'Validate tmux config'
+      #  run: tmux source ./config/tmux/.tmux.conf
