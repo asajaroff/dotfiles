@@ -19,11 +19,8 @@ jobs:
       - name: 'Install dependencies'
         run: sudo apt-get update && sudo apt-get install -y emacs
 
-      - name: 'Makefile validation'
-        run: echo 'make emacs'
-
-      - name: 'Validate emacs config'
-        run: emacs --load ~/.dotfiles/config/emacs/init.el --eval '(kill-emacs)'
+      - name: 'Validate emacs config (fake tty)'
+        run: script -q -e -c "emacs --batch --load ~/.dotfiles/config/emacs/init.el --eval '(kill-emacs)'"
 
   make:
     name: Run all Makefile stages
