@@ -91,6 +91,12 @@ alias grs='git remote show'
 alias glo='git log --pretty="oneline"'
 alias glol='git log --graph --oneline --decorate'
 
+#
+# Editor(s)
+#
+alias emacs='emacs -nw'
+export EDITOR=emacs
+
 # Frecuently used config files
 alias vimrc="nvim ${CONFIG_DIR}/nvim/init.lua"
 alias zshrc="nvim ${CONFIG_DIR}/zshrc"
@@ -98,7 +104,7 @@ alias bashrc="nvim ${CONFIG_DIR}/bashrc"
 alias tmuxrc="nvim ${CONFIG_DIR}/tmux.conf"
 alias aliasrc="nvim ${CONFIG_DIR}/aliases; source ${CONFIG_DIR}/aliases"
 alias dotFiles="cd ~/.dotfiles"
-alias devDotFiles="emacs -nw ~/.dotfiles"
+alias devDotFiles="${EDITOR} -nw ~/.dotfiles"
 alias aws-instances='aws ec2 describe-instances | view -'
 
 # Repositories

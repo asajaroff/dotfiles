@@ -1,20 +1,21 @@
 .DEFAULT_GOAL 	:= help
 DOTFILES_DIR	:= ${HOME}/Code/github.com/asajaroff/dotfiles
-#OS_ARCH 		:= $(shell arch)
-OS_FAMILY		:= $(shell uname)
+OS_ARCH 		:= $(shell uname -m)
+OS_FAMILY		:= $(shell uname -s)
 GOBIN 			?= $(shell go bin) 
+
 .PHONY: help
+.ONESHELL:
 help:
 	@awk 'BEGIN {FS = ":.*##"; printf "Usage: make \033[36m<target>\033[0m\n"} /^[a-zA-Z_-]+:.*?##/ { printf "  \033[36m%-10s\033[0m %s\n", $$1, $$2 } /^##@/ { printf "\n\033[1m%s\033[0m\n", substr($$0, 5) } ' $(MAKEFILE_LIST)
 
-# Makefile start
 init: git-config git-submodules-private workspace ## Initialize git-submodules
 
 
-workspace:
+workspace: ## Creates the Workspace and Code directory
 	mkdir -p ${HOME}/{Workspace,Code}
-	mkdir -p ${HOME}/Downloads
-	ln --symbolic ${HOME}/Code ${HOME}/Downloads/Code
+	mkdir -p ${HOME}/Workspace/{log,tmp,daily}
+	ln --symbolic ${HOME}/Code ${HOME}/Workspace/Code
 
 update:
 ifeq ($(shell uname), Darwin)
@@ -24,10 +25,11 @@ ifeq ($(shell uname), Darwin)
 	brew autoremove
 	brew cleanup --prune=all
 else ifeq ($(shell uname), Linux)
-	sudo apt update -y
-	sudo apt upgrade -y
-	sudo apt clean
-	sudo apt autoremove
+	sudo pacman -Syu
+# sudo apt update -y
+# sudo apt upgrade -y
+# sudo apt clean
+# sudo apt autoremove
 else
 	@echo "Could not identify host OS: stopping."
 endif
@@ -48,11 +50,7 @@ git-config: ## Configure git user and email
 shells: shell-requisites bash zsh tmux ## Setup zsh, bash and tmux configs
 
 shell-requisites: ## Install starship add-on for bash/zsh
-	mkdir -p /tmp/dotfiles/starship
-	curl -fsSL https://starship.rs/install.sh -o /tmp/dotfiles/starship/install.sh
-	chmod +x /tmp/dotfiles/starship/install.sh
-	sudo /tmp/dotfiles/starship/install.sh -y
-	ln -sf ${DOTFILES_DIR} ~/.config/starship.toml
+	ln -sf ${DOTFILES_DIR}/config/staship.toml ~/.config/starship.toml
 
 bash: ## Create bash symlinks to configfiles
 	ln -sf ${DOTFILES_DIR} ~/.dotfiles
@@ -75,25 +73,15 @@ ifeq ($(OS_ARCH),darwin)
 	echo $(KUBERNETES_VERSION)
 endif
 
-kubectx:
+kubectx: ## Setup kubectx and kubens from git
 	sudo git clone https://github.com/ahmetb/kubectx /opt/kubectx
 	sudo ln -s /opt/kubectx/kubectx /usr/local/bin/kubectx
 	sudo ln -s /opt/kubectx/kubens /usr/local/bin/kubens
 	sudo pacman -S fzf
 
 #
-# aliases
-#
-aliases: ## Create aliases
-	source ~
-
-#
 # Programming utils
 #
-
-# nvm
-nodejs-tooling:  ## Install nodjs tooling (nvm)
-	curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
 
 #
 # Ubuntu / Debian
@@ -110,6 +98,13 @@ ubuntu:
 	sudo apt autoremove
 
 #
+# Arch GNU/Linux
+#
+
+archlinux:
+	pacman -Syu base-devel jq go bash-completion starship bind
+
+#
 # MacOS
 #
 
@@ -117,7 +112,7 @@ macos-base:
 	brew install gcc cmake llvm neovim coreutils ed findutils gawk gnu-sed gnu-tar grep make tmux
 	brew install --cask rectangle ghostty
 
-een:
+macos-een:
 	brew install cmctl kubernetes-cli helm kubectx
 	brew install --cask zulip openvpn-connect
 	brew tap hashicorp/tap
@@ -128,19 +123,16 @@ een-devel:
 
 emacs:
 	ln -sf ${DOTFILES_DIR}/config/emacs/init.el ${HOME}/.emacs
-	touch ${HOME}/emacs.custom.el
-
+	emacs -nw --load ~/.dotfiles/config/emacs/init.el --eval '(kill-emacs)'
 
 tenv:
 	sudo pacman -Syu cosign
 	wget https://github.com/tofuutils/tenv/releases/download/v4.7.6/tenv_v4.7.6_Linux_x86_64.tar.gz
 	sudo tar -zxvf tenv_v4.7.6_Linux_x86_64.tar.gz -C /usr/local/bin/
 
-arch-podman:
-	sudo pacman -Syu podman
-
-# https://github.com/istio/istio/releases/tag/1.24.2
 #
+# Istio
+# https://github.com/istio/istio/releases/tag/1.24.2
 
 
 # Istioctl version and platform configuration
@@ -168,4 +160,4 @@ istioctl:
 	sudo ln -sf "$(ISTIOCTL_PATH)" "$(ISTIOCTL_SYMLINK)"
 
 bitwarden:
-	wget -L https://bitwarden.com/download/?app=cli&platform=linux
+	wget -L 'https://bitwarden.com/download/?app=cli&platform=linux'

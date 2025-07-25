@@ -33,9 +33,9 @@ jobs:
         run: make kubernetes
 
       - uses: actions/checkout@v2
-      - name: 'make nodejs'
-        run: make nodejs-tooling
-
-      - uses: actions/checkout@v2
       - name: 'Validate tmux config'
         run: tmux source ./config/tmux/.tmux.conf
+
+      - uses: actions/checkout@v2
+      - name: 'Validate emacs config'
+        run: emacs -nw --load ~/.dotfiles/config/emacs/init.el --eval '(kill-emacs)'

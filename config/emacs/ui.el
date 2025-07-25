@@ -6,7 +6,7 @@
 ;(global-display-line-numbers-mode
 
 ; Dired
-(setq insert-directory-program "gls")
+(setq insert-directory-program "ls")
 (setq dired-listing-switches "--all --group-directories-first")
 
 ; Interactive do
@@ -17,7 +17,7 @@
 
 
 ;; MacOS gui configuration
-(set-frame-font "Iosevka Nerd Font 18" nil t)
+(set-frame-font "0xProto Nerd Font Mono 18" nil t)
 
 (use-package which-key
   :ensure t
@@ -25,6 +25,3 @@
   (which-key-mode)
   (which-key-setup-side-window-bottom)
   (which-key-setup-minibuffer))
-
-(load-theme 'gruber-darker 1)
-(evil-mode 1)

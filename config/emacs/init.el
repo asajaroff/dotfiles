@@ -22,16 +22,16 @@
 (setq ido-create-new-buffer 'always)
 (setq-default confirm-nonexistent-file-or-buffer nil)
 
-;; Evil mode
-(evil-mode 1)
-
-;; Custom keybindings
+;; Packages
+(load-file "~/.dotfiles/config/emacs/custom-packages.el")
 
 ;; Tree-sitter
-;(load-file "~/.dotfiles/config/emacs/tree-sitter.el")
-
-;; Packages
-;(load-file "~/.dotfiles/config/emacs/custom-packages.el")
+(load-file "~/.dotfiles/config/emacs/tree-sitter.el")
 
 ;; UI
 (load-file "~/.dotfiles/config/emacs/ui.el")
+
+;; Custom keybindings
+
+;; Custom variables
+(setq vc-follow-symlinks nil) ;; Do not ask stupid questions when opening symlinks
