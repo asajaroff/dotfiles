@@ -41,3 +41,9 @@ PATCH='{“spec”:{“template”:{“metadata”:{“annotations”:{“timest
 
 kubectl patch deployment $MYAPP -p “$PATCH”
 ```
+
+
+### Get broken pods
+```bash
+kubectl get pods --field-selector=status.phase=Failed
+```

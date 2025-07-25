@@ -9,6 +9,7 @@ set -o vi
 # BASH customizations
 #
 export PATH=$PATH:/usr/local/bin:/opt/bin
+export DOTFILES=${HOME}/Code/github.com/asajaroff/dotfiles
 
 # History
 HISTFILE="${HOME}/.bash_history"
@@ -22,10 +23,23 @@ shopt -s cmdhist
 #
 # Aliases
 #
-source ${HOME}/.dotfiles/config/aliases
+source ${DOTFILES}/config/aliases
 
 # Functions
-source ${HOME}/.dotfiles/private/clone.sh
+source ${DOTFILES}/private/clone.sh
+source ${DOTFILES}/private/clone.sh
+
+# EEN 
+EEN_FUNCTIONS_DIR="${HOME}/.dotfiles/private/een/functions/"
+EEN_FUNCTIONS=$(ls -1 ${EEN_FUNCTIONS_DIR})
+echo $EEN_FUNCTIONS
+
+if [[ -d ${EEN_FUNCTIONS_DIR} ]]; then
+	source ${DOTFILES}/private/een/functions/java-utils.sh
+	source ${DOTFILES}/private/een/functions/kubernetes.sh
+	source ${DOTFILES}/private/een/functions/on-prem.sh
+	source ${DOTFILES}/private/een/functions/vpn.sh
+fi
 
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
@@ -34,40 +48,20 @@ else
   export EDITOR='nvim'
 fi
 
-# Tilix VTE
-if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
-  source /etc/profile.d/vte.sh 2>/dev/null
+# Krew
+#
+if [[ -d ${HOME}/.krew ]]; then
+  export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 fi
 
-# 
-# Programming tools
-# 
-
-## Golang
-GOBIN=$(which go)
-if [[ -e ${GOBIN} ]]; then
-  eval `go env`
-  export GOBIN=${HOME}/go/bin
-  export PATH=$PATH:$GOBIN
-fi
-
-## Python
-
-## Node
-if [[ -e ${HOME}/.nvm ]]; then
-  export NVM_DIR="$HOME/.nvm"
-  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-fi
-
-## Rust
-
-# Cloud tools
-## asdf
-ASDF_BIN=~/.asdf/asdf.sh
-if [[ -f "${ASDF_BIN}" ]]; then
-  source ${ASDF_BIN}
-fi
 
 # Starship shell
 eval "$(starship init bash)"
+
+# Bash completions
+. <(asdf completion bash)
+. <(tldr --print-completion bash)
+
+# Coloured man pages
+export MANPAGER="less -R --use-color -Dd+r -Du+b"
+export MANROFFOPT="-P -c"

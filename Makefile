@@ -1,23 +1,38 @@
-.DEFAULT_GOAL := help
-.PHONY: all
-# __   ____ _ _ __ ___
-# \ \ / / _` | '__/ __|
-#  \ V / (_| | |  \__ \
-#   \_/ \__,_|_|  |___/
-#
-OS_ARCH 	:= $(shell arch)
-DOTFILES_DIR	:= ${HOME}/.dotfiles
-GOBIN 		?= $(shell go bin) 
-ASDF_DIR	:= ${HOME}/.asdf
+.DEFAULT_GOAL 	:= help
+DOTFILES_DIR	:= ${HOME}/Code/github.com/asajaroff/dotfiles
+OS_ARCH 		:= $(shell uname -m)
+OS_FAMILY		:= $(shell uname -s)
+GOBIN 			?= $(shell go bin) 
 
-# Help
+.PHONY: help
+.ONESHELL:
 help:
 	@awk 'BEGIN {FS = ":.*##"; printf "Usage: make \033[36m<target>\033[0m\n"} /^[a-zA-Z_-]+:.*?##/ { printf "  \033[36m%-10s\033[0m %s\n", $$1, $$2 } /^##@/ { printf "\n\033[1m%s\033[0m\n", substr($$0, 5) } ' $(MAKEFILE_LIST)
 
-#
-# Init
-#
-init: git-config git-submodules-private ## Initialize git-submodules
+init: git-config git-submodules-private workspace ## Initialize git-submodules
+
+
+workspace: ## Creates the Workspace and Code directory
+	mkdir -p ${HOME}/{Workspace,Code}
+	mkdir -p ${HOME}/Workspace/{log,tmp,daily}
+	ln --symbolic ${HOME}/Code ${HOME}/Workspace/Code
+
+update:
+ifeq ($(shell uname), Darwin)
+	brew update
+	brew outdated
+	brew upgrade
+	brew autoremove
+	brew cleanup --prune=all
+else ifeq ($(shell uname), Linux)
+	sudo pacman -Syu
+# sudo apt update -y
+# sudo apt upgrade -y
+# sudo apt clean
+# sudo apt autoremove
+else
+	@echo "Could not identify host OS: stopping."
+endif
 
 git-submodules-private: ## Fetch and pull private git-submodules (requires auth)
 ifneq ($(wildcard ${DOTFILES_DIR}/private.),)
@@ -30,31 +45,24 @@ endif
 
 git-config: ## Configure git user and email
 	git config --global user.name "Alejandro Sajaroff"
-	git config --global user.email "asajaroff@users.noreply.github.com"
+	git config --global user.email "29068982+asajaroff@users.noreply.github.com"
 
-#      _          _ _
-#     | |        | | |
-#  ___| |__   ___| | |
-# / __| '_ \ / _ \ | |
-# \__ \ | | |  __/ | |
-# |___/_| |_|\___|_|_|
 shells: shell-requisites bash zsh tmux ## Setup zsh, bash and tmux configs
 
 shell-requisites: ## Install starship add-on for bash/zsh
-	mkdir -p /tmp/dotfiles/starship
-	curl -fsSL https://starship.rs/install.sh -o /tmp/dotfiles/starship/install.sh
-	chmod +x /tmp/dotfiles/starship/install.sh
-	sudo /tmp/dotfiles/starship/install.sh -y
+	ln -sf ${DOTFILES_DIR}/config/staship.toml ~/.config/starship.toml
 
 bash: ## Create bash symlinks to configfiles
-	ln -sf ${HOME}/.dotfiles/config/bashrc ${HOME}/.bashrc
-	ln -sf ${HOME}/.dotfiles/config/bashrc ${HOME}/.profile
+	ln -sf ${DOTFILES_DIR} ~/.dotfiles
+	ln -sf ${DOTFILES_DIR}/config/bashrc ${HOME}/.bashrc
+	ln -sf ${DOTFILES_DIR}/config/profile ${HOME}/.profile
 
 zsh: ## Create zsh symlinks to configfiles
-	ln -sf ${HOME}/.dotfiles/config/zshrc ${HOME}/.zshrc
+	ln -sf ${DOTFILES_DIR}/config/zshrc ${HOME}/.zshrc
 
 tmux: ## Create tmux symlinks to configfiles
-	ln -sf ${HOME}/.dotfiles/config/tmux.conf ${HOME}/.tmux.conf 
+	sudo pacman -Syy wl-clipboard
+	ln -sf ${DOTFILES_DIR}/config/tmux.conf ${HOME}/.tmux.conf 
 
 kubernetes: ## Install kubectl, kubens, kubectx and helm
 ifeq ($(OS_ARCH),darwin)
@@ -66,87 +74,91 @@ ifeq ($(OS_ARCH),darwin)
 	echo $(KUBERNETES_VERSION)
 endif
 
-
-editor: editor-requisites neovim neovim-plugins emacs-dep emacs doom-emacs ## Configure text editor
-
-#  ___ _ __ ___   __ _  ___ ___
-# / _ \ '_ ` _ \ / _` |/ __/ __|
-#|  __/ | | | | | (_| | (__\__ \
-# \___|_| |_| |_|\__,_|\___|___/
-emacs-dep:
-	sudo dnf install git ripgrep
-
-emacs:
-	@echo sudo apt install emacs # Ubuntu
-	@echo brew install emacs
-	@echo sudo dnf install emacs
-
-DOOM_DIR := ${HOME}/.doom.d
-
-doom-emacs:
-	@if test -d ${DOOM_DIR}; then git clone --depth 1 https://github.com/hlissner/doom-emacs ~/.emacs.d; ~/.emacs.d/bin/doom install; fi
-	ln -sf ${HOME}/.dotfiles/config/emacs/doom.d/config.el ${HOME}/.doom.d/config.el
-	ln -sf ${HOME}/.dotfiles/config/emacs/doom.d/init.el ${HOME}/.doom.d/init.el
-	ln -sf ${HOME}/.dotfiles/config/emacs/doom.d/packages.el ${HOME}/.doom.d/packages.el
-	~/.emacs.d/bin/doom sync
-
-editor-requisites: ## Create vim folders
-	@echo "To build from sorce, follow this guide: https://github.com/neovim/neovim/wiki/Building-Neovim#build-prerequisites"
-	mkdir -p ${HOME}/.vim/swapfiles
-	mkdir -p ${HOME}/.vim/backupfiles
-	mkdir -p ${HOME}/.config/nvim/
-
-neovim-plugins: ## Install Plug for neovim
-	sh -c 'curl -fLo "${HOME}/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
-		https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-
-#               | |/ _|
-#   __ _ ___  __| | |_ 
-#  / _` / __|/ _` |  _|
-# | (_| \__ \ (_| | |  
-#  \__,_|___/\__,_|_|  
-#
-asdf: asdf-setup-plugins asdf-install-packages ## Installs `asdf` utility
-
-asdf-reinstall: asdf-setup-terraform asdf-setup-vault asdf-setup-kubectl
-
-asdf-install:
-	@if test -d ${ASDF_DIR}; then echo "asdf is installed at $(ASDF_DIR)"; else git clone https://github.com/asdf-vm/asdf.git $(ASDF_DIR) --branch v0.9.0; fi
-
-asdf-setup-plugins:
-	asdf plugin-add boundary https://github.com/asdf-community/asdf-hashicorp.git
-	asdf plugin-add consul https://github.com/asdf-community/asdf-hashicorp.git
-	asdf plugin-add nomad https://github.com/asdf-community/asdf-hashicorp.git
-	asdf plugin-add packer https://github.com/asdf-community/asdf-hashicorp.git
-	asdf plugin-add terraform https://github.com/asdf-community/asdf-hashicorp.git
-	asdf plugin-add vault https://github.com/asdf-community/asdf-hashicorp.git
-	asdf plugin-add kubectl https://github.com/asdf-community/asdf-kubectl.git
-
-asdf-setup-terraform:
-	asdf install terraform latest
-	asdf install terraform latest:1.1.
-	asdf install terraform 0.14.11
-	asdf install terraform latest:0.14.
-	asdf global terraform latest
-
-asdf-setup-vault:
-	asdf install vault latest
-	asdf global vault latest
-
-asdf-setup-kubectl: 
-	asdf install kubectl latest
-	asdf install kubectl latest:1.22.
-	asdf install kubectl latest:1.19.
-	asdf install kubectl latest:1.18.
-	asdf global kubectl latest
-=======
-clean: ## Render a destructive statement
-	@echo "rm -rf ${DOTFILES_DIR}"
+kubectx: ## Setup kubectx and kubens from git
+	sudo git clone https://github.com/ahmetb/kubectx /opt/kubectx
+	sudo ln -s /opt/kubectx/kubectx /usr/local/bin/kubectx
+	sudo ln -s /opt/kubectx/kubens /usr/local/bin/kubens
+	sudo pacman -S fzf
 
 #
 # Programming utils
 #
 
-# nvm
-nodejs: 
-	curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+#
+# Ubuntu / Debian
+#
+ubuntu:
+	sudo apt update -y
+	sudo apt install -y \
+		build-essential \
+		dnsutils \
+		net-tools \
+		netcat-traditional \
+		jq yq
+	sudo apt clean
+	sudo apt autoremove
+
+#
+# Arch GNU/Linux
+#
+
+archlinux:
+	pacman -Syu base-devel jq go bash-completion starship bind
+
+#
+# MacOS
+#
+
+macos-base:
+	brew install gcc cmake llvm neovim coreutils ed findutils gawk gnu-sed gnu-tar grep make tmux
+	brew install --cask rectangle ghostty
+
+macos-een:
+	brew install cmctl kubernetes-cli helm kubectx
+	brew install --cask zulip openvpn-connect
+	brew tap hashicorp/tap
+	brew install hashicorp/tap/vault
+
+een-devel:
+	brew install qemu docker minikube
+
+emacs:
+	ln -sf ${DOTFILES_DIR}/config/emacs/init.el ${HOME}/.emacs
+	emacs -nw --load ~/.dotfiles/config/emacs/init.el --eval '(kill-emacs)'
+
+tenv:
+	sudo pacman -Syu cosign
+	wget https://github.com/tofuutils/tenv/releases/download/v4.7.6/tenv_v4.7.6_Linux_x86_64.tar.gz
+	sudo tar -zxvf tenv_v4.7.6_Linux_x86_64.tar.gz -C /usr/local/bin/
+
+#
+# Istio
+# https://github.com/istio/istio/releases/tag/1.24.2
+
+
+# Istioctl version and platform configuration
+ISTIO_VERSION ?= 1.24.2
+PLATFORM ?= linux-amd64
+INSTALL_DIR = /usr/local/bin
+
+# Derived variables
+ISTIOCTL_BINARY = istioctl-$(ISTIO_VERSION)
+ISTIOCTL_PATH = $(INSTALL_DIR)/$(ISTIOCTL_BINARY)
+ISTIOCTL_SYMLINK = $(INSTALL_DIR)/istioctl
+
+ISTIO_URL = https://github.com/istio/istio/releases/download/$(ISTIO_VERSION)/istioctl-$(ISTIO_VERSION)-$(PLATFORM).tar.gz
+TARBALL = istioctl-$(ISTIO_VERSION)-$(PLATFORM).tar.gz
+
+istioctl:
+	if [ ! -f "$(TARBALL)" ]; then \
+		wget -O "$(TARBALL)" "$(ISTIO_URL)"; \
+	else \
+		echo "Tarball $(TARBALL) already exists, skipping download."; \
+	fi
+	tar -xzf "$(TARBALL)" istioctl
+	sudo mv istioctl "$(ISTIOCTL_PATH)"
+	sudo chmod +x "$(ISTIOCTL_PATH)"
+	sudo ln -sf "$(ISTIOCTL_PATH)" "$(ISTIOCTL_SYMLINK)"
+
+bitwarden:
+	wget -L 'https://bitwarden.com/download/?app=cli&platform=linux'

@@ -6,12 +6,10 @@
 * A POSIX compatible shell
 * `cmake`/`make`
 
-
 ### Arch
 ```bash
 pacman -Syu base-devel
 ```
-
 
 ### Ubuntu
 ```bash
@@ -31,7 +29,11 @@ Make sure to install install [brew](https://brew.sh/) by running:
 As indicated by the requriments, all you need is `make` (not love).
 
 ```bash
-make setup
+make
+```
+
+```bash
+make init
 ```
 ## Private submodules.
 Faced with the problem of keeping track of my private config files, I'm trying to figure out how do so.

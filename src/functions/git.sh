@@ -15,3 +15,8 @@ function repo-template {
 function fclone {
   git clone --bare $1
 }
+
+function keys_init {
+	eval $(ssh-agent)
+	ssh-add ~/.ssh/een
+}
