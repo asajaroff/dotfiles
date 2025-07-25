@@ -23,7 +23,7 @@ jobs:
         run: echo 'make emacs'
 
       - name: 'Validate emacs config'
-        run: emacs -nw --load ~/.dotfiles/config/emacs/init.el --eval '(kill-emacs)'
+        run: emacs --load ~/.dotfiles/config/emacs/init.el --eval '(kill-emacs)'
 
   make:
     name: Run all Makefile stages
