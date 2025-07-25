@@ -20,10 +20,9 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y emacs
 
       - name: 'Create symlink to home'
-        run: 	ln -sf ./config/emacs/init.el ${HOME}/.emacs
-
-      - name: 'Validate emacs config (fake tty)'
-        run: script -q -e -c "emacs --batch --load ~/.dotfiles/config/emacs/init.el --eval '(kill-emacs)'"
+        run: 	|
+          ln -sf ./config/emacs/init.el ${HOME}/.emacs
+          script -q -e -c "emacs --batch --load ~/.dotfiles/config/emacs/init.el --eval '(kill-emacs)'"
 
   make:
     name: Run all Makefile stages
