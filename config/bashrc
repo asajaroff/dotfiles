@@ -25,27 +25,41 @@ shopt -s cmdhist
 #
 source ${DOTFILES}/config/aliases
 
+#
 # Functions
-source ${DOTFILES}/private/clone.sh
-source ${DOTFILES}/private/clone.sh
+#
+readarray -t FILES < <(ls -1 $DOTFILES/src/functions/ )
 
+for file in "${FILES[@]}"; do
+    echo "$file"
+done
+
+#
 # EEN 
+#
 EEN_FUNCTIONS_DIR="${HOME}/.dotfiles/private/een/functions/"
 EEN_FUNCTIONS=$(ls -1 ${EEN_FUNCTIONS_DIR})
 echo $EEN_FUNCTIONS
 
 if [[ -d ${EEN_FUNCTIONS_DIR} ]]; then
-	source ${DOTFILES}/private/een/functions/java-utils.sh
-	source ${DOTFILES}/private/een/functions/kubernetes.sh
-	source ${DOTFILES}/private/een/functions/on-prem.sh
-	source ${DOTFILES}/private/een/functions/vpn.sh
+
+    readarray -t FILES < <(ls -1 $EEN_FUNCTIONS_DIR )
+
+    for file in "${FILES[@]}"; do
+	source ${EEN_FUNCTIONS_DIR}/${file}
+	echo "Sourced ${file}"
+    done
 fi
+
+#
+# Editor
+# 
 
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
   export EDITOR='vim'
 else
-  export EDITOR='nvim'
+  export EDITOR='emacs -nw'
 fi
 
 # Krew
@@ -53,7 +67,6 @@ fi
 if [[ -d ${HOME}/.krew ]]; then
   export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 fi
-
 
 # Starship shell
 eval "$(starship init bash)"

@@ -1,10 +1,17 @@
 # Changelog 
--   2021/09/08 - Major refactor
+-   2025/07/25 - Long ass update with years worth of pending refactor, moving primarely to Emacs in evil mode
 
-## WIP Currently
--   Makefile
--   Git submodules for private stuff
--   Neovim
+## Added
+- emacs with use-package configs
+- starship
+- arch linux setup
+- tmux
+
+## Removed
+- neovim configs
+
+
+-   2021/09/08 - Major refactor
 
 ## Added
 -   Makefile **WIP**

@@ -17,7 +17,7 @@
 
 
 ;; MacOS gui configuration
-(set-frame-font "0xProto Nerd Font Mono 18" nil t)
+(set-frame-font "0xProto Nerd Font Mono 15" nil t)
 
 (use-package which-key
   :ensure t
