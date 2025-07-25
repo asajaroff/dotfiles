@@ -61,6 +61,7 @@ zsh: ## Create zsh symlinks to configfiles
 	ln -sf ${DOTFILES_DIR}/config/zshrc ${HOME}/.zshrc
 
 tmux: ## Create tmux symlinks to configfiles
+	sudo pacman -Syy wl-clipboard
 	ln -sf ${DOTFILES_DIR}/config/tmux.conf ${HOME}/.tmux.conf 
 
 kubernetes: ## Install kubectl, kubens, kubectx and helm

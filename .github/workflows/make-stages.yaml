@@ -1,4 +1,4 @@
-name: Makefile execution
+name: Make all stages
 
 # Run this workflow every time a new commit pushed to your repository
 on:
@@ -14,10 +14,13 @@ jobs:
     name: Run all Makefile stages
     runs-on: ubuntu-latest
     steps:
-      - name: '[dep] Install Emacs'
-        uses: purcell/setup-emacs@master
-        with:
-          version: 27.1
+
+      - name: '[dep] Install dependencies'
+        run: sudo apt-get update && sudo apt-get install -y tmux emacs neovim
+
+      - uses: actions/checkout@v2
+      - name: 'make emacs'
+        run: make shells
 
       - uses: actions/checkout@v2
       - name: 'Clone private repos'
