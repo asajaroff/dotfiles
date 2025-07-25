@@ -22,6 +22,7 @@ jobs:
       - name: 'Validate emacs config'
         run: 	|
           ln -sf ${{ github.workspace }} ${HOME}/.dotfiles
+          touch ${HOME}/.emacs.custom.el
           ln -sf ${{ github.workspace }}/config/emacs/init.el ${HOME}/.emacs
           script -q -e -c "emacs --batch --load ~/.dotfiles/config/emacs/init.el --eval '(kill-emacs)'"
 
