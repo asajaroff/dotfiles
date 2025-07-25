@@ -5,20 +5,18 @@ on:
   push:
     branches:
       - '**'
+
   pull_request:
     branches:
       - master
 
 jobs:
   emacs:
-    run: sudo apt-get update && sudo apt-get install -y tmux emacs neovim
-
-  emacs:
     name: Emacs configuration
     runs-on: ubuntu-latest
     steps:
       - name: 'Install dependencies'
-        run: sudo apt-get update && sudo apt-get install -y tmux emacs
+        run: sudo apt-get update && sudo apt-get install -y emacs
 
       - uses: actions:checkout@v2
       - name: 'Makefile validation'
@@ -34,7 +32,7 @@ jobs:
     steps:
 
       - name: '[dep] Install dependencies'
-        run: sudo apt-get update && sudo apt-get install -y tmux emacs neovim
+        run: sudo apt-get update && sudo apt-get install -y tmux neovim
 
       - uses: actions/checkout@v2
       - name: 'make emacs'
