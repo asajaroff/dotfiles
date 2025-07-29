@@ -94,8 +94,7 @@ alias glol='git log --graph --oneline --decorate'
 #
 # Editor(s)
 #
-alias emacs='emacs -nw'
-export EDITOR=emacs
+alias edit='emacs -nw'
 
 # Frecuently used config files
 alias vimrc="nvim ${CONFIG_DIR}/nvim/init.lua"

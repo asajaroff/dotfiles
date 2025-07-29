@@ -59,7 +59,7 @@ fi
 if [[ -n $SSH_CONNECTION ]]; then
   export EDITOR='vim'
 else
-  export EDITOR='emacs -nw'
+  export EDITOR='nvim'
 fi
 
 # Krew
