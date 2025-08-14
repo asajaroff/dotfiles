@@ -64,6 +64,11 @@ tmux: ## Create tmux symlinks to configfiles
 	sudo pacman -Syy wl-clipboard
 	ln -sf ${DOTFILES_DIR}/config/tmux.conf ${HOME}/.tmux.conf 
 
+TENV_VERSION := 'v4.7.6'
+tenv: ## Download and install `tenv` from Github
+	wget https://github.com/tofuutils/tenv/releases/download/${TENV_VERSION}/tenv_${TENV_VERSION}_Linux_x86_64.tar.gz
+	
+
 kubernetes: ## Install kubectl, kubens, kubectx and helm
 ifeq ($(OS_ARCH),darwin)
 	KUBERNETES_VERSION := (shell curl -L -s https://dl.k8s.io/release/stable.txt)

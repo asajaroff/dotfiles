@@ -27,7 +27,7 @@ jobs:
           script -q -e -c "emacs --batch --load ~/.dotfiles/config/emacs/init.el --eval '(kill-emacs)'"
 
   make:
-    name: Run all Makefile stages
+    name: Common Make stages
     runs-on: ubuntu-latest
     steps:
 

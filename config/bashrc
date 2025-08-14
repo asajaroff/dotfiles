@@ -2,6 +2,13 @@
 # Alejandro's bashrc
 #
 
+if [[ -v DOTFILES_DEBUG ]]; then
+	echo "Starting bashrc in debug mode"
+	set -x
+else 
+	echo "Starting bashrc in normal mode"
+fi
+
 # vi mode
 set -o vi
 
@@ -28,18 +35,18 @@ source ${DOTFILES}/config/aliases
 #
 # Functions
 #
-readarray -t FILES < <(ls -1 $DOTFILES/src/functions/ )
 
-for file in "${FILES[@]}"; do
-    echo "$file"
-done
+# TODO: implement autoload folder
+# readarray -t FILES < <(ls -1 $DOTFILES/src/functions/ )
+# for file in "${FILES[@]}"; do
+#     source "${DOTFILES}/src/functions/${file}"
+# done
 
 #
 # EEN 
 #
 EEN_FUNCTIONS_DIR="${HOME}/.dotfiles/private/een/functions/"
 EEN_FUNCTIONS=$(ls -1 ${EEN_FUNCTIONS_DIR})
-echo $EEN_FUNCTIONS
 
 if [[ -d ${EEN_FUNCTIONS_DIR} ]]; then
 
@@ -47,8 +54,9 @@ if [[ -d ${EEN_FUNCTIONS_DIR} ]]; then
 
     for file in "${FILES[@]}"; do
 	source ${EEN_FUNCTIONS_DIR}/${file}
-	echo "Sourced ${file}"
     done
+
+    echo "Sourced EEN modules: ${FILES[@]}"
 fi
 
 #

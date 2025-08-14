@@ -22,6 +22,7 @@
   (setq evil-split-window-below t)
   (setq evil-shift-round nil)
   (setq evil-want-C-u-scroll t)
+  (setq evil-want-minibuffer t) 
   :config ;; tweak evil after loading it
   (evil-mode)
 
@@ -74,4 +75,10 @@
   :ensure t)
 
 (use-package json
+  :ensure t)
+
+(use-package hcl-mode
+  :ensure t)
+
+(use-package magit
   :ensure t)
