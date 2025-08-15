@@ -1,18 +1,18 @@
-# 
+#!/usr/bin/env bash
 # Alejandro's bashrc
 #
 
 if [[ -v DOTFILES_DEBUG ]]; then
 	echo "Starting bashrc in debug mode"
 	set -x
-else 
+else
 	echo "Starting bashrc in normal mode"
 fi
 
 # vi mode
 set -o vi
 
-# 
+#
 # BASH customizations
 #
 export PATH=$PATH:/usr/local/bin:/opt/bin
@@ -36,15 +36,22 @@ source ${DOTFILES}/config/aliases
 # Functions
 #
 
-# TODO: implement autoload folder
-# readarray -t FILES < <(ls -1 $DOTFILES/src/functions/ )
-# for file in "${FILES[@]}"; do
-#     source "${DOTFILES}/src/functions/${file}"
-# done
+# Dotfiles
+DF_FUNCTIONS_DIR="${HOME}/.dotfiles/src/functions"
+if [[ -d ${DF_FUNCTIONS_DIR} ]]; then
 
-#
-# EEN 
-#
+    readarray -t FILES < <(ls -1 ${DF_FUNCTIONS_DIR} )
+
+    for file in "${FILES[@]}"; do
+	if [ -f ${DF_FUNCTIONS_DIR}/${file} ]; then
+            source ${DF_FUNCTIONS_DIR}/${file}
+	fi
+    done
+
+    echo "Loaded ${#FILES[@]} files with functions from dotfiles"
+fi
+
+# EEN
 EEN_FUNCTIONS_DIR="${HOME}/.dotfiles/private/een/functions/"
 EEN_FUNCTIONS=$(ls -1 ${EEN_FUNCTIONS_DIR})
 

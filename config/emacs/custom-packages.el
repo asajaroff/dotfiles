@@ -22,7 +22,7 @@
   (setq evil-split-window-below t)
   (setq evil-shift-round nil)
   (setq evil-want-C-u-scroll t)
-  (setq evil-want-minibuffer t) 
+  (setq evil-want-minibuffer t)
   :config ;; tweak evil after loading it
   (evil-mode)
 

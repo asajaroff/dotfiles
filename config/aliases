@@ -1,6 +1,5 @@
-#!/bin/bash 
+#!/bin/bash
 # Aliases file
-#
 
 # Variables
 DOTFILES_DIR=${HOME}/.dotfiles
@@ -31,7 +30,7 @@ case "$(uname -s)" in
   ;;
   
   *)
-  echo 'Other OS' 
+  echo 'Other OS'
   ;;
 esac
 

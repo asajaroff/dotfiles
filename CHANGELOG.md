@@ -1,4 +1,4 @@
-# Changelog 
+# Changelog
 -   2025/07/25 - Long ass update with years worth of pending refactor, moving primarely to Emacs in evil mode
 
 ## Added

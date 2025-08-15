@@ -31,7 +31,9 @@
  ((eq system-type 'gnu/linux)
   (progn
     (message "is Linux")
-    (set-frame-font "0xProto Nerd Font Mono 15" nil t)))
+    ;(set-frame-font "0xProto Nerd Font Mono 15" nil t)))
+    ; (set-frame-font "Iosevka Nerd Font Mono 15" nil t)
+    (set-frame-font "Iosevka Nerd Font Mono 15" nil t)))
  ((eq system-type 'gnu/kfreebsd)
   (progn
     (message "is BSD")))
@@ -46,3 +48,4 @@
   (which-key-mode)
   (which-key-setup-side-window-bottom)
   (which-key-setup-minibuffer))
+

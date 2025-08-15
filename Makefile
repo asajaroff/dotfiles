@@ -2,7 +2,7 @@
 DOTFILES_DIR	:= ${HOME}/Code/github.com/asajaroff/dotfiles
 OS_ARCH 		:= $(shell uname -m)
 OS_FAMILY		:= $(shell uname -s)
-GOBIN 			?= $(shell go bin) 
+GOBIN 			?= $(shell go bin)
 
 .PHONY: help
 .ONESHELL:
@@ -62,12 +62,11 @@ zsh: ## Create zsh symlinks to configfiles
 
 tmux: ## Create tmux symlinks to configfiles
 	sudo pacman -Syy wl-clipboard
-	ln -sf ${DOTFILES_DIR}/config/tmux.conf ${HOME}/.tmux.conf 
+	ln -sf ${DOTFILES_DIR}/config/tmux.conf ${HOME}/.tmux.conf
 
 TENV_VERSION := 'v4.7.6'
 tenv: ## Download and install `tenv` from Github
 	wget https://github.com/tofuutils/tenv/releases/download/${TENV_VERSION}/tenv_${TENV_VERSION}_Linux_x86_64.tar.gz
-	
 
 kubernetes: ## Install kubectl, kubens, kubectx and helm
 ifeq ($(OS_ARCH),darwin)

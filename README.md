@@ -1,10 +1,15 @@
 # Alejandro's dotfiles
 
-*This is a constantly changing configuration meant to keep track of my workspace*
+My constant changing configuration files.
+
+## Design Philosophy
+* bash functions and scripts are stored in [./src/] and are loaded through loops.
+
 
 ## Prerequisites
 * A POSIX compatible shell
 * `cmake`/`make`
+* A NERD font
 
 ### Arch
 ```bash
