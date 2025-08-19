@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Name: tmux session handlers
 #
-DF_SSH_KEYS='~/.ssh/een' 
+DF_SSH_KEYS='~/.ssh/een'
 
 function init_ssh() {
 	eval $(ssh-agent)
@@ -20,7 +20,7 @@ function df_tmux_session() {
 # Dev
 function df_tmux_new_session_dev() {
     export TMUX_SESSION_NAME='dev'
-    # 'editor' window
+
     tmux new-session -d -s ${TMUX_SESSION_NAME} -n editor
     tmux send-keys -t ${TMUX_SESSION_NAME}:editor "cd ~/Workspace/"  C-m
     tmux send-keys -t ${TMUX_SESSION_NAME}:editor "emacs -nw"  C-m
@@ -31,10 +31,15 @@ function df_tmux_new_session_dev() {
 
     # 'shell' window
     tmux new-window -t ${TMUX_SESSION_NAME} -n shell
-    tmux split-window -d 
+    tmux split-window -d
     tmux send-keys -t ${TMUX_SESSION_NAME}:shell "fastfetch" C-m
 
-    tmux a -t ${TMUX_SESSION_NAME} 
+    # 'cloud' window
+    tmux new-window -t ${TMUX_SESSION_NAME} -n aws
+    tmux send-keys -t ${TMUX_SESSION_NAME}:cloud "export AWS_PROFILE='personal'" C-m
+    tmux send-keys -t ${TMUX_SESSION_NAME}:cloud "aws sts get-caller-identity" C-m
+
+    tmux a -t ${TMUX_SESSION_NAME}
 }
 
 # Work
@@ -57,5 +62,5 @@ function df_tmux_new_session_work() {
     tmux new-window -t ${TMUX_SESSION_NAME} -n shell
     tmux send-keys -t ${TMUX_SESSION_NAME}:shell "fastfetch" C-m
 
-    tmux a -t ${TMUX_SESSION_NAME} 
+    tmux a -t ${TMUX_SESSION_NAME}
 }
