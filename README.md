@@ -1,51 +1,181 @@
-# Alejandro's dotfiles
+# Alejandro's Dotfiles
 
-My constant changing configuration files.
+> A modular and well-organized collection of configuration files for development environments across multiple operating systems.
 
-## Design Philosophy
-* bash functions and scripts are stored in [./src/] and are loaded through loops.
+## 🎯 Design Philosophy
 
+- **Modularity**: Shell functions and scripts are organized in `./src/` and loaded dynamically
+- **Cross-platform**: Support for Linux (Arch, Ubuntu), macOS, and various development environments
+- **Privacy-conscious**: Private configurations managed via git submodules
+- **Make-driven**: Simple, documented automation for setup and maintenance
 
-## Prerequisites
-* A POSIX compatible shell
-* `cmake`/`make`
-* A NERD font
+## 📁 Project Structure
 
-### Arch
-```bash
-pacman -Syu base-devel
+```
+dotfiles/
+├── config/           # Configuration files for various tools
+│   ├── bashrc        # Bash configuration
+│   ├── zshrc         # Zsh configuration
+│   ├── tmux.conf     # Tmux configuration
+│   ├── emacs/        # Emacs configuration
+│   └── nvim/         # Neovim configuration
+├── src/              # Modular shell functions and scripts
+│   ├── functions/    # Domain-specific shell functions
+│   └── scripts/      # Standalone utility scripts
+├── makefiles/        # Modular Makefile components
+│   ├── base.mk       # Base variables and utilities
+│   ├── shells.mk     # Shell configuration
+│   ├── tools.mk      # Tool installations
+│   └── distros/      # OS-specific configurations
+├── distros/          # OS-specific installation scripts
+├── private/          # Private configurations (git submodule)
+└── docs/             # Documentation and examples
 ```
 
-### Ubuntu
+## 🚀 Quick Start
+
+### Prerequisites
+
+- **POSIX-compatible shell** (bash, zsh)
+- **make** build system
+- **git** for cloning and submodule management
+- **NERD font** for proper display of shell prompts
+
+### Platform-specific Requirements
+
+#### Arch Linux
+```bash
+sudo pacman -Syu base-devel git make
+```
+
+#### Ubuntu/Debian
 ```bash
 sudo apt update && sudo apt upgrade -y
-sudo apt install \
-    build-essential \
-    dnsutils
+sudo apt install build-essential git make dnsutils
 ```
 
-### MacOS
-Make sure to install install [brew](https://brew.sh/) by running:
-```
+#### macOS
+```bash
+# Install Homebrew first
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
-## Usage
-As indicated by the requriments, all you need is `make` (not love).
+### Installation
+
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/asajaroff/dotfiles.git ~/Code/github.com/asajaroff/dotfiles
+   cd ~/Code/github.com/asajaroff/dotfiles
+   ```
+
+2. **Initialize everything**:
+   ```bash
+   make init
+   ```
+
+3. **Set up shell configurations**:
+   ```bash
+   make shells
+   ```
+
+## 📖 Available Make Targets
+
+Run `make help` to see all available targets:
+
+### Core Setup
+- `make init` - Initialize git config and private submodules
+- `make workspace` - Create workspace directory structure
+- `make shells` - Set up bash, zsh, and tmux configurations
+
+### Platform-specific
+- `make archlinux` - Install Arch Linux packages
+- `make ubuntu` - Install Ubuntu/Debian packages  
+- `make macos-base` - Install basic macOS packages
+
+### Tools & Development
+- `make emacs` - Set up Emacs configuration
+- `make kubernetes` - Install kubectl, helm, kubectx
+- `make tenv` - Install Terraform environment manager
+- `make istioctl` - Install Istio service mesh CLI
+
+### System Maintenance
+- `make update` - Update system packages (OS-agnostic)
+
+## 🔧 Configuration Features
+
+### Shell Environment
+- **Starship prompt** with Git integration
+- **Custom aliases** for common development tasks
+- **Modular functions** organized by domain (AWS, Git, Kubernetes, etc.)
+- **Cross-shell compatibility** (bash/zsh)
+
+### Development Tools
+- **Tmux** with vi key bindings and proper clipboard integration
+- **Emacs** with evil mode and use-package management
+- **Neovim** with LSP support for Go, Python, Bash, YAML
+- **Git** with sensible defaults and helpful aliases
+
+### Platform Integration
+- **Arch Linux**: pacman integration and AUR helpers
+- **macOS**: Homebrew integration and native app management
+- **Ubuntu/Debian**: apt integration and package management
+
+## 🔒 Private Configurations
+
+This dotfiles setup supports private configurations through git submodules:
+
+1. **Set up private submodule**:
+   ```bash
+   make git-submodules-private
+   ```
+
+2. **Private configurations are stored in**:
+   ```
+   private/
+   ├── functions/     # Private shell functions
+   ├── bin/          # Private scripts and binaries
+   └── config/       # Private config files
+   ```
+
+## 🛠 Customization
+
+### Adding New Functions
+Create new shell functions in `src/functions/` organized by domain:
 
 ```bash
-make
+src/functions/
+├── aws.sh         # AWS-related functions
+├── git.sh         # Git utilities
+├── kubernetes.sh  # Kubernetes helpers
+└── your-domain.sh # Your custom functions
 ```
+
+### Adding OS-specific Configurations
+Add new OS support in `makefiles/distros/`:
 
 ```bash
-make init
+makefiles/distros/
+├── arch.mk     # Arch Linux
+├── ubuntu.mk   # Ubuntu/Debian
+├── macos.mk    # macOS
+└── fedora.mk   # Your new OS
 ```
-## Private submodules.
-Faced with the problem of keeping track of my private config files, I'm trying to figure out how do so.
 
-For this, I've come with the [git-submodules]() option which makes the most sense to me.
+## 🤝 Contributing
 
-To grab the private repo 
-```bash
-make sync-private
-```
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Test across different environments
+5. Submit a pull request
+
+## 📄 License
+
+This project is licensed under the GPL-3.0 License - see the [LICENSE](LICENSE) file for details.
+
+## 🏷️ Version
+
+Current version: Development branch (feat/workflows)
+Latest stable: v0.2.0
+
+See [CHANGELOG.md](CHANGELOG.md) for detailed version history.

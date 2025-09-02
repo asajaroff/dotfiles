@@ -1,0 +1,37 @@
+# Tool installations
+
+# TENV variables
+TENV_VERSION := 'v4.7.6'
+
+# Istio variables
+ISTIO_VERSION ?= 1.24.2
+PLATFORM ?= linux-amd64
+ISTIOCTL_BINARY = istioctl-$(ISTIO_VERSION)
+ISTIOCTL_PATH = $(INSTALL_DIR)/$(ISTIOCTL_BINARY)
+ISTIOCTL_SYMLINK = $(INSTALL_DIR)/istioctl
+ISTIO_URL = https://github.com/istio/istio/releases/download/$(ISTIO_VERSION)/istioctl-$(ISTIO_VERSION)-$(PLATFORM).tar.gz
+TARBALL = istioctl-$(ISTIO_VERSION)-$(PLATFORM).tar.gz
+
+.PHONY: tenv tenv-arch istioctl bitwarden
+
+tenv: ## Download and install `tenv` from Github
+	wget https://github.com/tofuutils/tenv/releases/download/${TENV_VERSION}/tenv_${TENV_VERSION}_Linux_x86_64.tar.gz
+
+tenv-arch: ## Install tenv on Arch Linux
+	sudo pacman -Syu cosign
+	wget https://github.com/tofuutils/tenv/releases/download/v4.7.6/tenv_v4.7.6_Linux_x86_64.tar.gz
+	sudo tar -zxvf tenv_v4.7.6_Linux_x86_64.tar.gz -C /usr/local/bin/
+
+istioctl: ## Install istioctl binary
+	if [ ! -f "$(TARBALL)" ]; then \
+		wget -O "$(TARBALL)" "$(ISTIO_URL)"; \
+	else \
+		echo "Tarball $(TARBALL) already exists, skipping download."; \
+	fi
+	tar -xzf "$(TARBALL)" istioctl
+	sudo mv istioctl "$(ISTIOCTL_PATH)"
+	sudo chmod +x "$(ISTIOCTL_PATH)"
+	sudo ln -sf "$(ISTIOCTL_PATH)" "$(ISTIOCTL_SYMLINK)"
+
+bitwarden: ## Download Bitwarden CLI
+	wget -L 'https://bitwarden.com/download/?app=cli&platform=linux'
