@@ -17,7 +17,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: 'Install dependencies'
-        run: sudo apt-get update && sudo apt-get install -y emacs
+        run: sudo apt-get update && sudo apt-get install -y emacs gcc cmake
 
       - name: 'Validate emacs config'
         run: 	|

@@ -83,10 +83,10 @@
 (use-package magit
   :ensure t)
 
-(use-package vterm-module
+(use-package vterm
     :ensure t)
 
-(use-package vterm
+(use-package gruber-darker-theme
     :ensure t)
 
 (use-package claude-code-ide
