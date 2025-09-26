@@ -49,3 +49,5 @@
   (which-key-setup-side-window-bottom)
   (which-key-setup-minibuffer))
 
+(load-theme 'gruber-darker )
+(setq initial-buffer-choice "~/Code/")
