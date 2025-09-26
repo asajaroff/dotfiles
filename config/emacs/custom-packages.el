@@ -83,6 +83,9 @@
 (use-package magit
   :ensure t)
 
+(use-package vterm-module
+    :ensure t)
+
 (use-package vterm
     :ensure t)
 
