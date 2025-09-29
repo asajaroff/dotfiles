@@ -22,6 +22,7 @@
   (setq evil-split-window-below t)
   (setq evil-shift-round nil)
   (setq evil-want-C-u-scroll t)
+  (setq evil-want-minibuffer t)
   :config ;; tweak evil after loading it
   (evil-mode)
 
@@ -75,3 +76,18 @@
 
 (use-package json
   :ensure t)
+
+(use-package hcl-mode
+  :ensure t)
+
+(use-package magit
+  :ensure t)
+
+(use-package vterm
+    :ensure t)
+
+(use-package claude-code-ide
+  :vc (:url "https://github.com/manzaltu/claude-code-ide.el" :rev :newest)
+  :bind ("C-c C-'" . claude-code-ide-menu) ; Set your favorite keybinding
+  :config
+  (claude-code-ide-emacs-tools-setup)) ; Optionally enable Emacs MCP tools

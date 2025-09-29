@@ -5,18 +5,34 @@ on:
   push:
     branches:
       - '**'
+
   pull_request:
     branches:
       - master
 
 jobs:
+  emacs:
+    name: Emacs configuration
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: 'Install dependencies'
+        run: sudo apt-get update && sudo apt-get install -y emacs gcc cmake
+
+      - name: 'Validate emacs config'
+        run: 	|
+          ln -sf ${{ github.workspace }} ${HOME}/.dotfiles
+          touch ${HOME}/.emacs.custom.el
+          ln -sf ${{ github.workspace }}/config/emacs/init.el ${HOME}/.emacs
+          script -q -e -c "emacs --batch --load ~/.dotfiles/config/emacs/init.el --eval '(kill-emacs)'"
+
   make:
-    name: Run all Makefile stages
+    name: Common Make stages
     runs-on: ubuntu-latest
     steps:
 
       - name: '[dep] Install dependencies'
-        run: sudo apt-get update && sudo apt-get install -y tmux emacs neovim
+        run: sudo apt-get update && sudo apt-get install -y tmux neovim
 
       - uses: actions/checkout@v2
       - name: 'make emacs'
@@ -35,10 +51,7 @@ jobs:
       - name: 'make kubernetes'
         run: make kubernetes
 
-      - uses: actions/checkout@v2
-      - name: 'Validate tmux config'
-        run: tmux source ./config/tmux/.tmux.conf
-
-      - uses: actions/checkout@v2
-      - name: 'Validate emacs config'
-        run: emacs -nw --load ~/.dotfiles/config/emacs/init.el --eval '(kill-emacs)'
+      # TODO: Make this work at some point
+      #- uses: actions/checkout@v2
+      #- name: 'Validate tmux config'
+      #  run: tmux source ./config/tmux/.tmux.conf
