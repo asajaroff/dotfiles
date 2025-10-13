@@ -6,8 +6,6 @@ if [[ -v DOTFILES_DEBUG ]]; then
 	echo "Starting bashrc in debug mode"
 	export TERM=dumb
 	set -x
-else
-	echo "Starting bashrc in normal mode"
 fi
 
 # vi mode
@@ -48,8 +46,9 @@ if [[ -d ${DF_FUNCTIONS_DIR} ]]; then
             source ${DF_FUNCTIONS_DIR}/${file}
 	fi
     done
-
-    echo "Loaded ${#FILES[@]} files with functions from dotfiles"
+	if [[ -v DOTFILES_DEBUG ]]; then
+    		echo "Loaded ${#FILES[@]} files with functions from dotfiles"
+	fi
 fi
 
 # EEN
@@ -63,8 +62,10 @@ if [[ -d ${EEN_FUNCTIONS_DIR} ]]; then
     for file in "${FILES[@]}"; do
 	source ${EEN_FUNCTIONS_DIR}/${file}
     done
+fi
 
-    echo "Sourced EEN modules: ${FILES[@]}"
+if [[ -v DOTFILES_DEBUG ]]; then
+    	echo "Sourced EEN modules: ${FILES[@]}"
 fi
 
 #
