@@ -7,6 +7,12 @@
 
 ;(global-display-line-numbers-mode
 
+;; XWindow
+;; Start with Maximized frame
+;;(add-to-list 'default-frame-alist '(fullscreen . maximized))
+;; Start fullscreen (cross-platf)
+(add-hook 'window-setup-hook 'toggle-frame-fullscreen t)
+
 ; Dired
 (setq insert-directory-program "ls")
 (setq dired-listing-switches "--all --group-directories-first")
@@ -50,4 +56,5 @@
   (which-key-setup-minibuffer))
 
 (load-theme 'misterioso )
-(setq initial-buffer-choice "~/Code/")
+
+; (setq initial-buffer-choice "~/Code/")

@@ -35,3 +35,4 @@
 
 ;; Custom variables
 (setq vc-follow-symlinks nil) ;; Do not ask stupid questions when opening symlinks
+(put 'dired-find-alternate-file 'disabled nil)
