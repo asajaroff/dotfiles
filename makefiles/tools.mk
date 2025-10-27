@@ -35,3 +35,6 @@ istioctl: ## Install istioctl binary
 
 bitwarden: ## Download Bitwarden CLI
 	wget -L 'https://bitwarden.com/download/?app=cli&platform=linux'
+
+ipaddr:
+	dig -4 TXT +short o-o.myaddr.l.google.com @ns1.google.com ## Uses dig to figure out the outbound IP address of this host

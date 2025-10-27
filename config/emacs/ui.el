@@ -11,7 +11,7 @@
 ;; Start with Maximized frame
 ;;(add-to-list 'default-frame-alist '(fullscreen . maximized))
 ;; Start fullscreen (cross-platf)
-(add-hook 'window-setup-hook 'toggle-frame-fullscreen t)
+;; (add-hook 'window-setup-hook 'toggle-frame-fullscreen t)
 
 ; Dired
 (setq insert-directory-program "ls")
