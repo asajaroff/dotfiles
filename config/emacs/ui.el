@@ -15,7 +15,7 @@
 
 ; Dired
 (setq insert-directory-program "ls")
-(setq dired-listing-switches "--all --group-directories-first")
+(setq dired-listing-switches "-go --all --group-directories-first")
 
 ; Interactive do
 (setq ido-everywhere t)
@@ -36,10 +36,10 @@
 
  ((eq system-type 'gnu/linux)
   (progn
-    (message "is Linux")
-    ;(set-frame-font "0xProto Nerd Font Mono 15" nil t)))
-    ; (set-frame-font "Iosevka Nerd Font Mono 15" nil t)
-    (set-frame-font "Iosevka Nerd Font Mono 15" nil t)))
+    ;(set-frame-font "0xProto Nerd Font 15" nil t)))
+    ;(set-frame-font "Iosevka Nerd Font 15" nil t)))
+    ;(set-frame-font "Hack Nerd Font 15" nil t)))
+    (set-frame-font "GohuFont 14 Nerd Font 18" nil t)))
  ((eq system-type 'gnu/kfreebsd)
   (progn
     (message "is BSD")))
@@ -55,6 +55,6 @@
   (which-key-setup-side-window-bottom)
   (which-key-setup-minibuffer))
 
-(load-theme 'misterioso )
+(load-theme 'dichromacy )
 
 ; (setq initial-buffer-choice "~/Code/")

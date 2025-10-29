@@ -9,6 +9,7 @@
 
 
 ;; Saved files and extentions
+(load-file "~/.dotfiles/config/emacs/files.el")
 
 ;; UI
 
@@ -30,6 +31,12 @@
 
 ;; UI
 (load-file "~/.dotfiles/config/emacs/ui.el")
+
+;; Compilation mode configs
+(load-file "~/.dotfiles/config/emacs/compilation-mode.el")
+
+;; Files
+(load-file "~/.dotfiles/config/emacs/files.el")
 
 ;; Custom keybindings
 
