@@ -38,8 +38,8 @@
   (progn
     ;(set-frame-font "0xProto Nerd Font 15" nil t)))
     ;(set-frame-font "Iosevka Nerd Font 15" nil t)))
-    ;(set-frame-font "Hack Nerd Font 15" nil t)))
-    (set-frame-font "GohuFont 14 Nerd Font 18" nil t)))
+    (set-frame-font "Hack Nerd Font 15" nil t)))
+    ;(set-frame-font "GohuFont 14 Nerd Font 18" nil t)))
  ((eq system-type 'gnu/kfreebsd)
   (progn
     (message "is BSD")))
@@ -56,5 +56,6 @@
   (which-key-setup-minibuffer))
 
 (load-theme 'dichromacy )
+;(load-theme 'gruber-darker )
 
 ; (setq initial-buffer-choice "~/Code/")

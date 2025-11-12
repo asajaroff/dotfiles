@@ -3,18 +3,26 @@
 .PHONY: update
 
 update: ## Update system packages
-ifeq ($(OS_FAMILY),Darwin)
+ifeq ($(IS_MACOS),true)
+	$(call info,Updating macOS packages via Homebrew...)
 	brew update
 	brew outdated
 	brew upgrade
 	brew autoremove
 	brew cleanup --prune=all
-else ifeq ($(OS_FAMILY),Linux)
+	$(call success,macOS packages updated successfully)
+else ifeq ($(IS_ARCH),true)
+	$(call info,Updating Arch Linux packages...)
 	sudo pacman -Syu
-# sudo apt update -y
-# sudo apt upgrade -y
-# sudo apt clean
-# sudo apt autoremove
+	$(call success,Arch Linux packages updated successfully)
+else ifeq ($(IS_DEBIAN),true)
+	$(call info,Updating Debian packages...)
+	sudo apt update -y
+	sudo apt upgrade -y
+	sudo apt clean
+	sudo apt autoremove -y
+	$(call success,Debian packages updated successfully)
 else
-	@echo "Could not identify host OS: stopping."
+	$(call error,Could not identify host OS)
+	exit 1
 endif

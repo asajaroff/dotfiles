@@ -3,7 +3,7 @@
 .PHONY: git-config git-submodules-private
 
 git-submodules-private: ## Fetch and pull private git-submodules (requires auth)
-ifneq ($(wildcard ${DOTFILES_DIR}/private.),)
+ifneq ($(wildcard ${DOTFILES_DIR}/private),)
 	@echo "Found a 'private' directory"
 	exit 0
 else

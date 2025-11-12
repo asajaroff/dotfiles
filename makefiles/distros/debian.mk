@@ -1,8 +1,8 @@
-# Ubuntu/Debian specific targets
+# Debian specific targets
 
-.PHONY: ubuntu
+.PHONY: debian
 
-ubuntu: ## Install Ubuntu/Debian packages
+debian: ## Install Debian packages
 	sudo apt update -y
 	sudo apt install -y \
 		build-essential \
