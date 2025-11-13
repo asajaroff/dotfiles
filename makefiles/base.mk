@@ -1,5 +1,5 @@
 # Base variables and utilities
-DOTFILES_DIR := ${HOME}/Code/github.com/asajaroff/dotfiles
+DOTFILES_DIR := ${PWD}
 OS_ARCH := $(shell uname -m)
 OS_FAMILY := $(shell uname -s)
 

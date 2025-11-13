@@ -1,11 +1,13 @@
 (setq inhibit-startup-message t)
 
-(menu-bar-mode 0)
-(tool-bar-mode 0)
-(scroll-bar-mode 0)
-(setq visible-bell 0)
+(when window-system
+  (tool-bar-mode 0)
+  (scroll-bar-mode 0))
 
-;(global-display-line-numbers-mode
+(menu-bar-mode 0)
+(global-display-line-numbers-mode 1)
+
+(setq visible-bell 0)
 
 ;; XWindow
 ;; Start with Maximized frame
@@ -55,7 +57,7 @@
   (which-key-setup-side-window-bottom)
   (which-key-setup-minibuffer))
 
-(load-theme 'dichromacy )
-;(load-theme 'gruber-darker )
+;(load-theme 'dichromacy )
+(load-theme 'gruber-darker )
 
 ; (setq initial-buffer-choice "~/Code/")
