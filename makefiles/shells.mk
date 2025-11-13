@@ -17,9 +17,4 @@ zsh: ## Create zsh symlinks to configfiles
 	ln -sf ${DOTFILES_DIR}/config/zshrc ${HOME}/.zshrc
 
 tmux: ## Create tmux symlinks to configfiles
-ifeq ($(IS_ARCH),true)
-	sudo pacman -S --needed wl-clipboard
-else ifeq ($(IS_DEBIAN),true)
-	sudo apt install -y wl-clipboard
-endif
 	ln -sf ${DOTFILES_DIR}/config/tmux.conf ${HOME}/.tmux.conf
