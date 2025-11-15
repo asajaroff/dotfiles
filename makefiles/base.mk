@@ -15,8 +15,9 @@ INSTALL_DIR = /usr/local/bin
 .ONESHELL:
 
 workspace: ## Creates the Workspace and Code directory
-	mkdir -p ${HOME}/{Workspace,Code}
-	mkdir -p ${HOME}/Workspace/{log,tmp,daily}
+	mkdir -p ${HOME}/Code
+	mkdir -p ${HOME}/Workspace/log
+	mkdir -p ${HOME}/Workspace/tmp
 	if [ -L ${HOME}/Workspace/Code ]; then \
 		rm ${HOME}/Workspace/Code; \
 	elif [ -e ${HOME}/Workspace/Code ]; then \

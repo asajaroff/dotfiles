@@ -83,9 +83,6 @@
 (use-package magit
   :ensure t)
 
-(use-package vterm
-    :ensure t)
-
 ;; Enable rich annotations using the Marginalia package
 (use-package marginalia
   :ensure t
