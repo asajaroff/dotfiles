@@ -30,5 +30,5 @@ function aigc() {
     }
   }'
 
-  command claude --agents "$agents_config" "Create a git commit with the staged changes in the Conventional Commit Format"
+  command claude -p --agents "$agents_config" "Create a git commit with the staged changes in the Conventional Commit Format"
 }
