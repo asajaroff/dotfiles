@@ -1,6 +1,17 @@
 # User configuration
-source ~/.dotfiles/config/aliases
-source ~/.dotfiles/private/een/functions/*.sh
+export DOTFILES_DIR="${HOME}/.dotfiles"
+
+source ${DOTFILES_DIR}/config/aliases
+
+# Load dotfiles functions
+for f in ${DOTFILES_DIR}/src/functions/*.sh; do
+  [[ -f "$f" ]] && source "$f"
+done
+
+# Load private functions
+for f in ${DOTFILES_DIR}/private/een/functions/*.sh; do
+  [[ -f "$f" ]] && source "$f"
+done
 
 # You may need to manually set your language environment
 export LANG=en_US.UTF-8
@@ -36,5 +47,11 @@ fi
 bindkey -v
 bindkey '^R' history-incremental-search-backward
 
-eval "$(/opt/homebrew/bin/brew shellenv)"
+# Initialize Homebrew (works on both Intel and Apple Silicon Macs)
+if [[ -x "/opt/homebrew/bin/brew" ]]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+elif [[ -x "/usr/local/bin/brew" ]]; then
+  eval "$(/usr/local/bin/brew shellenv)"
+fi
+
 eval "$(starship init zsh)"

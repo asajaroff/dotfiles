@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-function tf-module-teplate () {
+function tf-module-template () {
     if [ -z "$1" ]; then
             read -r -p "Module name: " MODULE_NAME
     else
@@ -22,7 +22,7 @@ function tf-module-teplate () {
             echo "crash.log"
         } >> "$MODULE_NAME"/.gitignore
         echo "# ${MODULE_NAME}" > "$MODULE_NAME"/README.md
-        cp "$HOME"/.dotfiles/functions/resources/temaplate_CHANGELOG "$MODULE_NAME"/CHANGELOG
+        cp "${DOTFILES_DIR}"/src/functions/resources/template_CHANGELOG "$MODULE_NAME"/CHANGELOG
         return 0
     fi
 }

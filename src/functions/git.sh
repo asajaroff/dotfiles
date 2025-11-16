@@ -8,10 +8,10 @@ function repo-template {
     fi
 
     mkdir "$1"
-    cp "$HOME"/.dotfiles/functions/resources/template_CHANGELOG "$1"/CHANGELOG
-    cp "$HOME"/.dotfiles/functions/resources/template_Makefile "$1"/Makefile
-    cp "$HOME"/.dotfiles/functions/resources/template_.editorconfig "$1"/.editorconfig
-    sed "s/Project Title/$1/g" "$HOME"/.dotfiles/functions/resources/template_README.md > "$1"/README.md
+    cp "${DOTFILES_DIR}"/src/functions/resources/template_CHANGELOG "$1"/CHANGELOG
+    cp "${DOTFILES_DIR}"/src/functions/resources/template_Makefile "$1"/Makefile
+    cp "${DOTFILES_DIR}"/src/functions/resources/template_.editorconfig "$1"/.editorconfig
+    sed "s/Project Title/$1/g" "${DOTFILES_DIR}"/src/functions/resources/template_README.md > "$1"/README.md
 }
 
 function fclone {

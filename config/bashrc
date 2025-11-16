@@ -15,7 +15,7 @@ set -o vi
 # BASH customizations
 #
 export PATH=$PATH:/usr/local/bin:/opt/bin
-export DOTFILES=${HOME}/Code/github.com/asajaroff/dotfiles
+export DOTFILES_DIR="${HOME}/.dotfiles"
 
 # History
 HISTFILE="${HOME}/.bash_history"
@@ -29,14 +29,14 @@ shopt -s cmdhist
 #
 # Aliases
 #
-source ${DOTFILES}/config/aliases
+source ${DOTFILES_DIR}/config/aliases
 
 #
 # Functions
 #
 
 # Dotfiles
-DF_FUNCTIONS_DIR="${HOME}/.dotfiles/src/functions"
+DF_FUNCTIONS_DIR="${DOTFILES_DIR}/src/functions"
 if [[ -d ${DF_FUNCTIONS_DIR} ]]; then
 
     readarray -t FILES < <(ls -1 ${DF_FUNCTIONS_DIR} )
@@ -52,7 +52,7 @@ if [[ -d ${DF_FUNCTIONS_DIR} ]]; then
 fi
 
 # EEN
-EEN_FUNCTIONS_DIR="${HOME}/.dotfiles/private/een/functions/"
+EEN_FUNCTIONS_DIR="${DOTFILES_DIR}/private/een/functions/"
 EEN_FUNCTIONS=$(ls -1 ${EEN_FUNCTIONS_DIR})
 
 if [[ -d ${EEN_FUNCTIONS_DIR} ]]; then
