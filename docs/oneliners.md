@@ -20,4 +20,3 @@ for node in $(kubectl get node | grep -v master | awk 'NR>1{print $1}'); do ssh 
 
 ## SSH MD5 Fingerprint
 find . type f -iname "*.pem" -exec sh -c "openssl pkey -in {} -pubout -outform DER | openssl md5 -c " \;for node in $\(kubectl get node | grep -v master | awk 'NR>1{print }'); do ssh  'sudo bash -s' < renew-cert.sh; done
-

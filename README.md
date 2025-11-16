@@ -89,7 +89,7 @@ Run `make help` to see all available targets:
 
 ### Platform-specific
 - `make archlinux` - Install Arch Linux packages
-- `make ubuntu` - Install Ubuntu/Debian packages  
+- `make ubuntu` - Install Ubuntu/Debian packages
 - `make macos-base` - Install basic macOS packages
 
 ### Tools & Development

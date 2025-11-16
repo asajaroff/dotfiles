@@ -9,4 +9,3 @@ Icon=/opt/TeamworkChat/icon.png
 Type=Application
 Terminal=false
 EOF
-
