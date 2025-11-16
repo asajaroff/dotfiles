@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 function repo-template {
     if [ -z "$1" ]
     then

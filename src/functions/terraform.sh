@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 function tf-module-teplate () {
     if [ -z "$1" ]; then
             read -p "Module name: " MODULE_NAME
