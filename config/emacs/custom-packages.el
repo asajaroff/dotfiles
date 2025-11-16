@@ -1,8 +1,8 @@
 ;; Packages setup
 (require 'package)
 (add-to-list 'package-archives
-	     '("melpa" . "https://melpa.org/packages/") t)
-             '("melpa-stable" . "https://stable.melpa.org/packages/")
+             '("melpa" . "https://melpa.org/packages/") t)
+'("melpa-stable" . "https://stable.melpa.org/packages/")
 (package-initialize)
 
 ;; bootstrap use-package
@@ -90,7 +90,7 @@
   ;; available in the *Completions* buffer, add it to the
   ;; `completion-list-mode-map'.
   :bind (:map minibuffer-local-map
-         ("M-A" . marginalia-cycle))
+              ("M-A" . marginalia-cycle))
 
   ;; The :init section is always executed.
   :init

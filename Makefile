@@ -12,6 +12,7 @@ include makefiles/tools.mk
 include makefiles/kubernetes.mk
 include makefiles/wayland.mk
 include makefiles/backup.mk
+include makefiles/tests.mk
 
 # Include OS-specific modules conditionally
 ifeq ($(OS_FAMILY),Linux)

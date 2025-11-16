@@ -1,10 +1,10 @@
 ;; init.el <asajaroff>
 
-; Don't write garbage all around my config
+                                        ; Don't write garbage all around my config
 (setq custom-file "~/.emacs.custom.el")
 (load-file "~/.emacs.custom.el")
 
-; Don't write backups on the same folder
+                                        ; Don't write backups on the same folder
 (setq backup-directory-alist `(("." . "~/.emacs-backups")))
 
 

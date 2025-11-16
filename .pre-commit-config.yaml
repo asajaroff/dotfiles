@@ -22,7 +22,14 @@ repos:
   hooks:
   - id: shellcheck
 
--   repo: https://github.com/gitleaks/gitleaks
-    rev: v8.29.0
-    hooks:
-    -   id: gitleaks
+- repo: https://github.com/gitleaks/gitleaks
+  rev: v8.29.0
+  hooks:
+    - id: gitleaks
+
+- repo: https://github.com/jamescherti/pre-commit-elisp
+  rev: v1.0.5
+  hooks:
+    - id: elisp-check-parens
+    - id: elisp-check-byte-compile
+    - id: elisp-indent
