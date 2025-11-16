@@ -20,15 +20,15 @@ function ai() {
   command claude --agents "$agents_config" "$@"
 }
 
-function acommit() {
+function aigc() {
   local agents_config='{
     "debugger": {
       "description": "Code committer",
-      "prompt": "Your responsability is to keep good etiquette. Write all commits following the conventional commit standard. Never include CLAUDE authorship in commits. Write a commit message with the staged changes.",
+      "prompt": "Your responsability is to keep good git etiquette. Write all commits following the conventional commit standard. Never include CLAUDE authorship in commits. Write a commit message with the staged changes.",
       "tools": ["git", "ls", "read", "Bash"],
       "model": "sonnet"
     }
   }'
 
-  command claude --agents "$agents_config" "$@"
+  command claude --agents "$agents_config" "Create a git commit with the staged changes in the Conventional Commit Format"
 }
