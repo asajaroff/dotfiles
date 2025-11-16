@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 cat << EOF > /usr/share/applications/teamwork-chat.desktop
 [Desktop Entry]
 Name=Teamwork Chat

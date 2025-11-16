@@ -33,7 +33,7 @@ else
 fi
 
 # Vi keybindings
-bindkey -v 
+bindkey -v
 bindkey '^R' history-incremental-search-backward
 
 eval "$(/opt/homebrew/bin/brew shellenv)"

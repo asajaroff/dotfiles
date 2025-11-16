@@ -1,5 +1,5 @@
 ## Containers
-### Docker 
+### Docker
 ```bash
 docker inspect $(docker ps | awk 'FNR > 1 {print $1}') | grep 'IPAddress' # Print Container IDs
 ```

@@ -28,7 +28,7 @@ case "$(uname -s)" in
   CYGWIN*|MINGW32*|MSYS*|MINGW*)
   echo 'MS Windows'
   ;;
-  
+
   *)
   echo 'Other OS'
   ;;
@@ -36,7 +36,7 @@ esac
 
 #
 # Navegación
-# 
+#
 alias github="cd ${HOME}/Code/github.com/asajaroff"
 alias tmpdir="export DIR=`date +%s`; mkdir -p /tmp/${DIR}; cd /tmp/${DIR}"
 #
@@ -69,7 +69,7 @@ alias kg="$(which kubectl) get"
 
 
 #
-# Git 
+# Git
 #
 alias ss='git status --short'
 alias gs='git status'
