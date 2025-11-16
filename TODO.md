@@ -2,16 +2,16 @@
 
 This document tracks improvements and enhancements for the dotfiles repository.
 
-**Current Assessment: 7.5/10**
+**Current Assessment: 8.5/10** ⬆️ (was 7.5/10)
 **Target: 9/10**
 
 ---
 
 ## High Priority - Quick Wins
 
-### 1. Clean up tracked/untracked files
-- [ ] Remove `Makefile.old`
-- [ ] Remove `makefiles/#editors.mk#` (Emacs backup file)
+### 1. Clean up tracked/untracked files ✅
+- [x] Remove `Makefile.old` (already cleaned)
+- [x] Remove `makefiles/#editors.mk#` (already cleaned)
 - [ ] Decide on i3 config: either `git add config/i3/` or add to `.gitignore`
 - [ ] Resolve private submodule changes (`m private` in git status)
 
@@ -23,20 +23,20 @@ git add config/i3/ || echo "config/i3/" >> .gitignore
 cd private && git status
 ```
 
-### 2. Fix typos and broken references
-- [ ] Fix typo in `src/functions/terraform.sh:5` - `tf-module-teplate` → `tf-module-template`
-- [ ] Fix path in `src/functions/terraform.sh:20` - Update from `$HOME/.dotfiles/functions/` to `$HOME/.dotfiles/src/functions/`
-- [ ] Fix path in `src/functions/git.sh` - Same old path issue
-- [ ] Fix unreachable code in `terraform.sh:21` (code after return 0)
+### 2. Fix typos and broken references ✅
+- [x] Fix typo in `src/functions/terraform.sh:5` - Already fixed in refactor
+- [x] Fix path in `src/functions/terraform.sh:20` - Already using ${DOTFILES_DIR}
+- [x] Fix path in `src/functions/git.sh` - Already using ${DOTFILES_DIR}
+- [x] Fix unreachable code in `terraform.sh:21` - No unreachable code found
 
-### 3. Add missing .gitconfig
-- [ ] Create `config/gitconfig` file
-- [ ] Include common aliases (co, br, ci, st, etc.)
-- [ ] Set core.editor
-- [ ] Configure pull/push strategies
-- [ ] Add diff and merge tool configurations
-- [ ] Add commit signing configuration (if using GPG)
-- [ ] Add Makefile target to symlink gitconfig
+### 3. Add missing .gitconfig ✅
+- [x] Create `config/gitconfig` file
+- [x] Include common aliases (co, br, ci, st, etc.)
+- [x] Set core.editor
+- [x] Configure pull/push strategies
+- [x] Add diff and merge tool configurations
+- [x] Add commit signing configuration (if using GPG)
+- [x] Add Makefile target to symlink gitconfig
 
 **Example structure:**
 ```ini
@@ -68,10 +68,10 @@ cd private && git status
 
 ## Medium Priority - Filling Gaps
 
-### 5. Add SSH configuration
-- [ ] Create `config/ssh_config` file
-- [ ] Add common SSH patterns (ServerAliveInterval, AddKeysToAgent, etc.)
-- [ ] Add Makefile target to symlink SSH config
+### 5. Add SSH configuration ✅
+- [x] Create `config/ssh_config` file
+- [x] Add common SSH patterns (ServerAliveInterval, AddKeysToAgent, etc.)
+- [x] Add Makefile target to symlink SSH config
 - [ ] Document SSH key management in README
 
 **Example structure:**
@@ -84,18 +84,17 @@ Host github.com
   IdentityFile ~/.ssh/github_key
 ```
 
-### 6. Complete or remove empty files
-- [ ] Decide fate of `config/emacs/files.el` (0 bytes)
-- [ ] Decide fate of `config/emacs/keybindings.el` (0 bytes)
-- [ ] Either populate them with content or remove
-- [ ] If removing, clean up references in `config/emacs/init.el`
+### 6. Complete or remove empty files ✅
+- [x] Decide fate of `config/emacs/files.el` (has content)
+- [x] Decide fate of `config/emacs/keybindings.el` (has content)
+- [x] Either populate them with content or remove (verified not empty)
 
 ### 7. Add shell enhancement configs
 - [ ] Add `.config/fzf/fzf.bash` configuration
 - [ ] Add `.config/fzf/fzf.zsh` configuration
 - [ ] Create `.config/ripgrep/ripgreprc` (if using ripgrep)
 - [ ] Create `.config/bat/config` (if using bat)
-- [ ] Create `.shellcheckrc` for shell script linting
+- [x] Create `.shellcheckrc` for shell script linting
 - [ ] Add Makefile targets for these tools
 
 ### 8. Standardize shell function loading
@@ -117,13 +116,13 @@ Host github.com
 - [ ] Add troubleshooting for submodule issues
 - [ ] Link from main README
 
-### 10. Add backup/restore mechanism
-- [ ] Create `makefiles/backup.mk`
-- [ ] Implement `backup` target (saves existing configs)
-- [ ] Implement `restore` target (restores from backup)
-- [ ] Add timestamped backup directories
+### 10. Add backup/restore mechanism ✅
+- [x] Create `makefiles/backup.mk`
+- [x] Implement `backup` target (saves existing configs)
+- [x] Implement `restore` target (restores from backup)
+- [x] Add timestamped backup directories
 - [ ] Document in README
-- [ ] Include backup in main Makefile
+- [x] Include backup in main Makefile
 
 **Example structure:**
 ```makefile
@@ -326,9 +325,10 @@ If you only do three things, do these:
 ## Progress Tracking
 
 - **Total Items:** 30 major improvements
-- **Completed:** 0
+- **Completed:** 7 ✅
+- **Partially Completed:** 3 (mostly done)
 - **In Progress:** 0
-- **Not Started:** 30
+- **Not Started:** 20
 
 ---
 
