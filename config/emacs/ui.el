@@ -58,6 +58,7 @@
   (which-key-setup-minibuffer))
 
 ;(load-theme 'dichromacy )
-(load-theme 'gruber-darker )
+(load-theme 'tango-dark )
+;(load-theme 'gruber-darker )
 
 ; (setq initial-buffer-choice "~/Code/")

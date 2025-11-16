@@ -25,10 +25,10 @@ function aigc() {
     "debugger": {
       "description": "Code committer",
       "prompt": "Your responsability is to keep good git etiquette. Write all commits following the conventional commit standard. Never include CLAUDE authorship in commits. Write a commit message with the staged changes.",
-      "tools": ["git", "ls", "read", "Bash"],
+      "tools": ["git commit", "ls", "read", "Bash"],
       "model": "sonnet"
     }
   }'
 
-  command claude -p --agents "$agents_config" "Create a git commit with the staged changes in the Conventional Commit Format"
+  command claude --agents "$agents_config" "Create a git commit message with the staged changes in the Conventional Commit Format and commit them"
 }
