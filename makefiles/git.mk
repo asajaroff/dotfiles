@@ -1,6 +1,6 @@
 # Git configuration and submodule management
 
-.PHONY: git-config git-submodules-private gitconfig
+.PHONY: git-config git-submodules-private gitconfig gitignore-global
 
 git-submodules-private: ## Fetch and pull private git-submodules (requires auth)
 ifneq ($(wildcard ${DOTFILES_DIR}/private),)
@@ -18,3 +18,7 @@ git-config: ## Configure git user and email
 gitconfig: ## Symlink gitconfig to ~/.gitconfig
 	$(call log_info,"Setting up gitconfig")
 	$(call symlink,${DOTFILES_DIR}/config/gitconfig,${HOME}/.gitconfig)
+
+gitignore-global: ## Symlink global gitignore to ~/.gitignore_global
+	$(call log_info,"Setting up global gitignore")
+	$(call symlink,${DOTFILES_DIR}/config/gitignore_global,${HOME}/.gitignore_global)
