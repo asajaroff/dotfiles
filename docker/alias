@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+alias hadolint='docker run --rm -i ghcr.io/hadolint/hadolint'
+
+alias helm2='docker run --rm -i alpine/helm:2.16.10'
+
+alias helm='docker run -ti --rm -v $(pwd):/apps -w /apps \
+    -v ~/.kube:/root/.kube -v ~/.helm:/root/.helm -v ~/.config/helm:/root/.config/helm \
+    -v ~/.cache/helm:/root/.cache/helm \
+    alpine/helm:3.19.0'
+
+alias awsp='docker run --rm -ti \
+	-v ~/.aws:/root/.aws \
+	-e AWS_PROFILE=personal \
+	-v $(pwd):/aws amazon/aws-cli'
+
+alias awse='docker run --rm -ti \
+	-v ~/.aws:/root/.aws \
+	-e AWS_PROFILE=een \
+	-v $(pwd):/aws amazon/aws-cli'
+
+alias awsc='docker run --rm -ti \
+	-v ~/.aws:/root/.aws \
+	-e AWS_PROFILE=cameramanager \
+	-v $(pwd):/aws amazon/aws-cli'

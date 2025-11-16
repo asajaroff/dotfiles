@@ -96,3 +96,5 @@ eval "$(starship init bash)"
 # Coloured man pages
 export MANPAGER="less -R --use-color -Dd+r -Du+b"
 export MANROFFOPT="-P -c"
+
+source ~/.dotfiles/private/secrets.env
