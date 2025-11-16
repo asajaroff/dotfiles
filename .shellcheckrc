@@ -1,0 +1,22 @@
+# ShellCheck configuration for dotfiles repository
+# See: https://github.com/koalaman/shellcheck/wiki/Directive
+
+# Allow following sourced files that are not specified as input
+external-sources=true
+
+# Disable specific warnings
+
+# SC1090: Can't follow non-constant source
+# We source files dynamically, which is fine for dotfiles
+disable=SC1090
+
+# SC1091: Not following sourced file
+# Some files may not exist during static analysis
+disable=SC1091
+
+# SC2034: Variable appears unused
+# Some variables are used in sourced contexts
+disable=SC2034
+
+# Set shell to bash by default
+shell=bash

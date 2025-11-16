@@ -1,6 +1,6 @@
-# System-wide update targets
+# System-wide configuration and update targets
 
-.PHONY: update
+.PHONY: update ssh-config
 
 update: ## Update system packages
 ifeq ($(IS_MACOS),true)
@@ -20,3 +20,10 @@ else
 	echo "Error: Could not identify host OS"
 	exit 1
 endif
+
+ssh-config: ## Setup SSH configuration
+	$(call log_info,"Setting up SSH configuration")
+	@mkdir -p ${HOME}/.ssh/sockets
+	@chmod 700 ${HOME}/.ssh
+	$(call symlink,${DOTFILES_DIR}/config/ssh_config,${HOME}/.ssh/config)
+	@chmod 600 ${HOME}/.ssh/config

@@ -1,0 +1,58 @@
+# SSH configuration for dotfiles
+# Symlink this to ~/.ssh/config with: ln -sf ~/.dotfiles/config/ssh_config ~/.ssh/config
+
+# Global settings
+Host *
+	# Keep connections alive
+	ServerAliveInterval 60
+	ServerAliveCountMax 3
+
+	# Automatically add keys to agent
+	AddKeysToAgent yes
+
+	# Use keychain for better key management on Linux
+	# IdentityAgent ~/.ssh/ssh-agent.sock
+
+	# Security: Disable weak algorithms
+	HostKeyAlgorithms ssh-ed25519,ssh-rsa,ecdsa-sha2-nistp521,ecdsa-sha2-nistp384,ecdsa-sha2-nistp256
+
+	# Compression
+	Compression yes
+
+	# Connection multiplexing for faster subsequent connections
+	ControlMaster auto
+	ControlPath ~/.ssh/sockets/%r@%h:%p
+	ControlPersist 600
+
+# GitHub
+Host github.com
+	HostName github.com
+	User git
+	IdentityFile ~/.ssh/id_ed25519
+	# IdentityFile ~/.ssh/github_key
+
+# GitLab
+Host gitlab.com
+	HostName gitlab.com
+	User git
+	IdentityFile ~/.ssh/id_ed25519
+	# IdentityFile ~/.ssh/gitlab_key
+
+# Example: Work server
+# Host work
+# 	HostName work.example.com
+# 	User youruser
+# 	IdentityFile ~/.ssh/work_key
+# 	Port 22
+
+# Example: Jump host configuration
+# Host internal-server
+# 	HostName 10.0.0.5
+# 	User youruser
+# 	ProxyJump jumphost.example.com
+
+# Example: Short hostname
+# Host myserver
+# 	HostName myserver.example.com
+# 	User youruser
+# 	IdentityFile ~/.ssh/myserver_key
