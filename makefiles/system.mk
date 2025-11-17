@@ -1,6 +1,10 @@
 # System-wide configuration and update targets
 
-.PHONY: update ssh-config
+.PHONY: all clean test update ssh-config
+
+all:
+clean:
+test:
 
 update: ## Update system packages
 ifeq ($(IS_MACOS),true)

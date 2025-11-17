@@ -33,3 +33,9 @@ repos:
     - id: elisp-check-parens
     - id: elisp-check-byte-compile
     - id: elisp-indent
+
+repos:
+- repo: https://github.com/checkmake/checkmake.git
+  rev: 0.2.2
+  hooks:
+    - id: checkmake

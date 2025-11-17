@@ -1,6 +1,10 @@
 # macOS specific targets
 
-.PHONY: macos-base macos-een een-devel
+.PHONY: all clean test macos-base macos-een een-devel
+
+all:
+clean:
+test:
 
 macos-base: ## Install basic macOS packages
 	brew install gcc cmake llvm neovim coreutils ed findutils gawk gnu-sed gnu-tar grep make tmux

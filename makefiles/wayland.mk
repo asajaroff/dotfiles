@@ -1,6 +1,10 @@
 # Wayland configuration and tools
 
-.PHONY: wayland wl-clipboard
+.PHONY: all clean test wayland wl-clipboard
+
+all:
+clean:
+test:
 
 wayland: wl-clipboard ## Setup Wayland tools
 

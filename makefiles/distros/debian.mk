@@ -1,6 +1,10 @@
 # Debian specific targets
 
-.PHONY: debian
+.PHONY: all clean test debian
+
+all:
+clean:
+test:
 
 debian: ## Install Debian packages
 	sudo apt update -y
@@ -9,6 +13,7 @@ debian: ## Install Debian packages
 		dnsutils \
 		net-tools \
 		netcat-traditional \
-		jq yq
+		jq \
+		yq
 	sudo apt clean
 	sudo apt autoremove

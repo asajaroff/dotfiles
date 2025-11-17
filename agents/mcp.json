@@ -1,0 +1,44 @@
+{
+  "mcpServers": {
+    "prometheus-aus1p6": {
+      "command": "docker",
+      "args": [
+        "run",
+        "-i",
+        "--rm",
+        "-e",
+        "PROMETHEUS_URL=https://prometheus.aus1p6.eencloud.com",
+        "ghcr.io/pab1it0/prometheus-mcp-server"
+      ]
+    },
+    "victoriametrics": {
+      "command": "docker",
+        "args": [
+          "run",
+          "-i", "--rm",
+          "-e", "VM_INSTANCE_ENTRYPOINT",
+          "-e", "VM_INSTANCE_TYPE",
+          "-e", "VM_INSTANCE_BEARER_TOKEN",
+          "-e", "VM_INSTANCE_HEADERS",
+          "ghcr.io/victoriametrics-community/mcp-victoriametrics"
+        ],
+      "env": {
+        "VM_INSTANCE_ENTRYPOINT": "https://vmselect.aus1mon1.eencloud.com/select/0/prometheus",
+        "VM_INSTANCE_TYPE": "cluster"
+      }
+    },
+    "kubernetes": {
+      "command": "docker",
+      "args": [
+        "run",
+        "-i",
+        "-v",
+        "/home/asajaroff/.kube/config:/home/nonroot/.kube/config",
+        "-v",
+        "/home/asajaroff/.kube/certs:/home/nonroot/.kube/certs",
+        "--rm",
+        "mcpk8s/server:latest"
+      ]
+    }
+  }
+}

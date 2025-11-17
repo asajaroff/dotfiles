@@ -1,6 +1,10 @@
 # Editor configuration
 
-.PHONY: emacs nvim vim
+.PHONY: all clean test emacs nvim vim
+
+all:
+clean:
+test:
 
 emacs: ## Setup emacs configuration
 	ln -sf ${DOTFILES_DIR}/config/emacs/init.el ${HOME}/.emacs

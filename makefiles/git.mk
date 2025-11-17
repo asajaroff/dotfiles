@@ -1,6 +1,10 @@
 # Git configuration and submodule management
 
-.PHONY: git-config git-submodules-private gitconfig gitignore-global
+.PHONY: all clean test git-config git-submodules-private gitconfig gitignore-global
+
+all:
+clean:
+test:
 
 git-submodules-private: ## Fetch and pull private git-submodules (requires auth)
 ifneq ($(wildcard ${DOTFILES_DIR}/private),)

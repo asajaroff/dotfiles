@@ -1,6 +1,10 @@
 # Kubernetes tools installation
 
-.PHONY: kubernetes kubectx
+.PHONY: all clean test kubernetes kubectx
+
+all:
+clean:
+test:
 
 kubernetes: ## Install kubectl, kubens, kubectx and helm
 ifeq ($(OS_FAMILY),Darwin)

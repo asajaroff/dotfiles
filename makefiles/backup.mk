@@ -1,12 +1,19 @@
 # Backup and restore mechanism for dotfiles
 
-.PHONY: backup restore list-backups
+.PHONY: backup restore list-backups backup-files backup-info restore-check restore-files all clean test
 
 BACKUP_DIR := ${HOME}/dotfiles-backup
 TIMESTAMP := $(shell date +%Y%m%d-%H%M%S)
 BACKUP_PATH := ${BACKUP_DIR}/${TIMESTAMP}
 
-backup: ## Backup current configs before applying dotfiles
+all:
+clean:
+test:
+
+backup: backup-files backup-info ## Backup current configs before applying dotfiles
+	$(call log_success,"Backup completed at ${BACKUP_PATH}")
+
+backup-files:
 	$(call log_info,"Creating backup at ${BACKUP_PATH}")
 	@mkdir -p ${BACKUP_PATH}
 	@echo "Backing up existing configurations..."
@@ -18,21 +25,23 @@ backup: ## Backup current configs before applying dotfiles
 	@if [ -d ${HOME}/.ssh ]; then cp -r ${HOME}/.ssh ${BACKUP_PATH}/ssh; fi
 	@if [ -d ${HOME}/.config/nvim ]; then cp -r ${HOME}/.config/nvim ${BACKUP_PATH}/nvim; fi
 	@if [ -d ${HOME}/.emacs.d ]; then cp -r ${HOME}/.emacs.d ${BACKUP_PATH}/emacs.d; fi
+
+backup-info:
 	@echo "Backup location: ${BACKUP_PATH}" > ${BACKUP_PATH}/backup-info.txt
 	@echo "Backup date: ${TIMESTAMP}" >> ${BACKUP_PATH}/backup-info.txt
 	@echo "Hostname: $$(hostname)" >> ${BACKUP_PATH}/backup-info.txt
-	$(call log_success,"Backup completed at ${BACKUP_PATH}")
 
-restore: ## Restore configs from most recent backup
+restore: restore-check restore-files ## Restore configs from most recent backup
+
+restore-check:
 	@if [ ! -d ${BACKUP_DIR} ]; then \
 		echo "No backups found in ${BACKUP_DIR}"; \
 		exit 1; \
 	fi
+
+restore-files:
 	$(eval LATEST_BACKUP := $(shell ls -t ${BACKUP_DIR} | head -n 1))
-	@if [ -z "${LATEST_BACKUP}" ]; then \
-		echo "No backups found"; \
-		exit 1; \
-	fi
+	@if [ -z "${LATEST_BACKUP}" ]; then echo "No backups found"; exit 1; fi
 	$(call log_info,"Restoring from ${BACKUP_DIR}/${LATEST_BACKUP}")
 	@if [ -f ${BACKUP_DIR}/${LATEST_BACKUP}/bashrc ]; then cp ${BACKUP_DIR}/${LATEST_BACKUP}/bashrc ${HOME}/.bashrc; fi
 	@if [ -f ${BACKUP_DIR}/${LATEST_BACKUP}/zshrc ]; then cp ${BACKUP_DIR}/${LATEST_BACKUP}/zshrc ${HOME}/.zshrc; fi

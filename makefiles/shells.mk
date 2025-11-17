@@ -1,6 +1,10 @@
 # Shell configuration setup
 
-.PHONY: shells shell-requisites bash zsh tmux
+.PHONY: all clean test shells shell-requisites bash zsh tmux
+
+all:
+clean:
+test:
 
 shells: shell-requisites bash zsh tmux ## Setup zsh, bash and tmux configs
 

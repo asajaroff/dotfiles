@@ -1,22 +1,19 @@
+.PHONY: run get-versions delete config all clean test
+
 PROFILE := een-minikube
 
+MINIKUBE_FLAGS := --driver='kvm2' --cni='auto' --cpus='4' --ha=false --nodes=2 \
+	--addons=ingress,metrics-server,default-storageclass --disk-size='50000mb' \
+	--network='' --kvm-network='default' --dns-domain='cluster.local' \
+	--listen-address=0.0.0.0 --container-runtime='' \
+	--kubernetes-version='1.21.14' --v=7
+
+all:
+clean:
+test:
+
 run:
-	minikube start \
-		--driver='kvm2' \
-		--cni='auto' \
-		--cpus='4' \
-		--ha=false \
-		--nodes=2 \
-		--addons=ingress,metrics-server,default-storageclass \
-		--disk-size='50000mb' \
-		--network='' \
-		--kvm-network='default' \
-		--dns-domain='cluster.local' \
-		--listen-address=0.0.0.0 \
-		--container-runtime='' \
-		--kubernetes-version='1.21.14' \
-		--v=7 \
-		-p $(PROFILE)
+	minikube start $(MINIKUBE_FLAGS) -p $(PROFILE)
 
 
 get-versions:
