@@ -12,3 +12,7 @@ function pods_in_node() {
         kubectl get pods --all-namespaces -o wide --field-selector spec.nodeName=${NODE}
     done
 }
+
+function failed_pods() {
+	kubectl get pods -A --field-selector='status.phase!=Running,status.phase!=Succeeded'
+}
