@@ -1,5 +1,5 @@
 --[[
-init.lua
+--init.lua
 --]]
 
 -- UI
