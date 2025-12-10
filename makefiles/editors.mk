@@ -10,6 +10,7 @@ emacs: ## Setup emacs configuration
 nvim: ## Create symlink to ~/.dotfiles/config/neovim/init.lua
 	mkdir -p ~/.config/nvim
 	ln -sf ${DOTFILES_DIR}/config/nvim/init.lua ${HOME}/.config/nvim/init.lua
+	ln -sf ${DOTFILES_DIR}/config/nvim/lua ${HOME}/.config/nvim/lua
 
 vim: ## Create symlink to ~/.dotfiles/config/vim/init.el - TODO
 	ln -sf ${DOTFILES_DIR}/config/vimrc ~/.vimrc
