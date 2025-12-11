@@ -9,9 +9,15 @@ if [ "$#" -ne 3 ]; then
 	exit 1
 fi
 
+if ! command -v rsync; then
+    echo "rsync is not available. Install it first"
+    exit 1
+fi
+
 # TODO: Add exclude dirs dinamically
 EXCLUDE_DIRS=('go' '.dotfiles' 'Downloads' '.cache' '.venv' '.terragrunt-cache' '.terraform')
-BACKUP_MOUNTPOINT='/run/media/asajaroff/Bacap/'
+BACKUP_MOUNTPOINT='/media/asajaroff/Bacap'
+HOSTNAME='xps-13-debian'
 
 function update_backup() {
 	local BACKUP_DIR=$(date +%Y-%m-%dT%H-%M)
@@ -30,29 +36,37 @@ function update_backup() {
 		${HOME}/ ${BACKUP_MOUNTPOINT}/Backups/xps-13/2025-12-10T07-49/
 }
 
+# /media/asajaroff/Bacap/Backups/xps-13-debian
+
 function new_backup() {
 	local BACKUP_DIR=$(date +%Y-%m-%dT%H-%M)
-	local BACKUP_PATH=${BACKUP_MOUNTPOINT}/Backups/xps-13/${BACKUP_DIR}/
-	rsync -azh --delete \
-		--info=progress2 \
-		--stats \
-		--exclude 'go' \
-		--exclude '.dotfiles' \
-		--exclude 'Downloads' \
-		--exclude '.cache' \
-		--exclude '.venv' \
-		--exclude '.terragrunt-cache' \
-		--exclude '.terraform' \
-		--exclude 'lost+found' \
-		--dry-run \
-		${HOME}/ ${BACKUP_PATH}/
+	local BACKUP_PATH=${BACKUP_MOUNTPOINT}/Backups/${HOSTNAME}/${BACKUP_DIR}/
+	if [ ! -d "$BACKUP_PATH" ]; then
+	    mkdir -p ${BACKUP_PATH}
+	    rsync -azh --delete \
+		    --info=progress2 \
+		    --stats \
+		    --exclude 'go' \
+		    --exclude '.dotfiles' \
+		    --exclude 'Downloads' \
+		    --exclude '.cache' \
+		    --exclude '.venv' \
+		    --exclude '.terragrunt-cache' \
+		    --exclude '.terraform' \
+		    --exclude 'lost+found' \
+		    ${HOME}/ ${BACKUP_PATH}/
+		    #--dry-run \
+	else
+	    echo "ERROR: Directory already exists"
+	    exit 2
+	fi
 }
 
 for arg in "$@"; do
 	case $arg in
 	--new)
 		echo "Running new backup at $(date +%Y-%m-%dT%H-%M)"
-		# new_backup
+		new_backup
 		;;
 	--sync)
 		echo "Updating backup located at ${TARGET}"
