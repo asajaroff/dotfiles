@@ -17,7 +17,7 @@ case "${1}" in
 render)
     printf "Running 'render' subcommand:\n\n"
     set -x
-    helm upgrade --install \
+    helm3 upgrade --install \
         -f values.yaml \
         --debug \
         --create-namespace \
@@ -28,7 +28,7 @@ render)
 
 install)
     set -x
-    helm upgrade --install \
+    helm3 upgrade --install \
         -f values.yaml \
         --debug \
         --create-namespace \
@@ -38,7 +38,7 @@ install)
 
 clean)
     set -x
-    helm uninstall \
+    helm3 uninstall \
         --cascade foreground \
         --wait \
         ${HELM_RELEASE_NAME}

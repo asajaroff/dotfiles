@@ -16,7 +16,7 @@ fi
 
 # TODO: Add exclude dirs dinamically
 EXCLUDE_DIRS=('go' '.dotfiles' 'Downloads' '.cache' '.venv' '.terragrunt-cache' '.terraform')
-BACKUP_MOUNTPOINT='/media/asajaroff/Bacap'
+BACKUP_MOUNTPOINT='/media/asajaroff/Movil'
 HOSTNAME='xps-13-debian'
 
 function update_backup() {

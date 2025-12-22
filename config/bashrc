@@ -15,7 +15,7 @@ set -o vi
 # BASH customizations
 #
 export PATH=$PATH:/usr/local/bin:/opt/bin
-export DOTFILES=${HOME}/Code/github.com/asajaroff/dotfiles
+export DOTFILES=${HOME}/.dotfiles
 
 # History
 HISTFILE="${HOME}/.bash_history"
@@ -88,10 +88,6 @@ fi
 
 # Starship shell
 eval "$(starship init bash)"
-
-# Bash completions
-. <(asdf completion bash)
-. <(tldr --print-completion bash)
 
 # Coloured man pages
 export MANPAGER="less -R --use-color -Dd+r -Du+b"

@@ -16,3 +16,8 @@ function pods_in_node() {
 function failed_pods() {
 	kubectl get pods -A --field-selector='status.phase!=Running,status.phase!=Succeeded'
 }
+
+function get_ingress() {
+	kubectl get ingress \
+		-o custom-columns="NAMESPACE:.metadata.namespace,NAME:.metadata.name,HOSTS:.spec.rules[*].host"
+}

@@ -15,12 +15,6 @@ INSTALL_DIR = /usr/local/bin
 .ONESHELL:
 
 workspace: ## Creates the Workspace and Code directory
-	mkdir -p ${HOME}/{Workspace,Code}
-	mkdir -p ${HOME}/Workspace/{log,tmp,daily}
-	if [ -L ${HOME}/Workspace/Code ]; then \
-		rm ${HOME}/Workspace/Code; \
-	elif [ -e ${HOME}/Workspace/Code ]; then \
-		echo "Error: ${HOME}/Workspace/Code exists and is not a symlink"; \
-		exit 1; \
-	fi
+	mkdir -p ${HOME}/Workspace/Code
 	ln -sf ${HOME}/Code ${HOME}/Workspace/Code
+	mkdir -p ${HOME}/Code/github.com/EENCloud

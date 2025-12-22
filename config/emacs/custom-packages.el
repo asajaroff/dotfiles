@@ -46,10 +46,10 @@
   :init
   (global-company-mode))
 
-(use-package emacs
-  :hook (rust-mode . eglot-ensure)
-  :hook (go-mode . eglot-ensure)
-  :hook (typescript-mode . eglot-ensure))
+;(use-package emacs
+;  :hook (rust-mode . eglot-ensure)
+;  :hook (go-mode . eglot-ensure)
+;  :hook (typescript-mode . eglot-ensure))
 
 ;; Tree-sitter
 (use-package treesit-auto
@@ -65,11 +65,6 @@
   :ensure t
   :config
   (setq markdown-fontify-code-blocks-natively t))
-(use-package go-mode)
-(use-package gotest
-  :ensure t)
-(use-package typescript-mode
-  :ensure t)
 
 (use-package yaml
   :ensure t)
