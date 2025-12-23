@@ -3,18 +3,20 @@
 .PHONY: update
 
 update: ## Update system packages
-ifeq ($(OS_FAMILY),Darwin)
+ifeq ($(IS_MACOS),true)
 	brew update
 	brew outdated
 	brew upgrade
 	brew autoremove
 	brew cleanup --prune=all
-else ifeq ($(OS_FAMILY),Linux)
+else ifeq ($(IS_ARCH),true)
 	sudo pacman -Syu
-# sudo apt update -y
-# sudo apt upgrade -y
-# sudo apt clean
-# sudo apt autoremove
+else ifeq ($(IS_DEBIAN),true)
+	sudo apt update -y
+	sudo apt upgrade -y
+	sudo apt clean
+	sudo apt autoremove -y
 else
-	@echo "Could not identify host OS: stopping."
+	echo "Error: Could not identify host OS"
+	exit 1
 endif

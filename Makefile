@@ -10,11 +10,12 @@ include makefiles/shells.mk
 include makefiles/editors.mk
 include makefiles/tools.mk
 include makefiles/kubernetes.mk
+include makefiles/wayland.mk
 
 # Include OS-specific modules conditionally
 ifeq ($(OS_FAMILY),Linux)
     include makefiles/distros/arch.mk
-    include makefiles/distros/ubuntu.mk
+    include makefiles/distros/debian.mk
 endif
 ifeq ($(OS_FAMILY),Darwin)
     include makefiles/distros/macos.mk

@@ -12,15 +12,16 @@ ISTIOCTL_SYMLINK = $(INSTALL_DIR)/istioctl
 ISTIO_URL = https://github.com/istio/istio/releases/download/$(ISTIO_VERSION)/istioctl-$(ISTIO_VERSION)-$(PLATFORM).tar.gz
 TARBALL = istioctl-$(ISTIO_VERSION)-$(PLATFORM).tar.gz
 
-.PHONY: tenv tenv-arch istioctl bitwarden
+.PHONY: tenv tenv-arch istioctl bitwarden ipaddr
 
 tenv: ## Download and install `tenv` from Github
 	wget https://github.com/tofuutils/tenv/releases/download/${TENV_VERSION}/tenv_${TENV_VERSION}_Linux_x86_64.tar.gz
 
 tenv-arch: ## Install tenv on Arch Linux
-	sudo pacman -Syu cosign
-	wget https://github.com/tofuutils/tenv/releases/download/v4.7.6/tenv_v4.7.6_Linux_x86_64.tar.gz
-	sudo tar -zxvf tenv_v4.7.6_Linux_x86_64.tar.gz -C /usr/local/bin/
+	sudo pacman -S --needed cosign
+	wget https://github.com/tofuutils/tenv/releases/download/$(TENV_VERSION)/tenv_$(TENV_VERSION)_Linux_x86_64.tar.gz
+	sudo tar -zxvf tenv_$(TENV_VERSION)_Linux_x86_64.tar.gz -C /usr/local/bin/
+	rm -f tenv_$(TENV_VERSION)_Linux_x86_64.tar.gz
 
 istioctl: ## Install istioctl binary
 	if [ ! -f "$(TARBALL)" ]; then \
@@ -32,6 +33,10 @@ istioctl: ## Install istioctl binary
 	sudo mv istioctl "$(ISTIOCTL_PATH)"
 	sudo chmod +x "$(ISTIOCTL_PATH)"
 	sudo ln -sf "$(ISTIOCTL_PATH)" "$(ISTIOCTL_SYMLINK)"
+	rm -f "$(TARBALL)"
 
 bitwarden: ## Download Bitwarden CLI
 	wget -L 'https://bitwarden.com/download/?app=cli&platform=linux'
+
+ipaddr: ## Get outbound IP address of this host
+	dig -4 TXT +short o-o.myaddr.l.google.com @ns1.google.com

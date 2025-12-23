@@ -1,5 +1,4 @@
-#!/bin/bash
-# Aliases file
+#!/usr/bin/env bash
 
 # Variables
 DOTFILES_DIR=${HOME}/.dotfiles
@@ -21,57 +20,46 @@ case "$(uname -s)" in
   alias ll='gls --color -ltrG'
   ;;
   Linux)
-  alias ls='ls --color=auto'
-  alias l='ls -la --color=auto'
-  alias ll='ls -ltr --color=auto'
+  alias ls='ls --color=auto --group-directories-first -h'
+  alias l='ls -la --color=auto --group-directories-first -h'
+  alias ll='ls -ltr --color=auto --group-directories-first -h'
   ;;
   CYGWIN*|MINGW32*|MSYS*|MINGW*)
   echo 'MS Windows'
   ;;
-  
+
   *)
   echo 'Other OS'
   ;;
 esac
 
-#
 # Navegación
-# 
-alias github="cd ${HOME}/Code/github.com/asajaroff"
-alias tmpdir="export DIR=`date +%s`; mkdir -p /tmp/${DIR}; cd /tmp/${DIR}"
-#
+alias goGithub="cd ${HOME}/Code/github.com/asajaroff"
+alias newTempDir="export DIR=`date +%s`; mkdir -p /tmp/${DIR}; cd /tmp/${DIR}"
+
 # Containers
-#
 if [ -f /usr/bin/podman ]; then
 	alias docker=podman
 fi
 alias dlogs="docker logs"
 
 # Editor config
-#
-#
 export EDITOR='nvim'
 alias vim='nvim'
 alias view='nvim -R'
 
-#
 # Environment config
-#
 export PATH=~/.local/bin:$PATH
 export WORKSPACE=~/Workspace
-export REPOS="$WORKSPACE/Repos"
-export LOGS="$WORKSPACE/Logs"
 
+# Kubectl
 alias kube=$(which kubectl)
 alias k=$(which kubectl)
 alias kd="$(which kubectl) describe"
 alias kg="$(which kubectl) get"
 
-
-#
-# Git 
-#
-alias ss='git status --short'
+# Git
+alias gs='git status --short'
 alias gs='git status'
 alias ga='git add'
 alias gp='git push'
@@ -83,7 +71,7 @@ alias gplo='git pull origin'
 alias gb='git branch '
 alias gc='git commit'
 alias gd='git diff'
-alias gco='git checkout '
+alias gco='git checkout'
 alias gl='git log'
 alias gr='git remote'
 alias grs='git remote show'
@@ -93,7 +81,8 @@ alias glol='git log --graph --oneline --decorate'
 #
 # Editor(s)
 #
-alias edit='emacs -nw'
+# alias edit='emacsclient -nw .'
+# alias emacs='emacsclient -nw .'
 
 # Frecuently used config files
 alias vimrc="nvim ${CONFIG_DIR}/nvim/init.lua"
@@ -103,13 +92,12 @@ alias tmuxrc="nvim ${CONFIG_DIR}/tmux.conf"
 alias aliasrc="nvim ${CONFIG_DIR}/aliases; source ${CONFIG_DIR}/aliases"
 alias dotFiles="cd ~/.dotfiles"
 alias devDotFiles="${EDITOR} -nw ~/.dotfiles"
-alias aws-instances='aws ec2 describe-instances | view -'
 
 # Repositories
 alias gocode="cd ~/Code"
 alias gogh="cd ~/Code/github.com/asajaroff"
 alias goeen="cd ~/Code/EENCloud"
 
-# workboxes
-alias work="ssh galera@proxmox.ams.molest.ar -p 46222"
-alias devbox="❯ ssh -i ~/.ssh/id_ed25519 proxmox.ams.molest.ar -p 47222"
+# Custom alias
+alias pyexec="${DOTFILES_DIR}/src/scripts/pyexec.py --only-success"
+alias rook-node-restart="${DOTFILES_DIR}/src/scripts/rook-restart.sh"

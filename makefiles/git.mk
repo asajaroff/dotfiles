@@ -3,11 +3,11 @@
 .PHONY: git-config git-submodules-private
 
 git-submodules-private: ## Fetch and pull private git-submodules (requires auth)
-ifneq ($(wildcard ${DOTFILES_DIR}/private.),)
-	@echo "Found a 'private' directory"
+ifneq ($(wildcard ${DOTFILES_DIR}/private),)
+	echo "Found a 'private' directory"
 	exit 0
 else
-	@echo "Did not find a 'private' directory, so let's clone it"
+	echo "Did not find a 'private' directory, so let's clone it"
 	git submodule update --init --recursive private
 endif
 

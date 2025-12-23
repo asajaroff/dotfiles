@@ -5,7 +5,62 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2024-09-01
+## [Unreleased]
+
+### Added
+- **OS Detection System**: Comprehensive OS detection with boolean flags
+  - `IS_MACOS`: Detects macOS/Darwin systems
+  - `IS_ARCH`: Detects Arch Linux systems
+  - `IS_DEBIAN`: Detects Debian/Ubuntu systems (based on `/etc/debian_version`)
+- **Makefile Utility Functions**: Colored output functions for better UX
+  - `info`: Cyan informational messages with ℹ icon
+  - `success`: Green success messages with ✓ icon
+  - `error`: Red error messages with ✗ icon
+  - `warning`: Yellow warning messages with ⚠ icon
+- **AGENTS.md**: Comprehensive guide for AI coding assistants
+  - Repository structure and design principles
+  - Common patterns and best practices
+  - Task-specific guidelines and examples
+  - OS detection usage documentation
+- **Idempotent Workspace Creation**: Safe symlink management with conflict detection
+- **Automatic Directory Creation**: Parent directories created before symlink operations
+- **Tarball Cleanup**: Automatic cleanup after tool installations (tenv, istioctl)
+
+### Changed
+- **Cross-Platform Package Management**: All package installation targets now detect OS
+  - `update` target supports Arch (pacman), Debian (apt), and macOS (brew)
+  - `tmux` target installs wl-clipboard based on detected OS
+  - `kubectx` target installs fzf based on detected OS
+- **Improved User Feedback**: All major targets now provide informational and success messages
+- **Variable Consistency**: All tool installations use version variables instead of hardcoded values
+  - `tenv-arch` now uses `TENV_VERSION` variable
+- **Enhanced .PHONY Declarations**: Complete target declarations in all makefiles
+  - Added `nvim` and `vim` to editors.mk
+  - Added `ipaddr` to tools.mk
+
+### Fixed
+- **Critical Syntax Errors**:
+  - kubernetes.mk:6 - Fixed `OS_ARCH` comparison to `OS_FAMILY` for Darwin detection
+  - kubernetes.mk:7 - Fixed shell command syntax with proper `$(shell ...)` expansion
+  - kubernetes.mk:8-11 - Eliminated redundant curl calls using variable
+- **Git Submodule Detection**: Removed errant period in wildcard path (private. → private)
+- **Configuration File Typos**: Fixed "staship.toml" → "starship.toml" in shells.mk
+- **Missing sudo Privileges**: Added sudo to arch.mk pacman command
+- **Workspace Symlink Safety**: Proper checking and handling of existing files/symlinks
+- **ipaddr Target**: Added help text and proper formatting with .PHONY declaration
+- **Output Consistency**: Standardized @ usage across all makefiles for clean output
+
+### Removed
+- **Unused Variables**: Removed `GOBIN` variable from base.mk (not referenced anywhere)
+- **Commented Code**: Cleaned up commented apt commands in system.mk (replaced with proper implementation)
+
+### Technical Improvements
+- **Error Handling**: Better error messages and exit codes for failed operations
+- **Makefile Safety**: All installation targets now idempotent and safe to re-run
+- **Documentation**: Inline help text for all targets visible via `make help`
+- **Color Coding**: ANSI color codes for improved terminal output readability
+
+## [2024-09-01] - Modular Architecture
 
 ### Added
 - **Modular Makefile Architecture**: Complete refactoring of monolithic Makefile into domain-specific modules

@@ -45,20 +45,28 @@ function df_tmux_new_session_dev() {
 # Work
 function df_tmux_new_session_work() {
     export TMUX_SESSION_NAME='work'
-    # 'editor' window
+    source ${DOTFILES}
+    # 'dired' window
     tmux new-session -d -s ${TMUX_SESSION_NAME} -n dired
-    tmux send-keys -t ${TMUX_SESSION_NAME}:editor "cd ~/Code/"  C-m
-    tmux send-keys -t ${TMUX_SESSION_NAME}:editor "emacs -nw"  C-m
+    tmux send-keys -t ${TMUX_SESSION_NAME}:dired "cd ~/Code/"  C-m
+    tmux send-keys -t ${TMUX_SESSION_NAME}:dired "emacs -nw"  C-m
 
-    # 'code' window
-    tmux new-window -t ${TMUX_SESSION_NAME} -n git/EENCloud
-    tmux send-keys -t ${TMUX_SESSION_NAME}:code "cd ~/Code/github.com/EENCloud" C-m
+    # 'bash' window
+    tmux new-window -t ${TMUX_SESSION_NAME} -n claude
+	source ${DOTFILES}
+    tmux send-keys -t ${TMUX_SESSION_NAME}:claude "cd ~/Code/github.com/EENCloud" C-m
+    tmux send-keys -t ${TMUX_SESSION_NAME}:claude "cd ~/Workspace/claude" C-m
+    tmux send-keys -t ${TMUX_SESSION_NAME}:claude "claude --help" C-m
 
-    # 'cameramanager' window
-    tmux new-window -t ${TMUX_SESSION_NAME} -n CameraManager
+    # 'cm' window
+    tmux new-window -t ${TMUX_SESSION_NAME} -n cm
     tmux send-keys -t ${TMUX_SESSION_NAME}:cm "exec-cm kubectl get pods -A --field-selector='status.phase!=Running,status.phase!=Completed'" C-m
 
-    # 'shell' window
-    tmux new-window -t ${TMUX_SESSION_NAME} -n shell
+    # 'vms' window
+    tmux new-window -t ${TMUX_SESSION_NAME} -n vms
+    tmux send-keys -t ${TMUX_SESSION_NAME}:cm "exec-vms-pods kubectl get pods -A --field-selector='status.phase!=Running'" C-m
+    tmux send-keys -t ${TMUX_SESSION_NAME}:cm "exec-vms-hubs kubectl get pods -A --field-selector='status.phase!=Running'" C-m
+
+    # Attach
     tmux a -t ${TMUX_SESSION_NAME}
 }

@@ -12,3 +12,12 @@ function pods_in_node() {
         kubectl get pods --all-namespaces -o wide --field-selector spec.nodeName=${NODE}
     done
 }
+
+function failed_pods() {
+	kubectl get pods -A --field-selector='status.phase!=Running,status.phase!=Succeeded'
+}
+
+function get_ingress() {
+	kubectl get ingress \
+		-o custom-columns="NAMESPACE:.metadata.namespace,NAME:.metadata.name,HOSTS:.spec.rules[*].host"
+}

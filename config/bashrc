@@ -6,8 +6,6 @@ if [[ -v DOTFILES_DEBUG ]]; then
 	echo "Starting bashrc in debug mode"
 	export TERM=dumb
 	set -x
-else
-	echo "Starting bashrc in normal mode"
 fi
 
 # vi mode
@@ -17,7 +15,7 @@ set -o vi
 # BASH customizations
 #
 export PATH=$PATH:/usr/local/bin:/opt/bin
-export DOTFILES=${HOME}/Code/github.com/asajaroff/dotfiles
+export DOTFILES=${HOME}/.dotfiles
 
 # History
 HISTFILE="${HOME}/.bash_history"
@@ -48,8 +46,9 @@ if [[ -d ${DF_FUNCTIONS_DIR} ]]; then
             source ${DF_FUNCTIONS_DIR}/${file}
 	fi
     done
-
-    echo "Loaded ${#FILES[@]} files with functions from dotfiles"
+	if [[ -v DOTFILES_DEBUG ]]; then
+    		echo "Loaded ${#FILES[@]} files with functions from dotfiles"
+	fi
 fi
 
 # EEN
@@ -63,8 +62,10 @@ if [[ -d ${EEN_FUNCTIONS_DIR} ]]; then
     for file in "${FILES[@]}"; do
 	source ${EEN_FUNCTIONS_DIR}/${file}
     done
+fi
 
-    echo "Sourced EEN modules: ${FILES[@]}"
+if [[ -v DOTFILES_DEBUG ]]; then
+    	echo "Sourced EEN modules: ${FILES[@]}"
 fi
 
 #
@@ -76,6 +77,7 @@ if [[ -n $SSH_CONNECTION ]]; then
   export EDITOR='vim'
 else
   export EDITOR='nvim'
+  alias vim='nvim'
 fi
 
 # Krew
@@ -87,10 +89,8 @@ fi
 # Starship shell
 eval "$(starship init bash)"
 
-# Bash completions
-. <(asdf completion bash)
-. <(tldr --print-completion bash)
-
 # Coloured man pages
 export MANPAGER="less -R --use-color -Dd+r -Du+b"
 export MANROFFOPT="-P -c"
+
+source ~/.dotfiles/private/secrets.env
