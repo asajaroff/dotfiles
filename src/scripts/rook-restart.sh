@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # IF ARGV == 0
 NODE=$1
 printf "About to rollout all OSDs from <%s>\n" $NODE
