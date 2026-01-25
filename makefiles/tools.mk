@@ -40,3 +40,12 @@ bitwarden: ## Download Bitwarden CLI
 
 ipaddr: ## Get outbound IP address of this host
 	dig -4 TXT +short o-o.myaddr.l.google.com @ns1.google.com
+
+
+BW_CLI_VERSION := 1.22.1
+bitwarden-cli:
+	wget -L https://github.com/bitwarden/cli/releases/download/v1.22.1/bw-linux-$(BW_CLI_VERSION).zip
+	unzip bw-linux-$(BW_CLI_VERSION).zip
+	chmod +x bw
+	sudo mv ./bw /usr/local/bin/bw
+	rm bw-linux-$(BW_CLI_VERSION).zip
