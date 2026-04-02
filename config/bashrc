@@ -94,3 +94,6 @@ export MANPAGER="less -R --use-color -Dd+r -Du+b"
 export MANROFFOPT="-P -c"
 
 source ~/.dotfiles/private/secrets.env
+
+# opencode
+export PATH=/home/asajaroff/.opencode/bin:$PATH

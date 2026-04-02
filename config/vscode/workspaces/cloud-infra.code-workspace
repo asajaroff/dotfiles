@@ -1,0 +1,11 @@
+{
+	"folders": [
+		{
+			"path": "../../../../Code/github.com/EENCloud/cloud-infra"
+		},
+		{
+			"path": "../../../../Code/github.com/EENCloud/opentofu-modules"
+		}
+	],
+	"settings": {}
+}

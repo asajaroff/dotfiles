@@ -21,3 +21,8 @@ function get_ingress() {
 	kubectl get ingress \
 		-o custom-columns="NAMESPACE:.metadata.namespace,NAME:.metadata.name,HOSTS:.spec.rules[*].host"
 }
+
+function get_failed_pods() {
+kubectl get pods \
+    --field-selector="status.phase!=Succeeded,status.phase!=Running"
+}
