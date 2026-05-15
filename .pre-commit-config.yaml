@@ -14,4 +14,3 @@ repos:
     hooks:
       - id: shellcheck
         args: [--severity=warning, --external-sources]
-        exclude: ^distros/   # legacy, slated for removal (see TODO #16)

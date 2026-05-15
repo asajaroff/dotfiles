@@ -1,7 +1,8 @@
+#!/usr/bin/env bash
 # Install package dependencies
 sudo pacman -Sy libvirt qemu ebtables dnsmasq
 # Add to group
-sudo usermod -a -G libvirt $(whoami)
+sudo usermod -a -G libvirt "$(whoami)"
 newgrp libvirt
 # Start services at boot
 sudo systemctl start libvirtd.service

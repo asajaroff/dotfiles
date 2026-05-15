@@ -147,7 +147,7 @@ restore: ## Restore previous configs
 - [x] Make hooks executable (`make git-hooks` installs)
 - [ ] Document hooks in CONTRIBUTING.md — deferred (CONTRIBUTING.md doesn't exist yet, item #21)
 
-### 12. Add terminal emulator config
+### 12. Add terminal emulator config (SKIPPED — no terminal emulator installed yet)
 - [ ] Create `config/ghostty/config` (macOS)
 - [ ] Consider adding Alacritty config (cross-platform)
 - [ ] Consider adding Kitty config (cross-platform)
@@ -162,15 +162,15 @@ restore: ## Restore previous configs
 - [ ] Add language-specific Makefile targets
 
 ### 14. Add testing infrastructure
-- [ ] Create `tests/` directory
-- [ ] Install bats or shunit2 for shell testing
-- [ ] Write tests for shell functions
-- [ ] Write tests for Makefile targets
-- [ ] Write tests for OS detection
-- [ ] Add CI/CD integration (GitHub Actions)
-- [ ] Document testing in README
+- [ ] Create `tests/` directory — deferred
+- [ ] Install bats or shunit2 for shell testing — deferred
+- [ ] Write tests for shell functions — deferred
+- [ ] Write tests for Makefile targets — deferred
+- [ ] Write tests for OS detection — deferred
+- [x] Add CI/CD integration (GitHub Actions) — pre-commit job added to make-stages.yaml
+- [ ] Document testing in README — deferred
 
-### 15. Create troubleshooting guide
+### 15. Create troubleshooting guide (SKIPPED for now)
 - [ ] Create `docs/TROUBLESHOOTING.md`
 - [ ] Document symlink conflicts resolution
 - [ ] Document permission issues
@@ -183,13 +183,13 @@ restore: ## Restore previous configs
 ## Organizational Improvements
 
 ### 16. Deprecate /distros/ directory
-- [ ] Audit `/distros/` legacy scripts
-- [ ] Verify all functionality moved to `/makefiles/distros/`
-- [ ] Remove `/distros/` directory if fully migrated
-- [ ] Update CHANGELOG with migration notes
-- [ ] Update README if it references old scripts
+- [x] Audit `/distros/` legacy scripts
+- [x] Verify all functionality moved (some moved to docs/install/, others deleted)
+- [x] Remove `/distros/` directory
+- [ ] Update CHANGELOG with migration notes — deferred
+- [x] Update README if it references old scripts
 
-**Context:** Both `/distros/` (legacy) and `/makefiles/distros/` (modern) exist
+**Context:** Both `/distros/` (legacy) and `/makefiles/distros/` (modern) existed. Resolution: /distros/ contents moved to `docs/install/` (they were install recipes, not part of the Make-driven flow). `makefiles/distros/` retained.
 
 ### 17. Unify path references
 - [ ] Audit all files for path references

@@ -27,9 +27,8 @@ dotfiles/
 │   ├── shells.mk     # Shell configuration
 │   ├── tools.mk      # Tool installations
 │   └── distros/      # OS-specific configurations
-├── distros/          # OS-specific installation scripts
 ├── private/          # Private configurations (git submodule)
-└── docs/             # Documentation and examples
+└── docs/             # Documentation and install recipes
 ```
 
 ## 🚀 Quick Start

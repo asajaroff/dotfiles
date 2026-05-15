@@ -6,7 +6,7 @@ wget -L ${EMACS_TARBALL}
 
 tar xcvf ${EMACS_TARBALL}
 
-cd ./emacs
+cd ./emacs || exit 1
 
 ./configure --with-native-compilation=aot\
             --with-tree-sitter\
