@@ -23,10 +23,8 @@
 ;; Compilation mode configs
 (load-file "~/.dotfiles/config/emacs/compilation-mode.el")
 
-;; Files
-(load-file "~/.dotfiles/config/emacs/files.el")
-
 ;; Custom keybindings
+(load-file "~/.dotfiles/config/emacs/keybindings.el")
 
 ;; Custom variables
 (setq vc-follow-symlinks nil) ;; Do not ask stupid questions when opening symlinks

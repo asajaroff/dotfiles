@@ -192,6 +192,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Future Roadmap
 - [ ] Enhanced container development support
 - [ ] Improved cross-platform compatibility for Windows
-- [ ] Plugin system for community contributions  
+- [ ] Plugin system for community contributions
 - [ ] Automated backup and restore functionality
 - [ ] Integration with cloud synchronization services

@@ -1,5 +1,6 @@
+#!/usr/bin/env bash
 # Bitwarden update script
-# 
+#
 # Install or updates the bitwarden desktop client for any Linux distribution. This is posible since Bitwarden is distributed as an AppImage
 # This script also handles the creation of the GNOME shell desktop icon.
 

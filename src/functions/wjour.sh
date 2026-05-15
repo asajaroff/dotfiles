@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 
 JOURNAL_PATH='/home/asajaroff/Workspace/journal.md'
-JIRA_TOKEN='1234'
-GITHUB_TOKEN='1234'
 
 function wjour() {
     args=("$@")

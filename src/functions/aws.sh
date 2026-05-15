@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 function aws_instance () {
   if [ -z "$1" ]; then
       echo "Instance ID is expected."

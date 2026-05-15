@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 kubectl -n kube-system create serviceaccount tiller
 
 kubectl create clusterrolebinding tiller \

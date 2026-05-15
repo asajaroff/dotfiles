@@ -2,10 +2,10 @@
 
 # Install lots of software
 
-pacman -Syu gnome-tweaks 
+pacman -Syu gnome-tweaks
 
 # Software
 
-# Programming related software 
+# Programming related software
 
 pacman -Syu code maven npm go

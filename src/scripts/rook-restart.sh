@@ -1,48 +1,76 @@
 #!/usr/bin/env bash
 
-# IF ARGV == 0
-NODE=$1
-printf "About to rollout all OSDs from <%s>\n" $NODE
+set -euo pipefail
 
-kubectl exec -ti deploy/rook-ceph-tools -n rook-ceph -- ceph -s | grep 'health: '
+CONTEXT="${1:-}"
+NODE="${2:-}"
+NAMESPACE="rook-ceph"
+KUBECTL="kubectl --context ${CONTEXT} -n ${NAMESPACE}"
+RESTART_DELAY=20  # seconds to wait between OSD restarts
 
-kubectl get node ${NODE} &>/dev/null
-  exit_code=$?
+usage() {
+    echo "Usage: $0 <context> <node-name>"
+    echo "  context:   kubectl context to use (e.g. aus1cm1)"
+    echo "  node-name: Kubernetes node whose OSDs will be restarted"
+    exit 1
+}
 
-if [ $exit_code -eq 0 ]; then
-	echo "Node ${NODE} exists"
-else
-	echo "Command failed with exit code: $exit_code"
-	exit $exit_code
+unset_maintenance_flags() {
+    echo "Unsetting OSD maintenance flags..."
+    ${KUBECTL} exec -ti deployment/rook-ceph-tools -- ceph osd unset noout
+    ${KUBECTL} exec -ti deployment/rook-ceph-tools -- ceph osd unset norebalance
+    ${KUBECTL} exec -ti deployment/rook-ceph-tools -- ceph osd unset nobackfill
+}
+
+if [[ -z "${CONTEXT}" || -z "${NODE}" ]]; then
+    usage
 fi
 
-# Select the pods
-#kubectl get pods --all-namespaces -o wide --field-selector spec.nodeName=${NODE} -lapp=rook-ceph-osd
+printf "Context  : %s\n" "${CONTEXT}"
+printf "Namespace: %s\n" "${NAMESPACE}"
+printf "Node     : %s\n" "${NODE}"
+printf "\nAbout to rollout all OSDs from <%s>\n" "${NODE}"
 
-# Put the cluster in 'maintenance mode'
-#
-kubectl exec -ti deploy/rook-ceph-tools -n rook-ceph -- ceph osd set noout
-kubectl exec -ti deploy/rook-ceph-tools -n rook-ceph -- ceph osd set norebalance
-kubectl exec -ti deploy/rook-ceph-tools -n rook-ceph -- ceph osd set nobackfill
+# Pre-flight: verify cluster health
+${KUBECTL} exec -ti deployment/rook-ceph-tools -- ceph -s | grep 'health: '
 
-for deploy in $(kubectl get pods --all-namespaces -o wide \
-	--field-selector spec.nodeName=${NODE} \
-	-lapp=rook-ceph-osd \
-	--no-headers | cut -d' ' -f 4 | cut -d'-' -f1,2,3,4);
+# Pre-flight: verify node exists
+if ! ${KUBECTL} get node "${NODE}" &>/dev/null; then
+    echo "ERROR: node '${NODE}' not found in context '${CONTEXT}'"
+    exit 1
+fi
+echo "Node ${NODE} exists"
+
+# Pre-flight: check if maintenance flags are already set
+if ${KUBECTL} exec -ti deployment/rook-ceph-tools -- ceph osd dump \
+    | grep -qE 'flags.*noout'; then
+    echo "WARNING: cluster already has 'noout' set — a previous run may have left it in maintenance mode."
+    echo "Resolve this manually before re-running."
+    exit 1
+fi
+
+# Ensure maintenance flags are always unset on exit (normal or error)
+trap unset_maintenance_flags ERR EXIT
+
+# Put the cluster in maintenance mode
+${KUBECTL} exec -ti deployment/rook-ceph-tools -- ceph osd set noout
+${KUBECTL} exec -ti deployment/rook-ceph-tools -- ceph osd set norebalance
+${KUBECTL} exec -ti deployment/rook-ceph-tools -- ceph osd set nobackfill
+
+for deployment in $(${KUBECTL} get deploy \
+    -l app=rook-ceph-osd,topology-location-host="${NODE}" \
+    --no-headers -o custom-columns=NAME:.metadata.name);
 do
-		kubectl rollout restart deployment/${deploy}
-		kubectl rollout status deployment/${deploy} --watch --timeout 5m
-		sleep 20
-		# If this two are ok, continue
-		kubectl exec -ti deploy/rook-ceph-tools -n rook-ceph -- ceph osd status | grep -v up
-		sleep 3
-		kubectl exec -ti deploy/rook-ceph-tools -n rook-ceph -- ceph -s | grep 'health: '
-		sleep 3
-	done
+    ${KUBECTL} rollout restart deployment/"${deployment}"
+    ${KUBECTL} rollout status deployment/"${deployment}" --watch --timeout 5m
+    sleep "${RESTART_DELAY}"
+    # If these two are ok, continue
+    ${KUBECTL} exec -ti deployment/rook-ceph-tools -- ceph osd status | grep -v up
+    sleep 3
+    ${KUBECTL} exec -ti deployment/rook-ceph-tools -- ceph -s | grep 'health: '
+    sleep 3
+done
 
-kubectl exec -ti deploy/rook-ceph-tools -n rook-ceph -- ceph osd unset noout
-kubectl exec -ti deploy/rook-ceph-tools -n rook-ceph -- ceph osd unset norebalance
-kubectl exec -ti deploy/rook-ceph-tools -n rook-ceph -- ceph osd unset nobackfill
+# trap will call unset_maintenance_flags on clean exit
 sleep 5
-
-kubectl exec -ti deploy/rook-ceph-tools -n rook-ceph -- ceph -s
+${KUBECTL} exec -ti deployment/rook-ceph-tools -- ceph -s

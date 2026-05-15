@@ -14,13 +14,13 @@ if ! command -v rsync; then
     exit 1
 fi
 
-# TODO: Add exclude dirs dinamically
-EXCLUDE_DIRS=('go' '.dotfiles' 'Downloads' '.cache' '.venv' '.terragrunt-cache' '.terraform')
+# TODO: Add exclude dirs dynamically (placeholder list, currently hardcoded inline below)
 BACKUP_MOUNTPOINT='/media/asajaroff/Movil'
 HOSTNAME='xps-13-debian'
 
 function update_backup() {
-	local BACKUP_DIR=$(date +%Y-%m-%dT%H-%M)
+	local BACKUP_DIR
+	BACKUP_DIR=$(date +%Y-%m-%dT%H-%M)
 	local BACKUP_PATH=${BACKUP_MOUNTPOINT}/Backups/xps-13/${BACKUP_DIR}/
 	rsync -azh --delete \
 		--stats \
@@ -39,7 +39,8 @@ function update_backup() {
 # /media/asajaroff/Bacap/Backups/xps-13-debian
 
 function new_backup() {
-	local BACKUP_DIR=$(date +%Y-%m-%dT%H-%M)
+	local BACKUP_DIR
+	BACKUP_DIR=$(date +%Y-%m-%dT%H-%M)
 	local BACKUP_PATH=${BACKUP_MOUNTPOINT}/Backups/${HOSTNAME}/${BACKUP_DIR}/
 	if [ ! -d "$BACKUP_PATH" ]; then
 	    mkdir -p ${BACKUP_PATH}

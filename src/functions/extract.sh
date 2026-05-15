@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 function unex () {
   if [ -f $1 ]; then
     case $1 in
@@ -15,6 +16,6 @@ function unex () {
       *)          echo "'$1' cannot be extracted via ex()" ;;
       esac
     else
-      echo "'$1' is not a valid file." 
+      echo "'$1' is not a valid file."
     fi
 }

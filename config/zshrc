@@ -1,6 +1,17 @@
 # User configuration
 source ~/.dotfiles/config/aliases
-source ~/.dotfiles/private/een/functions/*.sh
+
+() {
+    setopt LOCAL_OPTIONS NULL_GLOB
+    for f in \
+        "${HOME}/.dotfiles/src/functions"/*.sh \
+        "${HOME}/.dotfiles/src/functions"/*.bash \
+        "${HOME}/.dotfiles/private/een/functions"/*.sh \
+        "${HOME}/.dotfiles/private/een/functions"/*.bash
+    do
+        [ -f "$f" ] && source "$f"
+    done
+}
 
 # You may need to manually set your language environment
 export LANG=en_US.UTF-8

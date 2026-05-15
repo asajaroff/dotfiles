@@ -20,7 +20,7 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y emacs gcc cmake
 
       - name: 'Validate emacs config'
-        run: 	|
+        run: |
           ln -sf ${{ github.workspace }} ${HOME}/.dotfiles
           touch ${HOME}/.emacs.custom.el
           ln -sf ${{ github.workspace }}/config/emacs/init.el ${HOME}/.emacs

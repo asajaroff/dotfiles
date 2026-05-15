@@ -89,7 +89,7 @@ Run `make help` to see all available targets:
 
 ### Platform-specific
 - `make archlinux` - Install Arch Linux packages
-- `make ubuntu` - Install Ubuntu/Debian packages  
+- `make ubuntu` - Install Ubuntu/Debian packages
 - `make macos-base` - Install basic macOS packages
 
 ### Tools & Development
@@ -111,8 +111,8 @@ Run `make help` to see all available targets:
 
 ### Development Tools
 - **Tmux** with vi key bindings and proper clipboard integration
-- **Emacs** with evil mode and use-package management
-- **Neovim** with LSP support for Go, Python, Bash, YAML
+- **Neovim** (primary editor, `$EDITOR`) with LSP support for Go, Python, Bash, YAML
+- **Emacs** with evil mode and use-package management (secondary)
 - **Git** with sensible defaults and helpful aliases
 
 ### Platform Integration
@@ -132,10 +132,12 @@ This dotfiles setup supports private configurations through git submodules:
 2. **Private configurations are stored in**:
    ```
    private/
-   ├── functions/     # Private shell functions
-   ├── bin/          # Private scripts and binaries
-   └── config/       # Private config files
+   ├── config/       # gitconfig, ssh config
+   ├── een/          # Work-specific functions and scripts
+   └── bin/          # Private scripts and binaries
    ```
+
+See [docs/private-setup.md](docs/private-setup.md) for details, including how to set up your own private submodule.
 
 ## 🛠 Customization
 

@@ -10,10 +10,10 @@ This document tracks improvements and enhancements for the dotfiles repository.
 ## High Priority - Quick Wins
 
 ### 1. Clean up tracked/untracked files
-- [ ] Remove `Makefile.old`
-- [ ] Remove `makefiles/#editors.mk#` (Emacs backup file)
-- [ ] Decide on i3 config: either `git add config/i3/` or add to `.gitignore`
-- [ ] Resolve private submodule changes (`m private` in git status)
+- [x] Remove `Makefile.old` (already gone)
+- [x] Remove `makefiles/#editors.mk#` (Emacs backup file)
+- [x] Decide on i3 config: either `git add config/i3/` or add to `.gitignore` (dir doesn't exist)
+- [ ] Resolve private submodule changes (`m private` in git status) — deferred
 
 **Commands:**
 ```bash
@@ -24,12 +24,12 @@ cd private && git status
 ```
 
 ### 2. Fix typos and broken references
-- [ ] Fix typo in `src/functions/terraform.sh:5` - `tf-module-teplate` → `tf-module-template`
-- [ ] Fix path in `src/functions/terraform.sh:20` - Update from `$HOME/.dotfiles/functions/` to `$HOME/.dotfiles/src/functions/`
-- [ ] Fix path in `src/functions/git.sh` - Same old path issue
-- [ ] Fix unreachable code in `terraform.sh:21` (code after return 0)
+- [x] Fix typo in `src/functions/terraform.sh:5` - `tf-module-teplate` → `tf-module-template`
+- [x] Fix path in `src/functions/terraform.sh:20` - Update from `$HOME/.dotfiles/functions/` to `$HOME/.dotfiles/src/functions/`
+- [x] Fix path in `src/functions/git.sh` - Same old path issue
+- [x] Fix unreachable code in `terraform.sh:21` (code after return 0)
 
-### 3. Add missing .gitconfig
+### 3. Add missing .gitconfig (SKIPPED for now)
 - [ ] Create `config/gitconfig` file
 - [ ] Include common aliases (co, br, ci, st, etc.)
 - [ ] Set core.editor
@@ -55,10 +55,10 @@ cd private && git status
 ```
 
 ### 4. Unify EDITOR variable
-- [ ] Decide: Emacs or Neovim as primary editor
-- [ ] Update both `config/bashrc` and `config/zshrc` consistently
-- [ ] Update README.md to match actual editor preference
-- [ ] Check all aliases that reference editor
+- [x] Decide: Emacs or Neovim as primary editor → **Neovim**
+- [x] Update both `config/bashrc` and `config/zshrc` consistently (already consistent: nvim local, vim over SSH)
+- [x] Update README.md to match actual editor preference
+- [x] Check all aliases that reference editor (only `alias vim='nvim'`, correct)
 
 **Current inconsistency:**
 - README says: "Emacs with evil mode" is primary
@@ -69,10 +69,10 @@ cd private && git status
 ## Medium Priority - Filling Gaps
 
 ### 5. Add SSH configuration
-- [ ] Create `config/ssh_config` file
-- [ ] Add common SSH patterns (ServerAliveInterval, AddKeysToAgent, etc.)
-- [ ] Add Makefile target to symlink SSH config
-- [ ] Document SSH key management in README
+- [x] Create `config/ssh_config` file → lives in `private/config/ssh/config` (work-sensitive)
+- [x] Add common SSH patterns (ServerAliveInterval, AddKeysToAgent, etc.) — already in current config
+- [x] Add Makefile target to symlink SSH config (`make ssh` in shells.mk)
+- [ ] Document SSH key management in README — deferred
 
 **Example structure:**
 ```
@@ -85,12 +85,12 @@ Host github.com
 ```
 
 ### 6. Complete or remove empty files
-- [ ] Decide fate of `config/emacs/files.el` (0 bytes)
-- [ ] Decide fate of `config/emacs/keybindings.el` (0 bytes)
-- [ ] Either populate them with content or remove
-- [ ] If removing, clean up references in `config/emacs/init.el`
+- [x] Decide fate of `config/emacs/files.el` (not empty: 96B — sets backup dir)
+- [x] Decide fate of `config/emacs/keybindings.el` (not empty: 43B — recompile binding)
+- [x] Either populate them with content or remove (kept; both have content)
+- [x] If removing, clean up references in `config/emacs/init.el` (fixed: removed duplicate `files.el` load, added missing `keybindings.el` load)
 
-### 7. Add shell enhancement configs
+### 7. Add shell enhancement configs (SKIPPED for now)
 - [ ] Add `.config/fzf/fzf.bash` configuration
 - [ ] Add `.config/fzf/fzf.zsh` configuration
 - [ ] Create `.config/ripgrep/ripgreprc` (if using ripgrep)
@@ -99,31 +99,31 @@ Host github.com
 - [ ] Add Makefile targets for these tools
 
 ### 8. Standardize shell function loading
-- [ ] Review bashrc array-based loading pattern
-- [ ] Review zshrc wildcard-based loading pattern
-- [ ] Choose one consistent pattern
-- [ ] Apply to both bashrc and zshrc
-- [ ] Document the pattern in README
+- [x] Review bashrc array-based loading pattern
+- [x] Review zshrc wildcard-based loading pattern (was missing src/functions entirely!)
+- [x] Choose one consistent pattern (simple guarded glob loop)
+- [x] Apply to both bashrc and zshrc
+- [ ] Document the pattern in README — deferred
 
 **Current inconsistency:**
 - bashrc: Careful array-based loading with debug support
 - zshrc: Simple wildcard sourcing
 
 ### 9. Document private submodule setup
-- [ ] Create `docs/private-setup.md`
-- [ ] Explain how to create private submodule
-- [ ] Document what belongs in public vs private
-- [ ] Provide example private structure
-- [ ] Add troubleshooting for submodule issues
-- [ ] Link from main README
+- [x] Create `docs/private-setup.md`
+- [x] Explain how to create private submodule
+- [x] Document what belongs in public vs private
+- [x] Provide example private structure
+- [x] Add troubleshooting for submodule issues
+- [x] Link from main README
 
 ### 10. Add backup/restore mechanism
-- [ ] Create `makefiles/backup.mk`
-- [ ] Implement `backup` target (saves existing configs)
-- [ ] Implement `restore` target (restores from backup)
-- [ ] Add timestamped backup directories
-- [ ] Document in README
-- [ ] Include backup in main Makefile
+- [x] Create `makefiles/backup.mk`
+- [x] Implement `backup` target (saves existing configs)
+- [x] Implement `restore` target (restores from backup)
+- [x] Add timestamped backup directories (~/dotfiles-backups/<YYYYMMDD-HHMMSS>/)
+- [ ] Document in README — deferred
+- [x] Include backup in main Makefile
 
 **Example structure:**
 ```makefile
@@ -140,12 +140,12 @@ restore: ## Restore previous configs
 ## Low Priority - Nice to Have
 
 ### 11. Add pre-commit hooks
-- [ ] Create `.git/hooks/pre-commit` script
-- [ ] Add shellcheck validation for shell scripts
-- [ ] Add yamllint validation for YAML files
-- [ ] Add markdown linting
-- [ ] Make hooks executable
-- [ ] Document hooks in CONTRIBUTING.md
+- [x] Create `.pre-commit-config.yaml` (pre-commit framework, not raw .git/hooks)
+- [x] Add shellcheck validation for shell scripts
+- [x] Add yamllint validation for YAML files (check-yaml hook)
+- [ ] Add markdown linting — deferred (overkill)
+- [x] Make hooks executable (`make git-hooks` installs)
+- [ ] Document hooks in CONTRIBUTING.md — deferred (CONTRIBUTING.md doesn't exist yet, item #21)
 
 ### 12. Add terminal emulator config
 - [ ] Create `config/ghostty/config` (macOS)

@@ -1,6 +1,6 @@
 # Shell configuration setup
 
-.PHONY: shells shell-requisites bash zsh tmux
+.PHONY: shells shell-requisites bash zsh tmux ssh
 
 shells: shell-requisites bash zsh tmux ## Setup zsh, bash and tmux configs
 
@@ -18,3 +18,7 @@ zsh: ## Create zsh symlinks to configfiles
 
 tmux: ## Create tmux symlinks to configfiles
 	ln -sf ${DOTFILES_DIR}/config/tmux.conf ${HOME}/.tmux.conf
+
+ssh: ## Symlink SSH config from private submodule
+	mkdir -p ${HOME}/.ssh && chmod 700 ${HOME}/.ssh
+	ln -sf ${DOTFILES_DIR}/private/config/ssh/config ${HOME}/.ssh/config

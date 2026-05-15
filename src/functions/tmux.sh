@@ -1,10 +1,8 @@
 #!/usr/bin/env bash
 # Name: tmux session handlers
 #
-DF_SSH_KEYS='~/.ssh/een'
-
 function init_ssh() {
-	eval $(ssh-agent)
+	eval "$(ssh-agent)"
 	ssh-add ~/.ssh/een
 }
 
@@ -45,7 +43,6 @@ function df_tmux_new_session_dev() {
 # Work
 function df_tmux_new_session_work() {
     export TMUX_SESSION_NAME='work'
-    source ${DOTFILES}
     # 'dired' window
     tmux new-session -d -s ${TMUX_SESSION_NAME} -n dired
     tmux send-keys -t ${TMUX_SESSION_NAME}:dired "cd ~/Code/"  C-m
@@ -53,7 +50,6 @@ function df_tmux_new_session_work() {
 
     # 'bash' window
     tmux new-window -t ${TMUX_SESSION_NAME} -n claude
-	source ${DOTFILES}
     tmux send-keys -t ${TMUX_SESSION_NAME}:claude "cd ~/Code/github.com/EENCloud" C-m
     tmux send-keys -t ${TMUX_SESSION_NAME}:claude "cd ~/Workspace/claude" C-m
     tmux send-keys -t ${TMUX_SESSION_NAME}:claude "claude --help" C-m

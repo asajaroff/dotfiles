@@ -55,6 +55,7 @@ function ai-commit() {
             }
         }'
 
+        # shellcheck disable=SC1112  # unicode apostrophes are intentional (RFC 2119 quotes contain literal apostrophes that would break a single-quoted bash string)
         local prompt='Create a <git commit -m MESSAGE> and output it to stdout
    - Follow the Conventional Commit standard:
 ```markdown
@@ -146,7 +147,8 @@ function ai-pr() {
         return 1
     fi
 
-    local current_branch=$(git branch --show-current)
+    local current_branch
+    current_branch=$(git branch --show-current)
     if [[ "$current_branch" == "$base_branch" ]]; then
         echo "Error: Currently on base branch '$base_branch'. Switch to a feature branch first."
         return 1

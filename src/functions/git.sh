@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 function repo-template {
     if [ -z "$1" ]
     then
@@ -6,10 +7,10 @@ function repo-template {
     fi
 
     mkdir $1
-    cp $HOME/.dotfiles/functions/resources/template_CHANGELOG $1/CHANGELOG
-    cp $HOME/.dotfiles/functions/resources/template_Makefile $1/Makefile
-    cp $HOME/.dotfiles/functions/resources/template_.editorconfig $1/.editorconfig
-    sed "s/Project Title/$1/g" $HOME/.dotfiles/functions/resources/template_README.md > $1/README.md
+    cp $HOME/.dotfiles/src/functions/resources/template_CHANGELOG $1/CHANGELOG
+    cp $HOME/.dotfiles/src/functions/resources/template_Makefile $1/Makefile
+    cp $HOME/.dotfiles/src/functions/resources/template_.editorconfig $1/.editorconfig
+    sed "s/Project Title/$1/g" $HOME/.dotfiles/src/functions/resources/template_README.md > $1/README.md
 }
 
 function fclone {
@@ -17,6 +18,6 @@ function fclone {
 }
 
 function keys_init {
-	eval $(ssh-agent)
+	eval "$(ssh-agent)"
 	ssh-add ~/.ssh/een
 }

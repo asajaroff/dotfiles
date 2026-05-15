@@ -21,8 +21,9 @@ render)
         -f values.yaml \
         --debug \
         --create-namespace \
+        -n "${NAMESPACE}" \
         --dry-run \
-        ${HELM_RELEASE_NAME} ${HELM_CHART_NAME}
+        "${HELM_RELEASE_NAME}" "${HELM_CHART_NAME}"
     set +x
     ;;
 
@@ -32,7 +33,8 @@ install)
         -f values.yaml \
         --debug \
         --create-namespace \
-        ${HELM_RELEASE_NAME} ${HELM_CHART_NAME}
+        -n "${NAMESPACE}" \
+        "${HELM_RELEASE_NAME}" "${HELM_CHART_NAME}"
     set +x
     ;;
 
@@ -41,7 +43,8 @@ clean)
     helm3 uninstall \
         --cascade foreground \
         --wait \
-        ${HELM_RELEASE_NAME}
+        -n "${NAMESPACE}" \
+        "${HELM_RELEASE_NAME}"
     set -x
     ;;
 

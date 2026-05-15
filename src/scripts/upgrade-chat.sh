@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 cat << EOF > /usr/share/applications/teamwork-chat.desktop
 [Desktop Entry]
 Name=Teamwork Chat
@@ -8,4 +9,3 @@ Icon=/opt/TeamworkChat/icon.png
 Type=Application
 Terminal=false
 EOF
-

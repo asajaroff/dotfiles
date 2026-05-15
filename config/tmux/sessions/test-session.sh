@@ -1,6 +1,6 @@
-#!/bin/sh 
+#!/bin/sh
 
-set -ex 
+set -ex
 SESSION_NAME='sample'
 
 tmux new-session -s ${SESSION_NAME}

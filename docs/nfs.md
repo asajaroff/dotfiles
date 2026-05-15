@@ -1,4 +1,4 @@
-# NFS 
+# NFS
 
 ## sudo mount it
 ```bash

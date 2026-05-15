@@ -7,9 +7,9 @@ function pods_in_node() {
         echo "Error: Must provide a valid node name"
         return 1
     fi
-    for NODE in $*
+    for NODE in "$@"
     do
-        kubectl get pods --all-namespaces -o wide --field-selector spec.nodeName=${NODE}
+        kubectl get pods --all-namespaces -o wide --field-selector spec.nodeName="${NODE}"
     done
 }
 

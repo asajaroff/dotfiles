@@ -3,7 +3,7 @@
 ## Events
 kubectl get events --sort-by='.metadata.creationTimestamp' # Sort by latest
 
-## Creation of resources 
+## Creation of resources
 ### Configmap from literal and Pod overrides
 ```bash
 kubectl create configmap my-config --from-literal=FOO=BAR
