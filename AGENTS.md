@@ -52,6 +52,13 @@ dotfiles/
    - Use conditional logic for OS-specific configurations
    - Keep configurations well-commented
 
+### Path References
+
+To refer to the dotfiles root:
+- **In shell code** (rcs, functions, scripts): use `${DOTFILES}` (exported by bashrc/zshrc at startup).
+- **In Makefiles**: use `${DOTFILES_DIR}` (set in `makefiles/base.mk`).
+- Avoid `~/.dotfiles` and `$HOME/.dotfiles` in tracked code — they bypass the convention.
+
 ### OS Detection
 
 The repository uses OS detection variables defined in `makefiles/base.mk`:

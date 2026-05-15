@@ -164,11 +164,7 @@ makefiles/distros/
 
 ## 🤝 Contributing
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Test across different environments
-5. Submit a pull request
+PRs welcome for portable improvements. See [CONTRIBUTING.md](CONTRIBUTING.md) for dev setup (`make git-hooks`), conventions, and the PR process.
 
 ## 📄 License
 

@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
 
-# Variables
-DOTFILES_DIR=${HOME}/.dotfiles
-CONFIG_DIR=${DOTFILES_DIR}/config
-ALIASES_DIR=${DOTFILES_DIR}/config/alias
+# Variables — assumes ${DOTFILES} is exported by bashrc/zshrc
+CONFIG_DIR=${DOTFILES}/config
+ALIASES_DIR=${DOTFILES}/config/alias
 
 if [[ -d "${ALIASES_DIR}" ]] ; then
   for file in $(ls -1 $ALIASES_DIR | grep alias); do
@@ -90,8 +89,8 @@ alias zshrc="nvim ${CONFIG_DIR}/zshrc"
 alias bashrc="nvim ${CONFIG_DIR}/bashrc"
 alias tmuxrc="nvim ${CONFIG_DIR}/tmux.conf"
 alias aliasrc="nvim ${CONFIG_DIR}/aliases; source ${CONFIG_DIR}/aliases"
-alias dotFiles="cd ~/.dotfiles"
-alias devDotFiles="${EDITOR} -nw ~/.dotfiles"
+alias dotFiles="cd ${DOTFILES}"
+alias devDotFiles="${EDITOR} -nw ${DOTFILES}"
 
 # Repositories
 alias gocode="cd ~/Code"
@@ -99,5 +98,5 @@ alias gogh="cd ~/Code/github.com/asajaroff"
 alias goeen="cd ~/Code/EENCloud"
 
 # Custom alias
-alias pyexec="${DOTFILES_DIR}/src/scripts/pyexec.py --only-success"
-alias rook-node-restart="${DOTFILES_DIR}/src/scripts/rook-restart.sh"
+alias pyexec="${DOTFILES}/src/scripts/pyexec.py --only-success"
+alias rook-node-restart="${DOTFILES}/src/scripts/rook-restart.sh"

@@ -1,13 +1,14 @@
 # User configuration
-source ~/.dotfiles/config/aliases
+export DOTFILES=${HOME}/.dotfiles
+source ${DOTFILES}/config/aliases
 
 () {
     setopt LOCAL_OPTIONS NULL_GLOB
     for f in \
-        "${HOME}/.dotfiles/src/functions"/*.sh \
-        "${HOME}/.dotfiles/src/functions"/*.bash \
-        "${HOME}/.dotfiles/private/een/functions"/*.sh \
-        "${HOME}/.dotfiles/private/een/functions"/*.bash
+        "${DOTFILES}/src/functions"/*.sh \
+        "${DOTFILES}/src/functions"/*.bash \
+        "${DOTFILES}/private/een/functions"/*.sh \
+        "${DOTFILES}/private/een/functions"/*.bash
     do
         [ -f "$f" ] && source "$f"
     done
@@ -47,5 +48,12 @@ fi
 bindkey -v
 bindkey '^R' history-incremental-search-backward
 
-eval "$(/opt/homebrew/bin/brew shellenv)"
+# Homebrew: /opt/homebrew on Apple Silicon, /usr/local on Intel, absent on Linux
+for brew_bin in /opt/homebrew/bin/brew /usr/local/bin/brew; do
+    if [ -x "$brew_bin" ]; then
+        eval "$($brew_bin shellenv)"
+        break
+    fi
+done
+
 eval "$(starship init zsh)"

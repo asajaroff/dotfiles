@@ -1,6 +1,6 @@
 # Git configuration and submodule management
 
-.PHONY: git-config git-submodules-private git-hooks
+.PHONY: git-config git-submodules-private git-hooks lint
 
 git-submodules-private: ## Fetch and pull private git-submodules (requires auth)
 ifneq ($(wildcard ${DOTFILES_DIR}/private),)
@@ -18,3 +18,7 @@ git-config: ## Configure git user and email
 git-hooks: ## Install pre-commit hooks (requires pre-commit)
 	@command -v pre-commit >/dev/null || { echo "pre-commit not installed (pipx install pre-commit)"; exit 1; }
 	pre-commit install
+
+lint: ## Run pre-commit hooks against all files
+	@command -v pre-commit >/dev/null || { echo "pre-commit not installed (pipx install pre-commit)"; exit 1; }
+	pre-commit run --all-files
