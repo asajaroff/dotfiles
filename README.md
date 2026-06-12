@@ -2,14 +2,14 @@
 
 > A modular and well-organized collection of configuration files for development environments across multiple operating systems.
 
-## 🎯 Design Philosophy
+## Design Philosophy
 
 - **Modularity**: Shell functions and scripts are organized in `./src/` and loaded dynamically
 - **Cross-platform**: Support for Linux (Arch, Ubuntu), macOS, and various development environments
 - **Privacy-conscious**: Private configurations managed via git submodules
 - **Make-driven**: Simple, documented automation for setup and maintenance
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 dotfiles/
@@ -31,7 +31,7 @@ dotfiles/
 └── docs/             # Documentation and install recipes
 ```
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Prerequisites
 
@@ -77,7 +77,7 @@ sudo apt install build-essential git make dnsutils
    make shells
    ```
 
-## 📖 Available Make Targets
+## Available Make Targets
 
 Run `make help` to see all available targets:
 
@@ -100,7 +100,7 @@ Run `make help` to see all available targets:
 ### System Maintenance
 - `make update` - Update system packages (OS-agnostic)
 
-## 🔧 Configuration Features
+## Configuration Features
 
 ### Shell Environment
 - **Starship prompt** with Git integration
@@ -119,7 +119,7 @@ Run `make help` to see all available targets:
 - **macOS**: Homebrew integration and native app management
 - **Ubuntu/Debian**: apt integration and package management
 
-## 🔒 Private Configurations
+## Private Configurations
 
 This dotfiles setup supports private configurations through git submodules:
 
@@ -138,7 +138,7 @@ This dotfiles setup supports private configurations through git submodules:
 
 See [docs/private-setup.md](docs/private-setup.md) for details, including how to set up your own private submodule.
 
-## 🛠 Customization
+## Customization
 
 ### Adding New Functions
 Create new shell functions in `src/functions/` organized by domain:
@@ -162,15 +162,15 @@ makefiles/distros/
 └── fedora.mk   # Your new OS
 ```
 
-## 🤝 Contributing
+## Contributing
 
 PRs welcome for portable improvements. See [CONTRIBUTING.md](CONTRIBUTING.md) for dev setup (`make git-hooks`), conventions, and the PR process.
 
-## 📄 License
+## License
 
 This project is licensed under the GPL-3.0 License - see the [LICENSE](LICENSE) file for details.
 
-## 🏷️ Version
+## Version
 
 Current version: Development branch (feat/workflows)
 Latest stable: v0.2.0

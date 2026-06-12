@@ -23,6 +23,6 @@ function get_ingress() {
 }
 
 function get_failed_pods() {
-kubectl get pods \
+kubectl get pods -A \
     --field-selector="status.phase!=Succeeded,status.phase!=Running"
 }
