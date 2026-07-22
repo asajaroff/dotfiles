@@ -4,30 +4,37 @@
 
 ## Design Philosophy
 
-- **Modularity**: Shell functions and scripts are organized in `./src/` and loaded dynamically
+- **Modularity**: Each tool's config is its own [GNU Stow](https://www.gnu.org/software/stow/) package; shell functions/scripts live in `functions/` and `bin/`
 - **Cross-platform**: Support for Linux (Arch, Ubuntu), macOS, and various development environments
 - **Privacy-conscious**: Private configurations managed via git submodules
 - **Make-driven**: Simple, documented automation for setup and maintenance
 
 ## Project Structure
 
+Each tool's config lives in its own [GNU Stow](https://www.gnu.org/software/stow/)
+package, one directory per tool, mirroring `$HOME`'s layout for the files it
+owns (e.g. `zsh/.zshrc`, `nvim/.config/nvim/init.lua`). `make install` stows
+all of them at once; `stow <package>` links just one.
+
 ```
 dotfiles/
-├── config/           # Configuration files for various tools
-│   ├── bashrc        # Bash configuration
-│   ├── zshrc         # Zsh configuration
-│   ├── tmux.conf     # Tmux configuration
-│   ├── emacs/        # Emacs configuration
-│   └── nvim/         # Neovim configuration
-├── src/              # Modular shell functions and scripts
-│   ├── functions/    # Domain-specific shell functions
-│   └── scripts/      # Standalone utility scripts
+├── starship/         # Starship prompt (.config/starship.toml)
+├── tmux/             # Tmux (.tmux.conf)
+├── nvim/             # Neovim (.config/nvim/init.lua)
+├── git/              # Git (.gitconfig, .gitignore_global)
+├── zsh/              # Zsh (.zshrc, .aliases)
+├── bash/             # Bash (.bashrc, .profile)
+├── bin/              # Standalone scripts on $PATH (.local/bin/*)
+├── functions/        # Shell functions, sourced (not $PATH) by zsh/bash rc
+├── vscode/           # VS Code settings + workspace files
+├── firefox/          # Firefox LeechBlock config
+├── config/           # Config not yet migrated to a package (emacs/ only)
 ├── makefiles/        # Modular Makefile components
-│   ├── base.mk       # Base variables and utilities
-│   ├── shells.mk     # Shell configuration
-│   ├── tools.mk      # Tool installations
-│   └── distros/      # OS-specific configurations
-├── private/          # Private configurations (git submodule)
+│   ├── base.mk       # Base variables, OS detection, install-stow, install
+│   ├── editors.mk    # Emacs setup (out of scope for the stow migration)
+│   ├── tools.mk      # Standalone tool installations
+│   └── distros/      # OS-specific package installs
+├── private/          # Private configurations (git submodule, its own stow -d)
 └── docs/             # Documentation and install recipes
 ```
 
@@ -61,44 +68,62 @@ sudo apt install build-essential git make dnsutils
 
 ### Installation
 
+Note: dotfiles must live at `~/.dotfiles` — that's the tree stow mirrors
+against `$HOME`.
+
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/asajaroff/dotfiles.git ~/Code/github.com/asajaroff/dotfiles
-   cd ~/Code/github.com/asajaroff/dotfiles
+   git clone --recurse-submodules https://github.com/asajaroff/dotfiles.git ~/.dotfiles
+   cd ~/.dotfiles
    ```
 
-2. **Initialize everything**:
+2. **Initialize the private submodule** (if not cloned with `--recurse-submodules`):
    ```bash
    make init
    ```
 
-3. **Set up shell configurations**:
+3. **Install stow and stow every package**:
    ```bash
-   make shells
+   make install
    ```
+   This installs GNU Stow (if missing), stows the `private/` submodule's ssh
+   config, then loops `stow` across every package listed in
+   `STOW_PACKAGES` (`makefiles/base.mk`). Safe to re-run — stowing an
+   already-stowed package is a no-op. A pre-existing real file (not a
+   symlink) at a stow target makes `stow` error out rather than overwrite
+   it; move or remove that file and re-run `make install`.
+
+### Adding a new tool
+
+`mkdir <package>` mirroring `$HOME` under it (e.g.
+`newtool/.config/newtool/config.toml`), add `<package>` to `STOW_PACKAGES`
+in `makefiles/base.mk`, then `stow <package>`. No Makefile target to write.
 
 ## Available Make Targets
 
 Run `make help` to see all available targets:
 
 ### Core Setup
-- `make init` - Initialize git config and private submodules
+- `make install` - Install stow (if missing) and stow every package (bootstrap)
+- `make install-stow` - Install GNU Stow only
+- `make ssh` - Stow SSH config from the private submodule
+- `make init` - Initialize private git submodule
 - `make workspace` - Create workspace directory structure
-- `make shells` - Set up bash, zsh, and tmux configurations
 
 ### Platform-specific
 - `make archlinux` - Install Arch Linux packages
-- `make ubuntu` - Install Ubuntu/Debian packages
+- `make debian` - Install Debian/Ubuntu packages
 - `make macos-base` - Install basic macOS packages
 
 ### Tools & Development
-- `make emacs` - Set up Emacs configuration
+- `make emacs` - Set up Emacs configuration (not stow-managed, out of scope for this migration)
 - `make kubernetes` - Install kubectl, helm, kubectx
 - `make tenv` - Install Terraform environment manager
 - `make istioctl` - Install Istio service mesh CLI
 
 ### System Maintenance
 - `make update` - Update system packages (OS-agnostic)
+- `make lint` - Run pre-commit hooks against all files (includes `stow -n -v`)
 
 ## Configuration Features
 
@@ -121,17 +146,17 @@ Run `make help` to see all available targets:
 
 ## Private Configurations
 
-This dotfiles setup supports private configurations through git submodules:
+This dotfiles setup supports private configurations through a git submodule:
 
-1. **Set up private submodule**:
+1. **Set up the private submodule**:
    ```bash
-   make git-submodules-private
+   make init   # or: git submodule update --init --recursive private
    ```
 
 2. **Private configurations are stored in**:
    ```
    private/
-   ├── config/       # gitconfig, ssh config
+   ├── config/ssh/   # SSH config, stowed to ~/.ssh via `make ssh`
    ├── een/          # Work-specific functions and scripts
    └── bin/          # Private scripts and binaries
    ```
@@ -141,15 +166,19 @@ See [docs/private-setup.md](docs/private-setup.md) for details, including how to
 ## Customization
 
 ### Adding New Functions
-Create new shell functions in `src/functions/` organized by domain:
+Add a new file to the `functions/` package, organized by domain — it's
+sourced by `zsh/.zshrc` and `bash/.bashrc`, not put on `$PATH`:
 
 ```bash
-src/functions/
+functions/
 ├── aws.sh         # AWS-related functions
 ├── git.sh         # Git utilities
 ├── kubernetes.sh  # Kubernetes helpers
 └── your-domain.sh # Your custom functions
 ```
+
+Standalone scripts you want to *invoke* by name go in `bin/.local/bin/`
+instead (it's on `$PATH`).
 
 ### Adding OS-specific Configurations
 Add new OS support in `makefiles/distros/`:
@@ -157,7 +186,7 @@ Add new OS support in `makefiles/distros/`:
 ```bash
 makefiles/distros/
 ├── arch.mk     # Arch Linux
-├── ubuntu.mk   # Ubuntu/Debian
+├── debian.mk   # Debian/Ubuntu
 ├── macos.mk    # macOS
 └── fedora.mk   # Your new OS
 ```

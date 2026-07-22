@@ -6,18 +6,17 @@ The `private/` directory is a separate git repository attached as a submodule. I
 
 | Path | Purpose |
 |---|---|
-| `private/config/git/gitconfig` | Identity, signing keys, credential helpers |
-| `private/config/ssh/config` | SSH hosts (work proxies, jump boxes) |
-| `private/een/functions/*.sh` | Work-specific shell functions (auto-sourced by bashrc/zshrc) |
+| `private/config/ssh/config` | SSH hosts (work proxies, jump boxes) — stowed to `~/.ssh/config` via `make ssh` |
+| `private/een/functions/*.sh` | Work-specific shell functions (auto-sourced by `zsh/.zshrc`/`bash/.bashrc`) |
 | `private/bin/` | Private scripts on `$PATH` |
 | `private/archive/` | Old configs kept for reference |
 
-The public shell config sources from `private/` only if the directory exists, so a public-only clone still works.
+The public shell config sources from `private/een/functions/` only if the directory exists, so a public-only clone still works. `private/`'s own contents aren't stow packages in the usual sense — the top-level `Makefile`'s `ssh` target stows `private/config` against its own `-d`/`-t` pair (`~/.ssh`), separate from the root `STOW_PACKAGES` loop.
 
 ## Initial setup
 
 ```bash
-make git-submodules-private   # clones private repo into ./private
+make init   # or: make git-submodules-private — clones private repo into ./private
 ```
 
 This requires SSH access to `git@github.com:asajaroff/private.git`.

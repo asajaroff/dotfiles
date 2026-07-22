@@ -39,7 +39,7 @@ For UI/shell changes that hooks can't verify, source the modified rc in a fresh 
 
 1. Fork and create a feature branch off `master`.
 2. Make changes following the conventions above.
-3. Commit using [Conventional Commits](https://www.conventionalcommits.org/) (`feat:`, `fix:`, `docs:`, `refactor:`, etc.). The `ai-commit` helper in `src/functions/ai.sh` follows the same spec if you want to generate messages.
+3. Commit using [Conventional Commits](https://www.conventionalcommits.org/) (`feat:`, `fix:`, `docs:`, `refactor:`, etc.). The `ai-commit` helper in `functions/ai.sh` follows the same spec if you want to generate messages.
 4. Push, open a PR against `master`, describe the *why*.
 5. CI must be green.
 
@@ -47,8 +47,8 @@ For UI/shell changes that hooks can't verify, source the modified rc in a fresh 
 
 Good PRs:
 - Cross-platform improvements (Linux + macOS).
-- New shell helpers in `src/functions/` organized by domain.
-- Makefile target fixes / new install recipes in `docs/install/`.
+- New shell helpers in `functions/` (sourced) or `bin/.local/bin/` (on `$PATH`), organized by domain.
+- New stow packages (`mkdir <package>` + add to `STOW_PACKAGES` in `makefiles/base.mk`) or install-recipe fixes in `docs/install/`.
 - Documentation, troubleshooting notes.
 
 Out of scope:

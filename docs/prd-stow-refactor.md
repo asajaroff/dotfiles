@@ -441,6 +441,34 @@ tasks:
     acceptance_criteria: "No remaining references to deleted makefiles/*.mk targets or the old config/ layout in any doc."
     estimated_complexity: medium
     notes: "Deliberately done once at the end per TRD §9 — do not start this early."
+    completed_at: "2026-07-22"
+    completion_notes: >
+      Rewrote README.md (project structure tree, install flow using `make
+      install`/`STOW_PACKAGES`, "adding a new tool" section, private/
+      section, make-targets list corrected to real target names —
+      `debian` not `ubuntu`, `install`/`install-stow`/`ssh` in place of
+      `shells`), AGENTS.md (directory structure, file-editing guidelines,
+      common tasks, integration points, key make targets — all rewritten
+      around one-package-per-tool + STOW_PACKAGES; also dropped the
+      `$(call info,...)`/`$(call success,...)` Makefile-pattern snippet,
+      which referenced macros that don't exist anywhere in this repo),
+      CONTRIBUTING.md (src/functions/ai.sh -> functions/ai.sh; scope
+      guidance mentions stow packages instead of src/), and
+      docs/private-setup.md (dropped the private/config/git/gitconfig
+      row — that file was deleted in Task 12's dead-file audit; `make
+      git-submodules-private` reframed as `make init`'s underlying
+      step). docs/install/* needed no changes — grepped for
+      config/|src/|makefiles/|DOTFILES references and found none; those
+      files are standalone OS-install guides that never referenced the
+      old dotfiles layout. Verified no remaining references to
+      shells.mk, backup.mk, `make shells`, `make ubuntu`, src/functions,
+      or src/scripts across README.md/CONTRIBUTING.md/AGENTS.md/
+      docs/private-setup.md/docs/install/*.md. Not fixed (out of this
+      task's files_to_modify and flagged in Task 14 instead):
+      .github/workflows/make-stages.yaml and .pre-commit-config.yaml
+      still stow-dry-run only starship/tmux/nvim/git/zsh/bash/bin/
+      functions, missing vscode/firefox/private — a pre-existing gap
+      from tasks 12/13, not introduced or widened by this task.
 ```
 
 ## Handoff Checklist
