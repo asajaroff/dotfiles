@@ -1,36 +1,69 @@
 {
-	"window.menuBarVisibility": "toggle",
-	"window.restoreWindows": "all",
-	"window.titleBarStyle": "custom",
+  "terminal.integrated.defaultLocation": "editor",
+    "workbench.startupEditor": "none",
+    "claudeCode.preferredLocation": "panel",
+    "editor.minimap.enabled": false,
+    "workbench.activityBar.location": "hidden",
+    "workbench.tips.enabled": false,
+    "makefile.configureOnOpen": true,
 
-	"workbench.colorTheme": "Noctis Hibernus",
-	"workbench.iconTheme": "eq-material-theme-icons-palenight",
+  "vim.easymotion": true,
+  "vim.incsearch": true,
+  "vim.useSystemClipboard": true,
+  "vim.useCtrlKeys": true,
+  "vim.hlsearch": true,
+  "vim.startInInsertMode": true,
+  "vim.insertModeKeyBindings": [
+    {
+      "before": ["j", "j"],
+      "after": ["<Esc>"]
+    }
+  ],
+  "vim.normalModeKeyBindingsNonRecursive": [
+    {
+      "before": ["<leader>", "d"],
+      "after": ["d", "d"]
+    },
+    {
+      "before": ["<C-n>"],
+      "commands": [":nohl"]
+    },
+    {
+      "before": ["K"],
+      "commands": ["lineBreakInsert"],
+      "silent": true
+    }
+  ],
+  "vim.leader": "<space>",
+  "vim.handleKeys": {
+    "<C-a>": true,
+    "<C-f>": true
+  },
 
-	"editor.cursorSmoothCaretAnimation": true,
-	"editor.renderIndentGuides": true,
-	"editor.renderWhitespace": "boundary",
-	"editor.minimap.enabled": false,
-	"editor.suggestSelection": "first",
-	"editor.tabSize": 2,
+  // To improve performance
+  "extensions.experimental.affinity": {
+    "vscodevim.vim": 1
+  },
 
-	"vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+  "github.copilot.enable": {
+    "*": false,
+    "plaintext": false,
+    "markdown": false,
+    "scminput": false
+  },
 
-	"[markdown]": {
-		"editor.quickSuggestions": {
-			"other": false,
-			"comments": false,
-			"strings": false
-		},
-		"editor.minimap.enabled": true
-	},
-	"vs-kubernetes": {
-		"vs-kubernetes.minikube-path.mac": "/Users/alejandrosajaroff/.vs-kubernetes/tools/minikube/darwin-amd64/minikube",
-		"vscode-kubernetes.minikube-path.mac": "/Users/alejandrosajaroff/.vs-kubernetes/tools/minikube/darwin-amd64/minikube"
-	},
-	"jenkins.pipeline.linter.connector.strictssl": false,
-	"jenkins.pipeline.linter.connector.user": "admin",
-	"jenkins.pipeline.linter.connector.pass": "6jbVxkfMQkwtevS7enhn4m",
-	"jenkins.pipeline.linter.connector.url": "https://jenkins-sysops.us.teamworkops.com/pipeline-model-converter/validate",
-	"window.zoomLevel": 1
-
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/.terragrunt-cache": true,
+    "**/.DS_Store": true,
+    "**/Thumbs.db": true
+  },
+"workbench.secondarySideBar.defaultVisibility": "hidden",
+"C_Cpp.default.compilerPath": "/usr/bin/gcc",
+"workbench.colorTheme": "Light 2026",
+"claudeCode.selectedModel": "opus",
+"chat.viewSessions.orientation": "stacked",
+"update.showReleaseNotes": false
 }

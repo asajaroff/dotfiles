@@ -23,7 +23,7 @@ jobs:
       - name: 'stow -n -v across all packages'
         run: |
           cd ~/.dotfiles
-          stow -n -v -d ~/.dotfiles -t "${HOME}" starship tmux nvim git zsh bash bin functions
+          stow -n -v -d ~/.dotfiles -t "${HOME}" starship tmux nvim git zsh bash bin functions vscode firefox
 
   lint:
     name: pre-commit hooks
