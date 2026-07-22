@@ -1,23 +1,39 @@
 #!/usr/bin/env bash
-function repo-template {
-    if [ -z "$1" ]
-    then
-        echo "Usage: `basename $0` repo_name"
-        exit 1
+
+function bare-clone () {
+    local repo_url="${1:?usage: bare-clone <repo-url>}"
+    local repo_name
+    repo_name=$(basename "$repo_url")
+    repo_name="${repo_name%/.git}"
+    repo_name="${repo_name%.git}"
+    if [ -z "$repo_name" ] || [ "$repo_name" = ".git" ]; then
+        echo "bare-clone: could not determine repo name from '$repo_url'" >&2
+        return 1
     fi
 
-    mkdir $1
-    cp ${DOTFILES}/src/functions/resources/template_CHANGELOG $1/CHANGELOG
-    cp ${DOTFILES}/src/functions/resources/template_Makefile $1/Makefile
-    cp ${DOTFILES}/src/functions/resources/template_.editorconfig $1/.editorconfig
-    sed "s/Project Title/$1/g" ${DOTFILES}/src/functions/resources/template_README.md > $1/README.md
-}
+    git clone --bare "$repo_url" "$repo_name/.bare" || return 1
 
-function fclone {
-  git clone --bare $1
-}
+    local default_branch
+    default_branch=$(
+        cd "$repo_name/.bare" || exit 1
+        git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*' || exit 1
+        git fetch origin || exit 1
 
-function keys_init {
-	eval "$(ssh-agent)"
-	ssh-add ~/.ssh/een
+        local db
+        db=$(git symbolic-ref --short HEAD) || exit 1
+
+        git worktree add "../$db" "$db" || exit 1
+        git -C "../$db" branch --set-upstream-to="origin/$db" "$db" || {
+            echo "bare-clone: failed to set upstream tracking branch" >&2
+            exit 1
+        }
+        echo "$db"
+    )
+
+    if [ $? -ne 0 ] || [ -z "$default_branch" ]; then
+        rm -rf "$repo_name"
+        return 1
+    fi
+
+    echo "Worktree ready at: $repo_name/$default_branch"
 }

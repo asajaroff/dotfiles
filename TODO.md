@@ -214,7 +214,7 @@ restore: ## Restore previous configs
 
 **Current inconsistency:**
 - Most use snake_case: `pods_in_node`, `aws_instance`
-- Some use kebab-case: `repo-template`
+- Some use kebab-case: `bare-clone`
 
 ### 20. Complete vim configuration or remove TODO
 - [x] Removed the vim target from editors.mk (nvim is primary per #4; vim is just SSH fallback aliased to nvim)

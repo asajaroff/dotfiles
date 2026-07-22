@@ -1,7 +1,7 @@
 --[[ init.lua --]]
 
 -- UI
-vim.cmd([[colorscheme sorbet]])
+vim.cmd([[colorscheme summerfruit256]])
 vim.cmd([[set number]])
 vim.cmd([[set numberwidth=4]])
 
