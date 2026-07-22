@@ -362,6 +362,19 @@ tasks:
     acceptance_criteria: "Each of vscode/firefox/conky/llms has an explicit created-package-or-deleted disposition, matching task 2's recorded decision."
     estimated_complexity: low
     notes: ""
+    completed_at: "2026-07-22"
+    completion_notes: >
+      Kept vscode (vscode/.config/Code/User/settings.json +
+      vscode/.config/vscode-workspaces/*.code-workspace) and firefox
+      (firefox/.config/firefox/LeechBlockOptions.txt) as new packages;
+      dropped conky.conf and config/llms/ (already-empty claude subdir)
+      with no replacement package. Folded in the remaining misc
+      dead-file calls from the audit: dropped
+      config/tmux/sessions/test-session.sh and private/config/git/gitconfig
+      (committed in the private submodule); chmod +x'd
+      bin/.local/bin/k8s-patch-loop.sh and source-code.sh rather than
+      leaving them non-executable; added .claude/ to .gitignore (root and
+      private) to stop it showing as untracked noise.
 
   - id: 13
     title: "Migrate private/ as its own stowed package(s)"
