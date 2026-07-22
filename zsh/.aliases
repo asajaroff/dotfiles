@@ -90,5 +90,5 @@ alias gogh="cd ~/Code/github.com/asajaroff"
 alias goeen="cd ~/Code/EENCloud"
 
 # Custom alias
-alias pyexec="${DOTFILES}/src/scripts/pyexec.py --only-success"
-alias rook-node-restart="${DOTFILES}/src/scripts/rook-restart.sh"
+alias pyexec="pyexec.py --only-success"
+alias rook-node-restart="rook-restart.sh"

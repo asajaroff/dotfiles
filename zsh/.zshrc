@@ -5,8 +5,8 @@ source ${HOME}/.aliases
 () {
     setopt LOCAL_OPTIONS NULL_GLOB
     for f in \
-        "${DOTFILES}/src/functions"/*.sh \
-        "${DOTFILES}/src/functions"/*.bash \
+        "${DOTFILES}/functions"/*.sh \
+        "${DOTFILES}/functions"/*.bash \
         "${DOTFILES}/private/een/functions"/*.sh \
         "${DOTFILES}/private/een/functions"/*.bash
     do
