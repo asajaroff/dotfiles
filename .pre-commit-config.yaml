@@ -14,3 +14,12 @@ repos:
     hooks:
       - id: shellcheck
         args: [--severity=warning, --external-sources]
+
+  - repo: local
+    hooks:
+      - id: stow-dry-run
+        name: stow -n -v (dry-run all packages)
+        entry: bash -c 'stow -n -v -d "$(git rev-parse --show-toplevel)" -t "$HOME" starship'
+        language: system
+        pass_filenames: false
+        always_run: true

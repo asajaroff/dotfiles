@@ -11,6 +11,20 @@ on:
       - master
 
 jobs:
+  stow:
+    name: Verify stow packages
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: 'Install dependencies'
+        run: sudo apt-get update && sudo apt-get install -y stow
+      - name: 'Place checkout at ~/.dotfiles'
+        run: ln -sf "${{ github.workspace }}" "${HOME}/.dotfiles"
+      - name: 'stow -n -v across all packages'
+        run: |
+          cd ~/.dotfiles
+          stow -n -v -d ~/.dotfiles -t "${HOME}" starship
+
   lint:
     name: pre-commit hooks
     runs-on: ubuntu-latest
