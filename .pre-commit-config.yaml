@@ -19,7 +19,7 @@ repos:
     hooks:
       - id: stow-dry-run
         name: stow -n -v (dry-run all packages)
-        entry: bash -c 'stow -n -v -d "$(git rev-parse --show-toplevel)" -t "$HOME" starship'
+        entry: bash -c 'stow -n -v -d "$(git rev-parse --show-toplevel)" -t "$HOME" starship tmux'
         language: system
         pass_filenames: false
         always_run: true
