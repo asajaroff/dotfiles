@@ -1,14 +1,6 @@
 #!/usr/bin/env bash
 
 # Variables — assumes ${DOTFILES} is exported by bashrc/zshrc
-CONFIG_DIR=${DOTFILES}/config
-ALIASES_DIR=${DOTFILES}/config/alias
-
-if [[ -d "${ALIASES_DIR}" ]] ; then
-  for file in $(ls -1 $ALIASES_DIR | grep alias); do
-    source ${ALIASES_DIR}/${file}
-    done
-fi
 
 # Check OS type and export coloured `ls`
 case "$(uname -s)" in
@@ -84,11 +76,11 @@ alias glol='git log --graph --oneline --decorate'
 # alias emacs='emacsclient -nw .'
 
 # Frecuently used config files
-alias vimrc="nvim ${CONFIG_DIR}/nvim/init.lua"
-alias zshrc="nvim ${CONFIG_DIR}/zshrc"
-alias bashrc="nvim ${CONFIG_DIR}/bashrc"
-alias tmuxrc="nvim ${CONFIG_DIR}/tmux.conf"
-alias aliasrc="nvim ${CONFIG_DIR}/aliases; source ${CONFIG_DIR}/aliases"
+alias vimrc="nvim ${HOME}/.config/nvim/init.lua"
+alias zshrc="nvim ${HOME}/.zshrc"
+alias bashrc="nvim ${HOME}/.bashrc"
+alias tmuxrc="nvim ${HOME}/.tmux.conf"
+alias aliasrc="nvim ${HOME}/.aliases; source ${HOME}/.aliases"
 alias dotFiles="cd ${DOTFILES}"
 alias devDotFiles="${EDITOR} -nw ${DOTFILES}"
 

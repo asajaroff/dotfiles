@@ -1,6 +1,6 @@
 # User configuration
 export DOTFILES=${HOME}/.dotfiles
-source ${DOTFILES}/config/aliases
+source ${HOME}/.aliases
 
 () {
     setopt LOCAL_OPTIONS NULL_GLOB

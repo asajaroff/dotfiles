@@ -14,12 +14,16 @@ repos:
     hooks:
       - id: shellcheck
         args: [--severity=warning, --external-sources]
+        # zsh/.zshrc uses zsh-only syntax (e.g. anonymous `() { ... }`
+        # functions) that shellcheck's sh/bash/dash/ksh parser can't
+        # parse (SC1073); shellcheck has no zsh dialect to switch to.
+        exclude: ^zsh/\.zshrc$
 
   - repo: local
     hooks:
       - id: stow-dry-run
         name: stow -n -v (dry-run all packages)
-        entry: bash -c 'stow -n -v -d "$(git rev-parse --show-toplevel)" -t "$HOME" starship tmux nvim git'
+        entry: bash -c 'stow -n -v -d "$(git rev-parse --show-toplevel)" -t "$HOME" starship tmux nvim git zsh bash'
         language: system
         pass_filenames: false
         always_run: true

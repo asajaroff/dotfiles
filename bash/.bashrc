@@ -33,7 +33,7 @@ shopt -s lithist
 #
 # Aliases
 #
-source ${DOTFILES}/config/aliases
+source ${HOME}/.aliases
 
 #
 # Functions
@@ -46,6 +46,7 @@ for f in \
     "${DOTFILES}/private/een/functions"/*.sh \
     "${DOTFILES}/private/een/functions"/*.bash
 do
+    # shellcheck disable=SC1090
     [ -f "$f" ] && source "$f"
 done
 
