@@ -159,6 +159,9 @@ structure inside it, symlinked in with `stow -d <dir> -t ~ <package>`.
   during migration. Each package is cut over and verified independently
   (§8) before moving to the next — nothing is deleted from the old setup
   until its replacement package is confirmed working.
+- Each migration task ends with its own commit, conventional-commit
+  format (see PRD's Implementation Tasks process note) — one commit per
+  task, not a single batched commit at the end.
 - Order of migration: `starship` first (single file, zero dependencies) to
   prove out the package pattern and CI check, then work outward. Shell
   startup (`zsh`) — the package everything else implicitly depends on —

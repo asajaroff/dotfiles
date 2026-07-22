@@ -186,6 +186,13 @@ repeated here per the PRD template's structure, not duplicated content:
 
 ## Implementation Tasks
 
+Process note: each task below ends with its own commit, in conventional
+commit format (`type(scope): subject`, e.g. `feat(stow): migrate starship
+package`, `chore(makefiles): remove shells.mk symlink targets`). One
+commit per task, not one giant commit at the end — keeps each migration
+step bisectable and reviewable independently. No
+`Co-Authored-By` trailers.
+
 ```yaml
 tasks:
   - id: 1
