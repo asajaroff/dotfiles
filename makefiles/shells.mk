@@ -1,12 +1,8 @@
 # Shell configuration setup
 
-.PHONY: shells shell-requisites bash zsh tmux ssh
+.PHONY: shells bash zsh tmux ssh
 
-shells: shell-requisites bash zsh tmux ## Setup zsh, bash and tmux configs
-
-shell-requisites: ## Install starship add-on for bash/zsh
-	mkdir -p ~/.config
-	ln -sf ${DOTFILES_DIR}/config/starship.toml ~/.config/starship.toml
+shells: bash zsh tmux ## Setup zsh, bash and tmux configs
 
 bash: ## Create bash symlinks to configfiles
 	ln -sf ${DOTFILES_DIR} ~/.dotfiles
