@@ -6,8 +6,6 @@ include makefiles/system.mk
 
 # Include feature modules
 include makefiles/git.mk
-include makefiles/backup.mk
-include makefiles/shells.mk
 include makefiles/editors.mk
 include makefiles/tools.mk
 include makefiles/kubernetes.mk

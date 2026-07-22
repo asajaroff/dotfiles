@@ -11,7 +11,12 @@ IS_DEBIAN := $(shell [ -f /etc/debian_version ] && echo "true" || echo "false")
 # Common directories
 INSTALL_DIR = /usr/local/bin
 
-.PHONY: help workspace install-stow
+# Packages stowed by `make install`, one directory per tool, mirroring $HOME.
+# Uniform across OS_FAMILY today — no package currently needs OS-specific
+# exclusion, but this is where that split would go if one shows up.
+STOW_PACKAGES := starship tmux nvim git zsh bash bin functions vscode firefox
+
+.PHONY: help workspace install-stow install ssh
 .ONESHELL:
 
 workspace: ## Creates the Workspace and Code directory
@@ -32,3 +37,13 @@ install-stow: ## Install GNU Stow if it isn't already on PATH
 		echo "Unsupported OS_FAMILY=$(OS_FAMILY): install GNU Stow manually" >&2; \
 		exit 1; \
 	fi
+
+install: install-stow ssh ## Bootstrap: install stow, then stow every migrated package
+	@for pkg in $(STOW_PACKAGES); do \
+		echo "stowing $$pkg"; \
+		stow -d "$(DOTFILES_DIR)" -t "$(HOME)" "$$pkg" || exit 1; \
+	done
+
+ssh: ## Stow SSH config from the private submodule
+	mkdir -p ${HOME}/.ssh && chmod 700 ${HOME}/.ssh
+	stow -d ${DOTFILES_DIR}/private/config -t ${HOME}/.ssh ssh

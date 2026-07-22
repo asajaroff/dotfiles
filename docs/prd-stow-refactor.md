@@ -392,16 +392,43 @@ tasks:
   - id: 14
     title: "Collapse remaining Makefile to orchestration-only"
     description: >
-      Delete makefiles/shells.mk, editors.mk, backup.mk (per task 1's
+      Delete makefiles/shells.mk and backup.mk (per task 1's
       backup/restore fate answer) once every package they covered has
-      migrated. Add the install target that computes STOW_PACKAGES per
-      OS_FAMILY and loops stow across it.
+      migrated. `makefiles/editors.mk` is NOT deleted — it now contains
+      only the `emacs` target, which TRD §10/Task 8 deliberately left
+      out of scope and untouched ("config/emacs/* and its Makefile
+      target are left as-is"). Add the install target that computes
+      STOW_PACKAGES per OS_FAMILY and loops stow across it.
     depends_on: [3, 4, 6, 7, 8, 9, 10, 11, 12, 13]
     files_to_create: []
     files_to_modify: ["Makefile", "makefiles/base.mk"]
-    acceptance_criteria: "No ln -sf calls remain anywhere under makefiles/; make install is idempotent and covers every migrated package; install-stow (Task 3) is wired in as the first step of install, satisfying Task 3's deferred acceptance criteria."
+    acceptance_criteria: "No ln -sf calls remain anywhere under makefiles/ EXCEPT the emacs target in editors.mk, which is explicitly exempt per TRD §10; make install is idempotent and covers every migrated package; install-stow (Task 3) is wired in as the first step of install, satisfying Task 3's deferred acceptance criteria."
     estimated_complexity: medium
-    notes: ""
+    notes: "Acceptance criteria corrected: original wording ('no ln -sf calls remain anywhere') contradicted Task 8's already-executed decision to leave the emacs target untouched. editors.mk survives with only that target; shells.mk and backup.mk still go to zero and get deleted."
+    completed_at: "2026-07-22"
+    completion_notes: >
+      Deleted makefiles/shells.mk and makefiles/backup.mk; removed their
+      includes from Makefile. editors.mk kept as-is (emacs target only,
+      exempt per Task 8/TRD §10). Added STOW_PACKAGES (starship tmux nvim
+      git zsh bash bin functions vscode firefox) and an `install` target
+      to makefiles/base.mk: install depends on install-stow (Task 3) and
+      ssh (moved from shells.mk, unchanged), then loops `stow -d
+      $(DOTFILES_DIR) -t $(HOME)` over STOW_PACKAGES, exiting on first
+      failure. STOW_PACKAGES is a single flat list rather than branching
+      on OS_FAMILY — no package today needs OS-specific exclusion, so
+      there was nothing to differentiate; the variable is positioned in
+      base.mk so a future OS-conditional split is a one-line change.
+      Verified: `stow -n -v` across all ten packages plus the private/
+      ssh linkage dry-runs clean from a stock $HOME; the only remaining
+      `ln -sf` calls under makefiles/ are editors.mk's emacs target
+      (exempt), and unrelated OS-tool-install targets in tools.mk,
+      kubernetes.mk, and base.mk's `workspace` target (never
+      symlinking-of-dotfiles, out of scope per PRD non-goals). Did not
+      touch .github/workflows/make-stages.yaml or
+      .pre-commit-config.yaml — their stow package lists still predate
+      vscode/firefox/private (a pre-existing gap from tasks 12/13, not
+      in this task's files_to_modify); flagged for a follow-up, not
+      silently fixed.
 
   - id: 15
     title: "Final docs pass"
