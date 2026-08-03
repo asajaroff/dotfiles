@@ -8,10 +8,10 @@ The `private/` directory is a separate git repository attached as a submodule. I
 |---|---|
 | `private/config/ssh/config` | SSH hosts (work proxies, jump boxes) — stowed to `~/.ssh/config` via `make ssh` |
 | `private/een/functions/*.sh` | Work-specific shell functions (auto-sourced by `zsh/.zshrc`/`bash/.bashrc`) |
-| `private/bin/` | Private scripts on `$PATH` |
+| `private/bin/.local/bin/*` | Private scripts on `$PATH` — stowed to `~/.local/bin` via `make private-bin` |
 | `private/archive/` | Old configs kept for reference |
 
-The public shell config sources from `private/een/functions/` only if the directory exists, so a public-only clone still works. `private/`'s own contents aren't stow packages in the usual sense — the top-level `Makefile`'s `ssh` target stows `private/config` against its own `-d`/`-t` pair (`~/.ssh`), separate from the root `STOW_PACKAGES` loop.
+The public shell config sources from `private/een/functions/` only if the directory exists, so a public-only clone still works. `private/`'s own contents aren't stow packages in the usual sense — the top-level `Makefile`'s `ssh` and `private-bin` targets each stow a subdirectory of `private/` against their own `-d`/`-t` pair (`~/.ssh` and `~/`, respectively), separate from the root `STOW_PACKAGES` loop.
 
 ## Initial setup
 
@@ -43,4 +43,5 @@ git add private && git commit -m "bump private submodule"
 
 - **`private/` is empty after clone**: forgot `--recursive`. Run `git submodule update --init --recursive`.
 - **SSH config not picked up**: `~/.ssh/config` should symlink to `private/config/ssh/config`. Run `make ssh`.
+- **Private scripts not found on `$PATH`**: run `make private-bin`, then confirm `~/.local/bin` is on `$PATH` (the `bin` package already puts it there).
 - **`private` shows as dirty in `git status`**: you have uncommitted changes inside the submodule. `cd private && git status` to see them.

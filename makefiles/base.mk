@@ -16,7 +16,7 @@ INSTALL_DIR = /usr/local/bin
 # exclusion, but this is where that split would go if one shows up.
 STOW_PACKAGES := starship tmux nvim git zsh bash bin functions vscode firefox
 
-.PHONY: help workspace install-stow install ssh
+.PHONY: help workspace install-stow install install-pkg uninstall ssh private-bin
 .ONESHELL:
 
 workspace: ## Creates the Workspace and Code directory
@@ -38,12 +38,36 @@ install-stow: ## Install GNU Stow if it isn't already on PATH
 		exit 1; \
 	fi
 
-install: install-stow ssh ## Bootstrap: install stow, then stow every migrated package
+install: install-stow ## Bootstrap: install stow, then stow every migrated package
 	@for pkg in $(STOW_PACKAGES); do \
 		echo "stowing $$pkg"; \
-		stow -d "$(DOTFILES_DIR)" -t "$(HOME)" "$$pkg" || exit 1; \
+		stow --no-folding -d "$(DOTFILES_DIR)" -t "$(HOME)" "$$pkg" || exit 1; \
+	done
+
+install-pkg: install-stow ## Stow a single package: make install-pkg PACKAGE_NAME=nvim
+	@if [ -z "$(PACKAGE_NAME)" ]; then \
+		echo "usage: make install-pkg PACKAGE_NAME=<package>" >&2; \
+		echo "available packages: $(STOW_PACKAGES)" >&2; \
+		exit 1; \
+	fi
+	@case " $(STOW_PACKAGES) " in \
+		*" $(PACKAGE_NAME) "*) ;; \
+		*) echo "unknown package: $(PACKAGE_NAME)" >&2; \
+		   echo "available packages: $(STOW_PACKAGES)" >&2; \
+		   exit 1 ;; \
+	esac
+	@echo "stowing $(PACKAGE_NAME)"
+	@stow --no-folding -d "$(DOTFILES_DIR)" -t "$(HOME)" "$(PACKAGE_NAME)"
+
+uninstall: ## Remove symlinks created by `make install` (leaves $HOME files untouched otherwise)
+	@for pkg in $(STOW_PACKAGES); do \
+		echo "unstowing $$pkg"; \
+		stow --no-folding -D -d "$(DOTFILES_DIR)" -t "$(HOME)" "$$pkg" || exit 1; \
 	done
 
 ssh: ## Stow SSH config from the private submodule
 	mkdir -p ${HOME}/.ssh && chmod 700 ${HOME}/.ssh
-	stow -d ${DOTFILES_DIR}/private/config -t ${HOME}/.ssh ssh
+	stow --no-folding -d ${DOTFILES_DIR}/private/config -t ${HOME}/.ssh ssh
+
+private-bin: install-stow ## Stow private scripts onto $PATH via ~/.local/bin
+	stow --no-folding -d ${DOTFILES_DIR}/private -t ${HOME} bin

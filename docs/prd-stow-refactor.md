@@ -388,6 +388,27 @@ tasks:
     acceptance_criteria: "stow -n -v against private/'s own -d reports clean; ssh config still resolves through the new mechanism."
     estimated_complexity: medium
     notes: "private/ is a separate repo — coordinate changes there per its own process, this task only covers the linking side."
+    completed_at: "2026-08-03"
+    completion_notes: >
+      Added a `private-bin` target to makefiles/base.mk (mkdir -p
+      ~/.local/bin, then stow -d private -t $HOME bin), standalone like
+      `ssh` rather than wired into `install`'s dependency chain — matches
+      private/'s current pattern of explicit, separate targets rather
+      than auto-running on every `make install`. In the private submodule
+      itself (dev branch), consolidated the old bin/, een/scripts/, and
+      homelab/ standalone scripts into a single bin/.local/bin/ package
+      mirroring $HOME; funcs.sh and crypt.bash (sourced-only, not meant to
+      be executed) moved into een/functions/ instead, where the existing
+      zsh/.zshrc and bash/.bashrc glob already sources them with no
+      further change needed. Fixed homelab/jumphosts.sh's invalid shebang
+      and non-bash `func` keyword in the process (dead code otherwise).
+      files_to_modify above is stale (referenced the already-deleted
+      makefiles/shells.mk `ssh` target); actual change landed in
+      makefiles/base.mk. Verified `bash -n` across every moved/created
+      script. `stow -n -v` dry-run coverage was not extended in CI/
+      pre-commit as part of this task (private/ isn't in $DOTFILES_DIR,
+      so it's outside the existing dry-run's package loop) — flagged as a
+      gap, not fixed here.
 
   - id: 14
     title: "Collapse remaining Makefile to orchestration-only"
