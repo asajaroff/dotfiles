@@ -15,7 +15,8 @@ set -o vi
 # BASH customizations
 #
 export PATH=$PATH:/usr/local/bin:/opt/bin
-export DOTFILES=${HOME}/.dotfiles
+# ~/.bashrc is a Stow symlink into the dotfiles repo; resolve it to find the repo root
+export DOTFILES="$(cd "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")/.." && pwd)"
 
 # History
 HISTFILE="${HOME}/.bash_history"
@@ -41,8 +42,8 @@ source ${HOME}/.aliases
 
 # Dotfiles
 for f in \
-    "${DOTFILES}/functions"/*.sh \
-    "${DOTFILES}/functions"/*.bash \
+    "${HOME}/.local/functions"/*.sh \
+    "${HOME}/.local/functions"/*.bash \
     "${DOTFILES}/private/een/functions"/*.sh \
     "${DOTFILES}/private/een/functions"/*.bash
 do
@@ -75,7 +76,10 @@ eval "$(starship init bash)"
 export MANPAGER="less -R --use-color -Dd+r -Du+b"
 export MANROFFOPT="-P -c"
 
-source ${DOTFILES}/private/secrets.env
+[ -f "${DOTFILES}/private/secrets.env" ] && source "${DOTFILES}/private/secrets.env"
+
+# custom bins
+export PATH=/home/asajaroff/.local/bin:$PATH
 
 # opencode
 export PATH=/home/asajaroff/.opencode/bin:$PATH

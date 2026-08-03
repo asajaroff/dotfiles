@@ -1,12 +1,13 @@
 # User configuration
-export DOTFILES=${HOME}/.dotfiles
+# ~/.zshrc is a Stow symlink into the dotfiles repo; resolve it to find the repo root
+export DOTFILES="${${(%):-%x}:A:h:h}"
 source ${HOME}/.aliases
 
 () {
     setopt LOCAL_OPTIONS NULL_GLOB
     for f in \
-        "${DOTFILES}/functions"/*.sh \
-        "${DOTFILES}/functions"/*.bash \
+        "${HOME}/.local/functions"/*.sh \
+        "${HOME}/.local/functions"/*.bash \
         "${DOTFILES}/private/een/functions"/*.sh \
         "${DOTFILES}/private/een/functions"/*.bash
     do
