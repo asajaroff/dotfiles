@@ -50,7 +50,7 @@ function ai-commit() {
             "code-commiter": {
                 "description": "Code committer",
                 "prompt": "Your responsibility is to keep good git etiquette. Write all commits following the conventional commit standard. Never include CLAUDE authorship in commits. Write a commit message with the staged changes.",
-                "tools": ["git status", "ls", "read", "Bash"],
+                "tools": ["Read", "Bash"],
                 "model": "sonnet"
             }
         }'
@@ -85,10 +85,10 @@ The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL 
 
         if [[ "$dry_run" == true ]]; then
             [[ "$verbose" == true ]] && echo "Running in dry-run mode..."
-            command claude --agents "$agents_config" -p "$prompt" "${extra_args[@]}"
+            command claude --agents "$agents_config" --allowedTools "Bash(git *)" -p "$prompt" "${extra_args[@]}"
         else
             [[ "$verbose" == true ]] && echo "Generating commit message..."
-            command claude --agents "$agents_config" -p "$prompt" "${extra_args[@]}"
+            command claude --agents "$agents_config" --allowedTools "Bash(git *)" -p "$prompt" "${extra_args[@]}"
         fi
     else
         echo "Error: No staged changes found. Use 'git add' to stage changes first."
@@ -158,7 +158,7 @@ function ai-pr() {
         "pr-writer": {
             "description": "Pull request description writer",
             "prompt": "Your responsibility is to analyze git changes and write clear, comprehensive pull request descriptions. Follow markdown formatting and include summary, changes, and testing notes.",
-            "tools": ["git status", "git diff", "ls", "read", "Bash"],
+            "tools": ["Read", "Bash"],
             "model": "sonnet"
         }
     }'
@@ -172,7 +172,7 @@ function ai-pr() {
 
     [[ -n "$pr_title" ]] && prompt="$prompt\n - Use this title: $pr_title"
 
-    command claude --agents "$agents_config" -p "$prompt" "${extra_args[@]}"
+    command claude --agents "$agents_config" --allowedTools "Bash(git *)" -p "$prompt" "${extra_args[@]}"
 }
 
 # AI-powered code review assistant
@@ -230,7 +230,7 @@ function ai-review() {
         "code-reviewer": {
             "description": "Code reviewer",
             "prompt": "Your responsibility is to review code changes and provide constructive feedback. Focus on best practices, potential bugs, security issues, and improvements. Be helpful and educational.",
-            "tools": ["git status", "git diff", "ls", "read", "Bash", "Grep"],
+            "tools": ["Read", "Bash", "Grep"],
             "model": "sonnet"
         }
     }'
@@ -254,7 +254,7 @@ function ai-review() {
    - Note any code style inconsistencies
    - Be constructive and educational"
 
-    command claude --agents "$agents_config" -p "$prompt" "${files[@]}"
+    command claude --agents "$agents_config" --allowedTools "Bash(git *)" -p "$prompt" "${files[@]}"
 }
 
 # AI-powered commit message explainer
@@ -292,7 +292,7 @@ function ai-explain() {
         "commit-explainer": {
             "description": "Commit explainer",
             "prompt": "Your responsibility is to analyze git commits and explain them in plain, understandable language. Focus on what changed and why it matters.",
-            "tools": ["git show", "git diff", "read", "Bash"],
+            "tools": ["Read", "Bash"],
             "model": "sonnet"
         }
     }'
@@ -303,5 +303,5 @@ function ai-explain() {
    - Note any important implications
    - Keep it concise and clear"
 
-    command claude --agents "$agents_config" -p "$prompt"
+    command claude --agents "$agents_config" --allowedTools "Bash(git *)" -p "$prompt"
 }

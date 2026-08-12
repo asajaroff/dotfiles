@@ -1,7 +1,7 @@
 [user]
 	name = Alejandro Sajaroff
 	email = 29068982+asajaroff@users.noreply.github.com
-	signingkey = /home/asajaroff/.ssh/id_ed25519_sk_git_signing.pub
+	signingkey = /home/asajaroff/.ssh/brivo.pub
 [gpg]
 	format = ssh
 [commit]
