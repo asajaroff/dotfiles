@@ -20,10 +20,27 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y stow
       - name: 'Place checkout at ~/.dotfiles'
         run: ln -sf "${{ github.workspace }}" "${HOME}/.dotfiles"
+      - name: 'Clone private submodule'
+        run: git -C ~/.dotfiles submodule update --init --recursive private
+        continue-on-error: true
       - name: 'stow -n -v across all packages'
         run: |
           cd ~/.dotfiles
-          stow -n -v -d ~/.dotfiles -t "${HOME}" starship tmux nvim git zsh bash bin functions vscode firefox
+          stow --no-folding -n -v -d ~/.dotfiles -t "${HOME}" starship tmux nvim git zsh bash bin functions vscode firefox
+      - name: 'stow -n -v private ssh linkage'
+        run: |
+          if [ -d ~/.dotfiles/private/config/ssh ]; then
+            stow --no-folding -n -v -d ~/.dotfiles/private/config -t "${HOME}/.ssh" ssh
+          else
+            echo "private submodule not checked out, skipping ssh stow dry-run"
+          fi
+      - name: 'stow -n -v private bin linkage'
+        run: |
+          if [ -d ~/.dotfiles/private/bin ]; then
+            stow --no-folding -n -v -d ~/.dotfiles/private -t "${HOME}" bin
+          else
+            echo "private submodule not checked out, skipping private-bin stow dry-run"
+          fi
 
   lint:
     name: pre-commit hooks

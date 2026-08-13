@@ -23,14 +23,21 @@ repos:
     hooks:
       - id: stow-dry-run
         name: stow -n -v (dry-run all packages)
-        entry: bash -c 'stow -n -v -d "$(git rev-parse --show-toplevel)" -t "$HOME" starship tmux nvim git zsh bash bin functions vscode firefox'
+        entry: bash -c 'stow --no-folding -n -v -d "$(git rev-parse --show-toplevel)" -t "$HOME" starship tmux nvim git zsh bash bin functions vscode firefox'
         language: system
         pass_filenames: false
         always_run: true
 
       - id: stow-dry-run-ssh
         name: stow -n -v (dry-run private ssh linkage)
-        entry: bash -c 'root="$(git rev-parse --show-toplevel)"; if [ -d "$root/private/config/ssh" ]; then stow -n -v -d "$root/private/config" -t "$HOME/.ssh" ssh; else echo "private submodule not checked out, skipping ssh stow dry-run"; fi'
+        entry: bash -c 'root="$(git rev-parse --show-toplevel)"; if [ -d "$root/private/config/ssh" ]; then stow --no-folding -n -v -d "$root/private/config" -t "$HOME/.ssh" ssh; else echo "private submodule not checked out, skipping ssh stow dry-run"; fi'
+        language: system
+        pass_filenames: false
+        always_run: true
+
+      - id: stow-dry-run-private-bin
+        name: stow -n -v (dry-run private bin linkage)
+        entry: bash -c 'root="$(git rev-parse --show-toplevel)"; if [ -d "$root/private/bin" ]; then stow --no-folding -n -v -d "$root/private" -t "$HOME" bin; else echo "private submodule not checked out, skipping private-bin stow dry-run"; fi'
         language: system
         pass_filenames: false
         always_run: true
