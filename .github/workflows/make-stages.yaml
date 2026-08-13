@@ -11,20 +11,46 @@ on:
       - master
 
 jobs:
-  emacs:
-    name: Emacs configuration
+  stow:
+    name: Verify stow packages
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: 'Install dependencies'
-        run: sudo apt-get update && sudo apt-get install -y emacs gcc cmake
+        run: sudo apt-get update && sudo apt-get install -y stow
+      - name: 'Place checkout at ~/.dotfiles'
+        run: ln -sf "${{ github.workspace }}" "${HOME}/.dotfiles"
+      - name: 'Clone private submodule'
+        run: git -C ~/.dotfiles submodule update --init --recursive private
+        continue-on-error: true
+      - name: 'stow -n -v across all packages'
+        run: |
+          cd ~/.dotfiles
+          stow --no-folding -n -v -d ~/.dotfiles -t "${HOME}" starship tmux nvim git zsh bash bin functions vscode firefox
+      - name: 'stow -n -v private ssh linkage'
+        run: |
+          if [ -d ~/.dotfiles/private/config/ssh ]; then
+            stow --no-folding -n -v -d ~/.dotfiles/private/config -t "${HOME}/.ssh" ssh
+          else
+            echo "private submodule not checked out, skipping ssh stow dry-run"
+          fi
+      - name: 'stow -n -v private bin linkage'
+        run: |
+          if [ -d ~/.dotfiles/private/bin ]; then
+            stow --no-folding -n -v -d ~/.dotfiles/private -t "${HOME}" bin
+          else
+            echo "private submodule not checked out, skipping private-bin stow dry-run"
+          fi
 
-      - name: 'Validate emacs config'
-        run: 	|
-          ln -sf ${{ github.workspace }} ${HOME}/.dotfiles
-          touch ${HOME}/.emacs.custom.el
-          ln -sf ${{ github.workspace }}/config/emacs/init.el ${HOME}/.emacs
-          script -q -e -c "emacs --batch --load ~/.dotfiles/config/emacs/init.el --eval '(kill-emacs)'"
+  lint:
+    name: pre-commit hooks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - uses: pre-commit/action@v3.0.1
 
   make:
     name: Common Make stages
@@ -35,17 +61,9 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y tmux neovim
 
       - uses: actions/checkout@v2
-      - name: 'make emacs'
-        run: make shells
-
-      - uses: actions/checkout@v2
       - name: 'Clone private repos'
         run: git submodule update --init --recursive
         continue-on-error: true
-
-      - uses: actions/checkout@v2
-      - name: 'make shells'
-        run: make shells
 
       - uses: actions/checkout@v2
       - name: 'make kubernetes'

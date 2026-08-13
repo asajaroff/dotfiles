@@ -6,11 +6,11 @@ mount -l
 
 ## LVM
 pvs
-vgs 
+vgs
 lvs # Display logical volumes
 
 ### Find and stop all processes using that mountpoint
-lsof | grep '/var' 
+lsof | grep '/var'
 lsof +f -- /dev/mapper/Arch-var | awk 'NR==1 || $4~/[0-9]+[uw -]/'
 fuser -kim /var  # kill any processes accessing files
 
@@ -20,5 +20,5 @@ mount -o remount,ro /dev/mapper/Arch-var # Doesn't work so we kill all processes
 ### Check integrity for the original lvs
 e2fsck -fy /dev/mapper/Arch-var
 
-### Extend 
+### Extend
 lvextend -L 75G /dev/mapper/Arch-var # Extending /var partition
