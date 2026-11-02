@@ -1,0 +1,60 @@
+# User configuration
+# ~/.zshrc is a Stow symlink into the dotfiles repo; resolve it to find the repo root
+export DOTFILES="${${(%):-%x}:A:h:h}"
+source ${HOME}/.aliases
+
+() {
+    setopt LOCAL_OPTIONS NULL_GLOB
+    for f in \
+        "${HOME}/.local/functions"/*.sh \
+        "${HOME}/.local/functions"/*.bash \
+        "${DOTFILES}/private/een/functions"/*.sh \
+        "${DOTFILES}/private/een/functions"/*.bash
+    do
+        [ -f "$f" ] && source "$f"
+    done
+}
+
+# You may need to manually set your language environment
+export LANG=en_US.UTF-8
+
+# History
+export HIST_STAMPS="%d/%m/%y %T"
+export HISTTIMEFORMAT="%h %d %H:%M:%S "
+export HISTFILE="${HOME}/.zsh_history"
+export HISTSIZE=10000000
+export SAVEHIST=${HISTSIZE}
+setopt BANG_HIST                 # Treat the '!' character specially during expansion.
+setopt EXTENDED_HISTORY          # Write the history file in the ":start:elapsed;command" format.
+setopt INC_APPEND_HISTORY        # Write to the history file immediately, not when the shell exits.
+setopt SHARE_HISTORY             # Share history between all sessions.
+setopt HIST_EXPIRE_DUPS_FIRST    # Expire duplicate entries first when trimming history.
+setopt HIST_IGNORE_DUPS          # Don't record an entry that was just recorded again.
+setopt HIST_IGNORE_ALL_DUPS      # Delete old recorded entry if new entry is a duplicate.
+setopt HIST_FIND_NO_DUPS         # Do not display a line previously found.
+setopt HIST_IGNORE_SPACE         # Don't record an entry starting with a space.
+setopt HIST_SAVE_NO_DUPS         # Don't write duplicate entries in the history file.
+setopt HIST_REDUCE_BLANKS        # Remove superfluous blanks before recording entry.
+setopt HIST_VERIFY               # Don't execute immediately upon history expansion.
+setopt HIST_BEEP                 # Beep when accessing nonexistent history.
+
+# Preferred editor for local and remote sessions
+if [[ -n $SSH_CONNECTION ]]; then
+  export EDITOR='vim'
+else
+  export EDITOR='nvim'
+fi
+
+# Vi keybindings
+bindkey -v
+bindkey '^R' history-incremental-search-backward
+
+# Homebrew: /opt/homebrew on Apple Silicon, /usr/local on Intel, absent on Linux
+for brew_bin in /opt/homebrew/bin/brew /usr/local/bin/brew; do
+    if [ -x "$brew_bin" ]; then
+        eval "$($brew_bin shellenv)"
+        break
+    fi
+done
+
+eval "$(starship init zsh)"

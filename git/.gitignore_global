@@ -1,0 +1,10 @@
+# OS cruft
+.DS_Store
+Thumbs.db
+
+# Editor swap/backup files
+*.swp
+*.swo
+*~
+
+**/.claude/settings.local.json

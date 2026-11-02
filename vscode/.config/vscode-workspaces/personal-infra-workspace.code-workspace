@@ -1,0 +1,11 @@
+{
+	"folders": [
+		{
+			"path": "../../../../Code/github.com/asajaroff/infra-private"
+		},
+		{
+			"path": "../../../../Code/github.com/asajaroff/tofu-modules"
+		}
+	],
+	"settings": {}
+}

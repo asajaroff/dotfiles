@@ -13,4 +13,4 @@ Add the following to `~/.bashrc`:
 . $HOME/.asdf/completions/asdf.bash
 ```
 
-## 
+##

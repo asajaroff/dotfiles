@@ -2,7 +2,7 @@
 
 ## Create application launcher (icon)
 Located at `/usr/share/applications` for global, or `~/.local/share/applications` for local user.
-Create a new 
+Create a new
 ```bash
 
 ```
