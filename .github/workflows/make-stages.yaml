@@ -41,6 +41,13 @@ jobs:
           else
             echo "private submodule not checked out, skipping private-bin stow dry-run"
           fi
+      - name: 'stow -n -v private openvpn3 systemd unit linkage'
+        run: |
+          if [ -d ~/.dotfiles/private/systemd ]; then
+            stow --no-folding -n -v -d ~/.dotfiles/private -t "${HOME}" systemd
+          else
+            echo "private submodule not checked out, skipping openvpn3 stow dry-run"
+          fi
 
   lint:
     name: pre-commit hooks

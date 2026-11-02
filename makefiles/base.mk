@@ -16,7 +16,7 @@ INSTALL_DIR = /usr/local/bin
 # exclusion, but this is where that split would go if one shows up.
 STOW_PACKAGES := starship tmux nvim git zsh bash bin functions vscode firefox
 
-.PHONY: help workspace install-stow install install-pkg uninstall ssh private-bin
+.PHONY: help workspace install-stow install install-pkg uninstall ssh private-bin openvpn3
 .ONESHELL:
 
 workspace: ## Creates the Workspace and Code directory
@@ -71,3 +71,14 @@ ssh: ## Stow SSH config from the private submodule
 
 private-bin: install-stow ## Stow private scripts onto $PATH via ~/.local/bin
 	stow --no-folding -d ${DOTFILES_DIR}/private -t ${HOME} bin
+
+openvpn3: install-stow ## Stow the openvpn3 systemd user unit and reload systemd --user (Linux only)
+ifeq ($(OS_FAMILY),Darwin)
+	@echo "openvpn3: no user systemd on macOS, skipping" >&2
+	@exit 1
+else
+	mkdir -p ${HOME}/.config/systemd/user
+	stow --no-folding -d ${DOTFILES_DIR}/private -t ${HOME} systemd
+	systemctl --user daemon-reload
+	@echo "enable per-config with: systemctl --user enable --now openvpn3-client@<config-name>.service"
+endif

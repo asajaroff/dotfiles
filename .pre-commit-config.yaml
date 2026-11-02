@@ -41,3 +41,10 @@ repos:
         language: system
         pass_filenames: false
         always_run: true
+
+      - id: stow-dry-run-openvpn3
+        name: stow -n -v (dry-run private openvpn3 systemd unit linkage)
+        entry: bash -c 'root="$(git rev-parse --show-toplevel)"; if [ -d "$root/private/systemd" ]; then stow --no-folding -n -v -d "$root/private" -t "$HOME" systemd; else echo "private submodule not checked out, skipping openvpn3 stow dry-run"; fi'
+        language: system
+        pass_filenames: false
+        always_run: true
