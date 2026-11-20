@@ -16,7 +16,8 @@ set -o vi
 #
 export PATH=$PATH:/usr/local/bin:/opt/bin
 # ~/.bashrc is a Stow symlink into the dotfiles repo; resolve it to find the repo root
-export DOTFILES="$(cd "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")/.." && pwd)"
+DOTFILES="$(cd "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")/.." && pwd)"
+export DOTFILES
 
 # History
 HISTFILE="${HOME}/.bash_history"
