@@ -3,4 +3,4 @@
 .PHONY: archlinux
 
 archlinux: ## Install Arch Linux packages
-	pacman -Syu base-devel jq go bash-completion starship bind
+	sudo pacman -Syu base-devel jq go bash-completion starship bind

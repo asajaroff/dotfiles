@@ -1,0 +1,36 @@
+{
+	"folders": [
+		{
+			"path": "../../../../Code/github.com/EENCloud/concourse-pipelines"
+		},
+		{
+			"path": "../../../../Code/github.com/EENCloud/charts"
+		},
+		{
+			"path": "../../../../Code/github.com/EENCloud/infrastructure"
+		},
+		{
+			"path": "../../../../Code/github.com/EENCloud/cloud-infra"
+		},
+		{
+			"path": "../../../../Code/github.com/EENCloud/matchbox"
+		},
+		{
+			"path": "../../../../Code/github.com/EENCloud/ansible"
+		},
+		{
+			"path": "../../../../Code/github.com/EENCloud/opentofu-modules"
+		}
+	],
+	"settings": {},
+	"tasks": {
+		"version": "2.0.0",
+		"tasks": [
+			{
+				"label": "Matias",
+				"type": "shell",
+				"command": "echo ${workspaceFolder}"
+			}
+		]
+	}
+}

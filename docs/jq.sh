@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 # Display paths
 cat test.json | jq -r 'path(..) | map(tostring) | join(".")'
 

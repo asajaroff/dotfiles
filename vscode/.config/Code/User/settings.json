@@ -1,0 +1,69 @@
+{
+  "terminal.integrated.defaultLocation": "editor",
+    "workbench.startupEditor": "none",
+    "claudeCode.preferredLocation": "panel",
+    "editor.minimap.enabled": false,
+    "workbench.activityBar.location": "hidden",
+    "workbench.tips.enabled": false,
+    "makefile.configureOnOpen": true,
+
+  "vim.easymotion": true,
+  "vim.incsearch": true,
+  "vim.useSystemClipboard": true,
+  "vim.useCtrlKeys": true,
+  "vim.hlsearch": true,
+  "vim.startInInsertMode": true,
+  "vim.insertModeKeyBindings": [
+    {
+      "before": ["j", "j"],
+      "after": ["<Esc>"]
+    }
+  ],
+  "vim.normalModeKeyBindingsNonRecursive": [
+    {
+      "before": ["<leader>", "d"],
+      "after": ["d", "d"]
+    },
+    {
+      "before": ["<C-n>"],
+      "commands": [":nohl"]
+    },
+    {
+      "before": ["K"],
+      "commands": ["lineBreakInsert"],
+      "silent": true
+    }
+  ],
+  "vim.leader": "<space>",
+  "vim.handleKeys": {
+    "<C-a>": true,
+    "<C-f>": true
+  },
+
+  // To improve performance
+  "extensions.experimental.affinity": {
+    "vscodevim.vim": 1
+  },
+
+  "github.copilot.enable": {
+    "*": false,
+    "plaintext": false,
+    "markdown": false,
+    "scminput": false
+  },
+
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/.terragrunt-cache": true,
+    "**/.DS_Store": true,
+    "**/Thumbs.db": true
+  },
+"workbench.secondarySideBar.defaultVisibility": "hidden",
+"C_Cpp.default.compilerPath": "/usr/bin/gcc",
+"workbench.colorTheme": "Light 2026",
+"claudeCode.selectedModel": "opus",
+"chat.viewSessions.orientation": "stacked",
+"update.showReleaseNotes": false
+}

@@ -9,18 +9,7 @@
 
 
 ;; Saved files and extentions
-
-;; UI
-
-(setq inhibit-startup-message t)
-
-(menu-bar-mode 0)
-(tool-bar-mode 0)
-(scroll-bar-mode 0)
-(global-display-line-numbers-mode 1)
-(ido-mode 1)
-(setq ido-create-new-buffer 'always)
-(setq-default confirm-nonexistent-file-or-buffer nil)
+(load-file "~/.dotfiles/config/emacs/files.el")
 
 ;; Packages
 (load-file "~/.dotfiles/config/emacs/custom-packages.el")
@@ -31,7 +20,12 @@
 ;; UI
 (load-file "~/.dotfiles/config/emacs/ui.el")
 
+;; Compilation mode configs
+(load-file "~/.dotfiles/config/emacs/compilation-mode.el")
+
 ;; Custom keybindings
+(load-file "~/.dotfiles/config/emacs/keybindings.el")
 
 ;; Custom variables
 (setq vc-follow-symlinks nil) ;; Do not ask stupid questions when opening symlinks
+(put 'dired-find-alternate-file 'disabled nil)

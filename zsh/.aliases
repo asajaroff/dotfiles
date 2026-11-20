@@ -1,0 +1,94 @@
+#!/usr/bin/env bash
+
+# Variables — assumes ${DOTFILES} is exported by bashrc/zshrc
+
+# Check OS type and export coloured `ls`
+case "$(uname -s)" in
+  Darwin)
+  alias la='gls -l --color --group-directories-first -h'
+  alias ls='gls -l --color --group-directories-first -h --all'
+  alias l='la'
+  alias ll='gls --color -ltrG'
+  ;;
+  Linux)
+  alias ls='ls --color=auto --group-directories-first -h'
+  alias l='ls -la --color=auto --group-directories-first -h'
+  alias ll='ls -ltr --color=auto --group-directories-first -h'
+  ;;
+  CYGWIN*|MINGW32*|MSYS*|MINGW*)
+  echo 'MS Windows'
+  ;;
+
+  *)
+  echo 'Other OS'
+  ;;
+esac
+
+# Navegación
+alias goGithub="cd ${HOME}/Code/github.com/asajaroff"
+alias newTempDir="export DIR=`date +%s`; mkdir -p /tmp/${DIR}; cd /tmp/${DIR}"
+
+# Containers
+if [ -f /usr/bin/podman ]; then
+	alias docker=podman
+fi
+alias dlogs="docker logs"
+
+# Editor config
+export EDITOR='nvim'
+alias vim='nvim'
+alias view='nvim -R'
+
+# Environment config
+export PATH=~/.local/bin:$PATH
+export WORKSPACE=~/Workspace
+
+# Kubectl
+alias kube=$(which kubectl)
+alias k=$(which kubectl)
+alias kd="$(which kubectl) describe"
+alias kg="$(which kubectl) get"
+
+# Git
+alias gs='git status --short'
+alias gs='git status'
+alias ga='git add'
+alias gp='git push'
+alias gpo='git push origin'
+alias gtd='git tag --delete'
+alias gtdr='git tag --delete origin'
+alias gr='git branch -r'
+alias gplo='git pull origin'
+alias gb='git branch '
+alias gc='git commit'
+alias gd='git diff'
+alias gco='git checkout'
+alias gl='git log'
+alias gr='git remote'
+alias grs='git remote show'
+alias glo='git log --pretty="oneline"'
+alias glol='git log --graph --oneline --decorate'
+
+#
+# Editor(s)
+#
+# alias edit='emacsclient -nw .'
+# alias emacs='emacsclient -nw .'
+
+# Frecuently used config files
+alias vimrc="nvim ${HOME}/.config/nvim/init.lua"
+alias zshrc="nvim ${HOME}/.zshrc"
+alias bashrc="nvim ${HOME}/.bashrc"
+alias tmuxrc="nvim ${HOME}/.tmux.conf"
+alias aliasrc="nvim ${HOME}/.aliases; source ${HOME}/.aliases"
+alias dotFiles="cd ${DOTFILES}"
+alias devDotFiles="${EDITOR} -nw ${DOTFILES}"
+
+# Repositories
+alias gocode="cd ~/Code"
+alias gogh="cd ~/Code/github.com/asajaroff"
+alias goeen="cd ~/Code/EENCloud"
+
+# Custom alias
+alias pyexec="pyexec.py --only-success"
+alias rook-node-restart="rook-restart.sh"
