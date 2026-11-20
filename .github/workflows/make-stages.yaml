@@ -31,10 +31,14 @@ jobs:
       - name: 'Clone private submodule'
         run: git -C ~/.dotfiles submodule update --init --recursive private
         continue-on-error: true
+      - name: 'Remove runner default dotfiles that would conflict'
+        run: .github/scripts/clean-home.sh "${GITHUB_WORKSPACE}" starship tmux nvim git zsh bash bin functions vscode firefox
       - name: 'stow -n -v across all packages'
         run: |
           cd ~/.dotfiles
           stow --no-folding -n -v -d ~/.dotfiles -t "${HOME}" starship tmux nvim git zsh bash bin functions vscode firefox
+      - name: 'stow across all packages'
+        run: stow --no-folding -v -d ~/.dotfiles -t "${HOME}" starship tmux nvim git zsh bash bin functions vscode firefox
       - name: 'stow -n -v private ssh linkage'
         run: |
           if [ -d ~/.dotfiles/private/config/ssh ]; then
@@ -69,6 +73,8 @@ jobs:
       # The stow-dry-run pre-commit hooks are `language: system` and need stow on PATH.
       - name: 'Install stow'
         run: sudo apt-get update && sudo apt-get install -y stow
+      - name: 'Remove runner default dotfiles that would conflict'
+        run: .github/scripts/clean-home.sh "${GITHUB_WORKSPACE}" starship tmux nvim git zsh bash bin functions vscode firefox
       - uses: pre-commit/action@v3.0.1
 
   make:
